@@ -1,17 +1,24 @@
 import { useState } from "react";
-import Button from "../buttons/Selection";
+import Button from "../buttons";
+import Text from "../text/index";
+import styles from "./index.module.css";
 
 const Home = () => {
-  const [show, setShow] = useState("toDo");
+  const [show, setShow] = useState(true);
+  const [category, setCategory] = useState("toDo");
+
   return (
-    <div>
-      <div>
-        <Button name={"teste"} />
-        <button>Doing</button>
-        <button>Done</button>
-        <button>All</button>
+    <div className={styles.container}>
+      <Text>Tarefas</Text>
+      <div className={styles.innerContainer}>
+        <div className={styles.buttons}>
+          <Button name="To Do" />
+          <Button name="Doing" />
+          <Button name="Done" />
+          <Button name="All" />
+        </div>
+        <div></div>
       </div>
-      <div>Tasks</div>
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import React from "react";
-import styles from "./index.module.scss";
+import styles from "./index.module.css";
 
-const Selection = ({ name, onClick }) => {
+const Button = ({ name, onClick }) => {
   return (
     <button className={styles.container}>
       <p>{name}</p>
@@ -9,4 +9,4 @@ const Selection = ({ name, onClick }) => {
   );
 };
 
-export default Selection;
+export default Button;

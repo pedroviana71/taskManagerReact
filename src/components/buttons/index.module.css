@@ -1,0 +1,13 @@
+.container {
+  width: 70px;
+  height: 35px;
+  border: 0;
+  box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.2);
+  background-color: #e84855;
+  border-radius: 8px;
+}
+
+.container:hover {
+  background-color: #c2414c;
+  cursor: pointer;
+}
