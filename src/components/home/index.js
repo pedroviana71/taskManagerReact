@@ -1,4 +1,5 @@
 import { useState, useMemo, useCallback, useEffect } from "react";
+import Tasks from "../tasks/index";
 import Button from "../buttons";
 import Text from "../text/index";
 import styles from "./index.module.css";
@@ -28,9 +29,7 @@ const Home = () => {
           <Button name="All" />
         </div>
         <div>
-          {tasks?.map((t) => {
-            return <div>{t.name}</div>; 
-          })}
+          <Tasks tasks={tasks} />
         </div>
       </div>
     </div>
