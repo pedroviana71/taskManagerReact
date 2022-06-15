@@ -31,6 +31,16 @@ const Home = () => {
     }
   };
 
+  const deleteTask = (e) => {
+    e.preventDefault();
+    console.log(e); //! fix this function
+    // try {
+    //   api.delete("api/tasks/");
+    // } catch (error) {
+    //   console.log(error);
+    // }
+  };
+
   const handleTitle = (value) => {
     setTitle(value);
   };
@@ -40,10 +50,10 @@ const Home = () => {
       <Text>Tarefas</Text>
       <div className={styles.innerContainer}>
         <div className={styles.buttons}>
-          <Button name="To Do" />
-          <Button name="Doing" />
-          <Button name="Done" />
-          <Button name="All" />
+          <Button>Todo</Button>
+          <Button></Button>
+          <Button></Button>
+          <Button></Button>
         </div>
         <input
           type="text"
@@ -52,7 +62,7 @@ const Home = () => {
         />
         <button onClick={handleAddTask}>aqui</button>
         <div>
-          <Tasks tasks={tasks} />
+          <Tasks tasks={tasks} onClick={deleteTask} />
         </div>
       </div>
     </div>
