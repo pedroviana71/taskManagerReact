@@ -34,6 +34,7 @@ const Home = () => {
   const deleteTask = (e) => {
     e.preventDefault();
     console.log(e); //! fix this function
+
     // try {
     //   api.delete("api/tasks/");
     // } catch (error) {
