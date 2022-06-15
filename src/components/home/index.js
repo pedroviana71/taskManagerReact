@@ -23,6 +23,9 @@ const Home = () => {
       api.post("api/tasks", {
         title,
       });
+      api.get("api/tasks").then(({ data }) => {
+        setTasks(data);
+      });
     } catch (error) {
       console.log(error);
     }
