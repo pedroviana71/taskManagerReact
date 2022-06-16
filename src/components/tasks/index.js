@@ -2,9 +2,7 @@ import styles from "./tasks.module.css";
 import Button from "../buttons";
 import { memo } from "react";
 
-const Tasks = ({ tasks, deleteTask }) => {
-  console.log("tasks render");
-
+const Tasks = ({ tasks, deleteTask, editTask }) => {
   return (
     <>
       {tasks.map((task) => {
@@ -17,6 +15,9 @@ const Tasks = ({ tasks, deleteTask }) => {
             ) : null}
             <Button id={_id} onClick={deleteTask}>
               Deletar
+            </Button>
+            <Button id={_id} onClick={editTask}>
+              Editar
             </Button>
           </div>
         );

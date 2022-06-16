@@ -12,9 +12,9 @@ const Home = () => {
   const [show, setShow] = useState(true);
   const [category, setCategory] = useState("toDo");
 
-  const handleTitle = (value) => {
-    setTitle(value);
-  };
+  const handleTitle = useCallback((value) => {
+    return setTitle(value);
+  }, []);
 
   const getTasks = useCallback(() => {
     return api
@@ -59,16 +59,19 @@ const Home = () => {
     <div className={styles.container}>
       <Text>Tarefas</Text>
       <div className={styles.innerContainer}>
-        <div className={styles.buttons}>
-          <Button>Todo</Button>
-        </div>
+        <Button className={styles.buttons}>Todo</Button>
         <NewTask
           title={title}
           createTask={createTask}
           handleTitle={handleTitle}
         />
-        <Tasks tasks={tasks} deleteTask={deleteTask} />
+        <Tasks
+          tasks={tasks}
+          deleteTask={deleteTask}
+          editTask={() => console.log()}
+        />
       </div>
+      <div></div>
     </div>
   );
 };
