@@ -1,5 +1,5 @@
 import { useState, useMemo, useCallback, useEffect } from "react";
-import NewTask from "../newTask/NewTask";
+import Task from "../Task/Task";
 import Tasks from "../tasks/index";
 import Button from "../buttons";
 import Text from "../text/index";
@@ -60,11 +60,7 @@ const Home = () => {
       <Text>Tarefas</Text>
       <div className={styles.innerContainer}>
         <Button className={styles.buttons}>Todo</Button>
-        <NewTask
-          title={title}
-          createTask={createTask}
-          handleTitle={handleTitle}
-        />
+        <Task title={title} createTask={createTask} handleTitle={handleTitle} />
         <Tasks
           tasks={tasks}
           deleteTask={deleteTask}

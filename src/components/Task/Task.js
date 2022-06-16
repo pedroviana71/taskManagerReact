@@ -1,6 +1,6 @@
 import Button from "../buttons";
 
-const NewTask = ({ title, handleTitle, createTask }) => {
+const Task = ({ title, handleTitle, createTask }) => {
   return (
     <div>
       <input
@@ -15,4 +15,4 @@ const NewTask = ({ title, handleTitle, createTask }) => {
   );
 };
 
-export default NewTask;
+export default Task;
