@@ -17,7 +17,17 @@ export const deleteTask = (e) => {
     .delete(`api/tasks/${id}`)
     .then(({ data }) => {
       console.log(data);
-      // getTask();
+    })
+    .catch((err) => console.log(err));
+};
+
+export const createTask = (title) => {
+  return api
+    .post("api/tasks", {
+      title,
+    })
+    .then(({ data }) => {
+      console.log(data);
     })
     .catch((err) => console.log(err));
 };
