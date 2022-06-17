@@ -1,18 +1,18 @@
 import Button from "../buttons";
 
-const Task = ({ title, handleTitle, createTask }) => {
+const CreateTask = ({ title, onChange, onClick }) => {
   return (
     <div>
       <input
         type="text"
         value={title}
         onChange={(e) => {
-          handleTitle(e.target.value);
+          onChange(e.target.value);
         }}
       />
-      <Button onClick={createTask}>Adicionar</Button>
+      <Button onClick={onClick}>Adicionar</Button>
     </div>
   );
 };
 
-export default Task;
+export default CreateTask;

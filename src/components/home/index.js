@@ -1,29 +1,27 @@
-import { useState, useMemo, useCallback, useEffect } from "react";
-import Task from "../Task/Task";
+import { useState, useCallback, useEffect } from "react";
+import CreateTask from "../Task/CreateTask";
+import EditTask from "../Task/EditTask";
 import Tasks from "../tasks/index";
 import Button from "../buttons";
 import Text from "../text/index";
 import styles from "./index.module.css";
-import { api } from "../../actions/index";
+import { api } from "../../actions/api";
+import { getTasks } from "../../actions/tasks";
 
 const Home = () => {
   const [tasks, setTasks] = useState([]);
   const [title, setTitle] = useState("");
-  const [show, setShow] = useState(true);
+  const [editTitle, setEditTitle] = useState("");
   const [category, setCategory] = useState("toDo");
 
   const handleTitle = useCallback((value) => {
     return setTitle(value);
   }, []);
 
-  const getTasks = useCallback(() => {
-    return api
-      .get("api/tasks")
-      .then(({ data }) => {
-        setTasks(data);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+  const getTask = useCallback(async () => {
+    const data = await getTasks();
+    setTasks(data);
+  }, [setTasks]);
 
   const createTask = useCallback(() => {
     return api
@@ -32,42 +30,23 @@ const Home = () => {
       })
       .then(({ data }) => {
         console.log(data);
-        getTasks();
+        getTask();
       })
       .catch((err) => console.log(err));
-  }, [title, getTasks]);
-
-  const deleteTask = useCallback(
-    (e) => {
-      const { id } = e.target;
-      return api
-        .delete(`api/tasks/${id}`)
-        .then(({ data }) => {
-          console.log(data);
-          getTasks();
-        })
-        .catch((err) => console.log(err));
-    },
-    [getTasks]
-  );
+  }, [title, getTask]);
 
   useEffect(() => {
-    getTasks();
-  }, [createTask, deleteTask, getTasks]);
+    getTask();
+  }, [createTask, getTask, setTasks]);
 
   return (
     <div className={styles.container}>
       <Text>Tarefas</Text>
       <div className={styles.innerContainer}>
         <Button className={styles.buttons}>Todo</Button>
-        <Task title={title} createTask={createTask} handleTitle={handleTitle} />
-        <Tasks
-          tasks={tasks}
-          deleteTask={deleteTask}
-          editTask={() => console.log()}
-        />
+        <CreateTask title={title} onClick={createTask} onChange={handleTitle} />
+        <Tasks tasks={tasks} setTasks={setTasks} />
       </div>
-      <div></div>
     </div>
   );
 };
