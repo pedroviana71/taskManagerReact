@@ -2,32 +2,36 @@ import { api } from "./api";
 
 export const getTasks = async () => {
   try {
-    const resp = await api.get("api/tasks").then(({ data }) => {
-      return data;
-    });
-    return resp;
+    const { data } = await api.get("api/tasks");
+    return data;
   } catch (error) {
     console.log(error);
   }
 };
 
-export const deleteTask = (e) => {
-  const { id } = e.target;
-  return api
-    .delete(`api/tasks/${id}`)
-    .then(({ data }) => {
-      console.log(data);
-    })
-    .catch((err) => console.log(err));
+export const deleteTask = async (id) => {
+  try {
+    await api.delete(`api/tasks/${id}`);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-export const createTask = (title) => {
-  return api
-    .post("api/tasks", {
+export const createTask = async (title) => {
+  try {
+    await api.post("api/tasks", {
       title,
-    })
-    .then(({ data }) => {
-      console.log(data);
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const editTask = (id, title) => {
+  console.log(id, title);
+  return api
+    .patch(`api/tasks/${id}`, {
+      title,
     })
     .catch((err) => console.log(err));
 };

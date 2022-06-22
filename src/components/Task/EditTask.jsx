@@ -1,6 +1,6 @@
 import Button from "../buttons";
 
-const CreateTask = ({ title, onChange, onClick }) => {
+const EditTask = ({ title, onChange, onClick, id }) => {
   return (
     <div>
       <input
@@ -10,9 +10,9 @@ const CreateTask = ({ title, onChange, onClick }) => {
           onChange(e.target.value);
         }}
       />
-      <Button onClick={onClick}>Adicionar</Button>
+      <Button onClick={onClick}>Editar</Button>
     </div>
   );
 };
 
-export default CreateTask;
+export default EditTask;
