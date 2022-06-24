@@ -17,21 +17,25 @@ export const deleteTask = async (id) => {
   }
 };
 
-export const createTask = async (title) => {
+export const createTask = async (title, category, comments) => {
   try {
     await api.post("api/tasks", {
       title,
+      category,
+      comments,
     });
   } catch (error) {
     console.log(error);
   }
 };
 
-export const editTask = (id, title) => {
-  console.log(id, title);
+export const editTask = (id, title, comments, category, completed) => {
   return api
     .patch(`api/tasks/${id}`, {
       title,
+      comments,
+      category,
+      completed,
     })
     .catch((err) => console.log(err));
 };

@@ -14,9 +14,10 @@ import {
 const Home = () => {
   const [tasks, setTasks] = useState([]);
   const [title, setTitle] = useState("");
+  const [comments, setComments] = useState("");
+  const [category, setCategory] = useState("");
   // const [editTitle, setEditTitle] = useState("");
   // const [category, setCategory] = useState("toDo");
-  console.log(tasks);
 
   const handleGetTask = async () => {
     const data = await getTasks();
@@ -34,13 +35,13 @@ const Home = () => {
     setTasks(newData);
   };
 
-  const handleEditTask = async (e, title) => {
-    await editTask(e, title);
+  const handleEditTask = async (id, title, comments, category, completed) => {
+    await editTask(id, title, comments, category, completed);
     handleGetTask();
   };
 
   const handleCreateTask = async () => {
-    await createTask(title);
+    await createTask(title, category, comments);
     // const newData = [...tasks, { title }]; //!fix this later cause cant delete task
     // setTasks(newData);
     handleGetTask();
@@ -57,8 +58,12 @@ const Home = () => {
         <Button className={styles.buttons}>Todo</Button>
         <CreateTask
           title={title}
+          setTitle={setTitle}
+          comments={comments}
+          setComments={setComments}
+          category={category}
+          setCategory={setCategory}
           handleSubmit={handleCreateTask}
-          onChange={setTitle}
         />
         <Tasks
           tasks={tasks}
