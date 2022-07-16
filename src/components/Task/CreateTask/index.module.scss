@@ -1,0 +1,14 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.699);
+  margin-bottom: 15px;
+  padding: 2px 0px;
+}
+:focus {
+  outline: none;
+}

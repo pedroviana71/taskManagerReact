@@ -1,7 +1,7 @@
 import styles from "./tasks.module.scss";
 import Button from "../buttons";
 import { memo, useState } from "react";
-import EditTask from "../Task/EditTask";
+import EditTask from "../Task/editTask";
 
 const Tasks = ({ tasks, deleteTask, handleEditTask }) => {
   const [showEditField, setShowEditField] = useState(false);
@@ -18,9 +18,15 @@ const Tasks = ({ tasks, deleteTask, handleEditTask }) => {
         return (
           <div key={_id} className={styles.container}>
             <div className={styles.title}>{task.title}</div>
-            {category && <div className={styles.comments}>{category}</div>}
-            {comments && <div className={styles.comments}>{comments}</div>}
-            {task.completed && <div className={styles.comments}>Completo!</div>}
+            {category ? (
+              <div className={styles.comments}>{category}</div>
+            ) : null}
+            {comments ? (
+              <div className={styles.comments}>{comments}</div>
+            ) : null}
+            {task.completed ? (
+              <div className={styles.comments}>Completo!</div>
+            ) : null}
             <input
               type="checkBox"
               defaultChecked={task.completed}

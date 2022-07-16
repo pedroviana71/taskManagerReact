@@ -1,24 +1,19 @@
-import Button from "../buttons";
-import Text from "../text";
+import Button from "../../buttons";
+import Text from "../../text";
 
-const CreateTask = ({
+const EditTask = ({
   title,
   setTitle,
   comments,
   setComments,
   category,
   setCategory,
-  handleSubmit,
+  onClick,
+  setShowEditField,
 }) => {
-  const handleClick = () => {
-    handleSubmit();
-    setTitle("");
-    setComments("");
-    setCategory("");
-  };
   return (
     <div>
-      <Text>Título</Text>
+      <Text>Titulo</Text>
       <input
         type="text"
         value={title}
@@ -26,8 +21,7 @@ const CreateTask = ({
           setTitle(e.target.value);
         }}
       />
-
-      <Text> Categoria</Text>
+      <Text>Categoria</Text>
       <input
         type="text"
         value={category}
@@ -35,8 +29,7 @@ const CreateTask = ({
           setCategory(e.target.value);
         }}
       />
-
-      <Text>Comentários</Text>
+      <Text>Comentarios</Text>
       <input
         type="text"
         value={comments}
@@ -44,10 +37,16 @@ const CreateTask = ({
           setComments(e.target.value);
         }}
       />
-
-      <Button onClick={handleClick}>Adicionar</Button>
+      <Button
+        onClick={() => {
+          onClick();
+          setShowEditField();
+        }}
+      >
+        Editar
+      </Button>
     </div>
   );
 };
 
-export default CreateTask;
+export default EditTask;

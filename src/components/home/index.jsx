@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useEffect } from "react";
 import CreateTask from "../Task/CreateTask";
 import Tasks from "../tasks/index";
 import Button from "../buttons";
@@ -53,9 +53,9 @@ const Home = () => {
 
   return (
     <div className={styles.container}>
-      <Text>Tarefas</Text>
+      <Text className={styles.title}>Tarefas</Text>
       <div className={styles.innerContainer}>
-        <Button className={styles.buttons}>Todo</Button>
+        {/* <Button className={styles.buttons}>Todo</Button> */}
         <CreateTask
           title={title}
           setTitle={setTitle}

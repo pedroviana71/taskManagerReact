@@ -1,5 +1,7 @@
-const Text = ({ children }) => {
-  return <div>{children}</div>;
+import clsx from "clsx";
+
+const Text = ({ children, className }) => {
+  return <div className={clsx(className)}>{children}</div>;
 };
 
 export default Text;
