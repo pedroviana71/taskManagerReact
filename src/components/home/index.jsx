@@ -10,12 +10,14 @@ import {
   createTask,
   editTask,
 } from "../../actions/tasks";
+import { MdOutlineAddBox } from "react-icons/md";
 
 const Home = () => {
   const [tasks, setTasks] = useState([]);
   const [title, setTitle] = useState("");
   const [comments, setComments] = useState("");
   const [category, setCategory] = useState("");
+  const [showCreateTask, setShowCreateTask] = useState(true);
   // const [editTitle, setEditTitle] = useState("");
   // const [category, setCategory] = useState("toDo");
 
@@ -47,24 +49,35 @@ const Home = () => {
     handleGetTask();
   };
 
+  const handleShowCreateTask = () => {
+    setShowCreateTask(!showCreateTask);
+  };
+
   useEffect(() => {
     handleGetTask();
   }, []);
-
   return (
     <div className={styles.container}>
-      <Text className={styles.title}>Tarefas</Text>
+      <div className={styles.titleContainer}>
+        <Text className={styles.title}>Tarefas</Text>
+        <Button className={styles.button} onClick={handleShowCreateTask}>
+          <MdOutlineAddBox className={styles.icon} />
+          <Text className={styles.buttonText}>Adicionar</Text>
+        </Button>
+      </div>
       <div className={styles.innerContainer}>
         {/* <Button className={styles.buttons}>Todo</Button> */}
-        <CreateTask
-          title={title}
-          setTitle={setTitle}
-          comments={comments}
-          setComments={setComments}
-          category={category}
-          setCategory={setCategory}
-          handleSubmit={handleCreateTask}
-        />
+        {showCreateTask ? (
+          <CreateTask
+            title={title}
+            setTitle={setTitle}
+            comments={comments}
+            setComments={setComments}
+            category={category}
+            setCategory={setCategory}
+            handleSubmit={handleCreateTask}
+          />
+        ) : null}
         <Tasks
           tasks={tasks}
           deleteTask={handleDeleteTask}
