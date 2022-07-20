@@ -17,7 +17,7 @@ const Home = () => {
   const [title, setTitle] = useState("");
   const [comments, setComments] = useState("");
   const [category, setCategory] = useState("");
-  const [showCreateTask, setShowCreateTask] = useState(true);
+  const [showCreateTask, setShowCreateTask] = useState(false);
   // const [editTitle, setEditTitle] = useState("");
   // const [category, setCategory] = useState("toDo");
 
@@ -65,26 +65,23 @@ const Home = () => {
           <Text className={styles.buttonText}>Adicionar</Text>
         </Button>
       </div>
-      <div className={styles.innerContainer}>
-        {/* <Button className={styles.buttons}>Todo</Button> */}
-        {showCreateTask ? (
-          <CreateTask
-            title={title}
-            setTitle={setTitle}
-            comments={comments}
-            setComments={setComments}
-            category={category}
-            setCategory={setCategory}
-            handleSubmit={handleCreateTask}
-          />
-        ) : null}
-        <Tasks
-          tasks={tasks}
-          deleteTask={handleDeleteTask}
-          setTasks={setTasks}
-          handleEditTask={handleEditTask}
+      {showCreateTask ? (
+        <CreateTask
+          title={title}
+          setTitle={setTitle}
+          comments={comments}
+          setComments={setComments}
+          category={category}
+          setCategory={setCategory}
+          handleSubmit={handleCreateTask}
         />
-      </div>
+      ) : null}
+      <Tasks
+        tasks={tasks}
+        deleteTask={handleDeleteTask}
+        setTasks={setTasks}
+        handleEditTask={handleEditTask}
+      />
     </div>
   );
 };
