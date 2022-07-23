@@ -54,24 +54,25 @@ const Tasks = ({ tasks, deleteTask, handleEditTask }) => {
             >
               Editar
             </Button>
+            {showEditField ? (
+              <EditTask
+                title={title}
+                setTitle={setTitle}
+                comments={comments}
+                setComments={setComments}
+                category={category}
+                setCategory={setCategory}
+                onChange={setTitle}
+                onClick={() =>
+                  handleEditTask(editingId, title, comments, category)
+                }
+                id={editingId}
+                setShowEditField={setShowEditField}
+              />
+            ) : null}
           </div>
         );
       })}
-
-      {showEditField ? (
-        <EditTask
-          title={title}
-          setTitle={setTitle}
-          comments={comments}
-          setComments={setComments}
-          category={category}
-          setCategory={setCategory}
-          onChange={setTitle}
-          onClick={() => handleEditTask(editingId, title, comments, category)}
-          id={editingId}
-          setShowEditField={setShowEditField}
-        />
-      ) : null}
     </>
   );
 };

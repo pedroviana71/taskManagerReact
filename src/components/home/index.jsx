@@ -11,6 +11,8 @@ import {
   editTask,
 } from "../../actions/tasks";
 import { MdOutlineAddBox } from "react-icons/md";
+import { useSelector, useDispatch } from "react-redux";
+import { setTask } from "../../features/tasks";
 
 const Home = () => {
   const [tasks, setTasks] = useState([]);
@@ -18,13 +20,16 @@ const Home = () => {
   const [comments, setComments] = useState("");
   const [category, setCategory] = useState("");
   const [showCreateTask, setShowCreateTask] = useState(false);
-  // const [editTitle, setEditTitle] = useState("");
-  // const [category, setCategory] = useState("toDo");
+  const teste = useSelector((state) => state.tasks);
+  const dispatch = useDispatch();
 
   const handleGetTask = async () => {
     const data = await getTasks();
     setTasks(data);
+    dispatch(setTask(data));
   };
+
+  console.log(teste);
 
   const handleDeleteTask = async (id) => {
     await deleteTask(id);
