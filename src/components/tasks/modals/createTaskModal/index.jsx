@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { MdClose } from "react-icons/md";
 import { useCreateTaskMutation } from "../../../../features/tasksSlice";
 import Button from "../../../buttons";
 import Text from "../../../text";
@@ -23,8 +24,16 @@ const CreateTaskModal = ({ setShowCreateTaskModal }) => {
     }
   };
 
+  const handleClose = () => setShowCreateTaskModal(false);
+
   return (
     <div className={styles.container} onKeyDown={handleKeyDown}>
+      <div className={styles.titleContainer}>
+        <Text className={styles.title}>Editar Tarefa</Text>
+        <button onClick={handleClose} className={styles.closeButton}>
+          <MdClose />
+        </button>
+      </div>
       <Text>Título</Text>
       <input
         className={styles.input}

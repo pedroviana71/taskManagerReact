@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import Home from "./components/home/index";
-import styles from "./utils/styles/normalize.css";
+import styles from "./utils/styles/normalize.scss";
 // import { configureStore } from "@reduxjs/toolkit";
 // import { Provider } from "react-redux";
 import { ApiProvider } from "@reduxjs/toolkit/dist/query/react";

@@ -1,11 +1,14 @@
+@use "../../../../utils/styles/colors" as color;
+@use "../../../../utils/styles/shadows" as shadow;
+
 .container {
   display: flex;
   top: 30%;
   flex-direction: column;
   position: absolute;
   padding: 20px;
-  background-color: #ffffff;
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.233);
+  background-color: color.$background-primary;
+  box-shadow: shadow.$primary;
   border-radius: 8px;
 }
 
@@ -17,4 +20,20 @@
 }
 :focus {
   outline: none;
+}
+
+.titleContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.title {
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.closeButton {
+  cursor: pointer;
+  background-color: #f4f4f4;
+  border: none;
 }

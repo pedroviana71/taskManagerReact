@@ -1,5 +1,15 @@
+.tasksContainer {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  grid-template-columns: 300px 300px 300px;
+  padding: 20px;
+}
+
 .container {
   width: 250px;
+  word-break: break-all;
   /* height: 150px;
   background-color: #e48d3c; */
 }
@@ -12,6 +22,6 @@
 
 .comments {
   width: 80%;
-  height: 50px;
+  // height: 50px;
   background-color: yellowgreen;
 }

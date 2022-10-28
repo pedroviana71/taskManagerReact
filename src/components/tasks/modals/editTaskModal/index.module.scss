@@ -4,7 +4,7 @@
   flex-direction: column;
   position: absolute;
   padding: 20px;
-  background-color: #ffffff;
+  background-color: #f4f4f4;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.233);
   border-radius: 8px;
 }
@@ -17,4 +17,19 @@
 }
 :focus {
   outline: none;
+}
+.titleContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.title {
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.closeButton {
+  cursor: pointer;
+  background-color: #f4f4f4;
+  border: none;
 }
