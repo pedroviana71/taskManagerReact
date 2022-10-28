@@ -1,12 +1,12 @@
+@use "../../utils//styles/colors" as color;
+
 .container {
   display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: flex-start;
+  background-color: color.$background-primary;
   height: 100vh;
-  background-color: #ffffff;
-  padding: 15px;
-
   .titleContainer {
     display: flex;
     width: 100%;
@@ -24,7 +24,7 @@
       border: 0;
       box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.233);
       background-color: #1267e7;
-      color: #ffffff;
+      color: color.$background-primary;
       border-radius: 3px;
     }
     .icon {
@@ -37,7 +37,7 @@
   }
 
   .innerContainer {
-    background-color: #ffffff;
+    background-color: color.$background-primary;
     padding: 20px;
     width: 400px;
     min-height: 100px;
@@ -51,9 +51,7 @@
     flex-direction: column;
     justify-content: flex-start;
     height: 100vh;
-    background-color: #ffffff;
-    padding: 15px;
-
+    background-color: color.$background-primary;
     .titleContainer {
       display: flex;
       width: 100%;
@@ -75,7 +73,7 @@
         border: 0;
         box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.233);
         background-color: #1267e7;
-        color: #ffffff;
+        color: color.$background-primary;
         border-radius: 3px;
       }
       .buttonText {
@@ -84,7 +82,7 @@
     }
 
     .innerContainer {
-      background-color: #ffffff;
+      background-color: color.$background-primary;
       padding: 20px;
       width: 500px;
       min-height: 100px;

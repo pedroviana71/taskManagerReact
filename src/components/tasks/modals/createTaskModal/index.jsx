@@ -27,39 +27,45 @@ const CreateTaskModal = ({ setShowCreateTaskModal }) => {
   const handleClose = () => setShowCreateTaskModal(false);
 
   return (
-    <div className={styles.container} onKeyDown={handleKeyDown}>
-      <div className={styles.titleContainer}>
-        <Text className={styles.title}>Editar Tarefa</Text>
-        <button onClick={handleClose} className={styles.closeButton}>
-          <MdClose />
-        </button>
+    <div className={styles.blackContainer}>
+      <div className={styles.container} onKeyDown={handleKeyDown}>
+        <div className={styles.titleContainer}>
+          <Text className={styles.title}>Criar Tarefa</Text>
+          <button onClick={handleClose} className={styles.closeButton}>
+            <MdClose />
+          </button>
+        </div>
+        <div className={styles.inputContainer}>
+          <Text>Título</Text>
+          <textarea
+            className={styles.input}
+            type="text"
+            onChange={(e) => {
+              setTitle(e.target.value);
+            }}
+            autoFocus
+          />
+          <Text>Categoria</Text>
+          <textarea
+            className={styles.input}
+            type="text"
+            onChange={(e) => {
+              setCategory(e.target.value);
+            }}
+          />
+          <Text>Comentários</Text>
+          <textarea
+            className={styles.input}
+            type="text"
+            onChange={(e) => {
+              setComments(e.target.value);
+            }}
+          />
+          <Button onClick={handleSubmit} className={styles.submitButton}>
+            Adicionar
+          </Button>
+        </div>
       </div>
-      <Text>Título</Text>
-      <input
-        className={styles.input}
-        type="text"
-        onChange={(e) => {
-          setTitle(e.target.value);
-        }}
-        autoFocus
-      />
-      <Text>Categoria</Text>
-      <input
-        className={styles.input}
-        type="text"
-        onChange={(e) => {
-          setCategory(e.target.value);
-        }}
-      />
-      <Text>Comentários</Text>
-      <input
-        className={styles.input}
-        type="text"
-        onChange={(e) => {
-          setComments(e.target.value);
-        }}
-      />
-      <Button onClick={handleSubmit}>Adicionar</Button>
     </div>
   );
 };
