@@ -26,8 +26,14 @@ const CreateTaskModal = ({ setShowCreateTaskModal }) => {
 
   const handleClose = () => setShowCreateTaskModal(false);
 
+  const handleClickOutside = (e) => {
+    if (e.target.className.includes("clickOutside")) {
+      handleClose();
+    }
+  };
+
   return (
-    <div className={styles.blackContainer}>
+    <div className={styles.clickOutside} onClick={handleClickOutside}>
       <div className={styles.container} onKeyDown={handleKeyDown}>
         <div className={styles.titleContainer}>
           <Text className={styles.title}>Criar Tarefa</Text>
