@@ -1,11 +1,12 @@
 import styles from "./tasks.module.scss";
 import Button from "../buttons";
 import { memo, useState } from "react";
+
+import EditTaskModal from "./modals/editTaskModal";
 import {
   useDeleteTaskMutation,
   useEditTaskMutation,
-} from "../../features/tasksSlice";
-import EditTaskModal from "./modals/editTaskModal";
+} from "../../app/api/tasksSlice";
 
 const Tasks = ({ tasks }) => {
   const [deleteTask] = useDeleteTaskMutation();

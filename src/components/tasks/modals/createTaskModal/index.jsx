@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { MdClose } from "react-icons/md";
-import { useCreateTaskMutation } from "../../../../features/tasksSlice";
 import Button from "../../../buttons";
 import Text from "../../../text";
 import styles from "./index.module.scss";
+import { useCreateTaskMutation } from "../../../../app/api/tasksSlice";
 
 const CreateTaskModal = ({ setShowCreateTaskModal }) => {
   const [title, setTitle] = useState("");

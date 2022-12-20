@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { useEditTaskMutation } from "../../../../features/tasksSlice";
 import Button from "../../../buttons";
 import Text from "../../../text";
 import styles from "./index.module.scss";
 import { MdClose } from "react-icons/md";
+import { useEditTaskMutation } from "../../../../app/api/tasksSlice";
 
 const EditTask = ({ task, setShowEditTaskModal }) => {
   const [editTask] = useEditTaskMutation();

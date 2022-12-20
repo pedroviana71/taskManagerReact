@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-export const tasks = createApi({
+export const tasksSlice = createApi({
   reducerPath: "tasks",
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:3005/api/",
@@ -15,6 +15,13 @@ export const tasks = createApi({
   }),
   tagTypes: ["Tasks"],
   endpoints: (builder) => ({
+    login: builder.mutation({
+      query: (credentials) => ({
+        url: "/auth",
+        method: "POST",
+        body: { ...credentials },
+      }),
+    }),
     getAllTasks: builder.query({
       query: () => "tasks",
       providesTags: ["Tasks"],
@@ -50,4 +57,5 @@ export const {
   useDeleteTaskMutation,
   useCreateTaskMutation,
   useEditTaskMutation,
-} = tasks;
+  useLoginMutation,
+} = tasksSlice;

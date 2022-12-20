@@ -5,7 +5,7 @@ import Button from "../buttons";
 import Text from "../text/index";
 import styles from "./index.module.scss";
 import { MdOutlineAddBox } from "react-icons/md";
-import { useGetAllTasksQuery } from "../../features/tasksSlice";
+import { useGetAllTasksQuery } from "../../app/api/tasksSlice";
 
 const Home = () => {
   const [tasks, setTasks] = useState([]);
