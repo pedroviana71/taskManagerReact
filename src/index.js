@@ -1,28 +1,23 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import Home from "./components/home/index";
-import styles from "./utils/styles/normalize.scss";
-// import { configureStore } from "@reduxjs/toolkit";
-// import { Provider } from "react-redux";
-import { ApiProvider } from "@reduxjs/toolkit/dist/query/react";
-import { tasks } from "./features/tasksSlice";
+import { store } from "./app/store";
+import { Provider } from "react-redux";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import App from "./app";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-// const store = configureStore({
-//   reducer: {
-//     [tasks.reducerPath]: tasks.reducer,
-//   },
-//   middleware: (getDefaultMiddleware) =>
-//     getDefaultMiddleware().concat(tasks.middleware),
-// });
-
 root.render(
   <React.StrictMode>
-    <ApiProvider api={tasks}>
-      {/* <Provider store={store}> */}
-      <Home className={styles} />
-      {/* </Provider> */}
-    </ApiProvider>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/*" element={<App />}>
+            <Home />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>
 );

@@ -1,8 +1,18 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const tasks = createApi({
   reducerPath: "tasks",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3005/api/" }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: "http://localhost:3005/api/",
+    credentials: "include",
+    prepareHeaders: (headers, { getState }) => {
+      const token = getState().auth.token;
+      if (token) {
+        headers.set("authorization", `Bearer ${token}`);
+      }
+      return headers;
+    },
+  }),
   tagTypes: ["Tasks"],
   endpoints: (builder) => ({
     getAllTasks: builder.query({
@@ -33,11 +43,11 @@ export const tasks = createApi({
       invalidatesTags: ["Tasks"],
     }),
   }),
-})
+});
 
 export const {
   useGetAllTasksQuery,
   useDeleteTaskMutation,
   useCreateTaskMutation,
   useEditTaskMutation,
-} = tasks
+} = tasks;
