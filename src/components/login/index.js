@@ -1,30 +1,32 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useLoginMutation } from "../../app/api/userSlice";
 import { setCredentials } from "../../features/authSlice";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [login] = useLoginMutation();
   const dispatch = useDispatch();
-  const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-
-  const state = useSelector((state) => state);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = await login({
-      email: "pedritoteste1@gmail.com",
-      password: "123456",
-    }).unwrap();
 
-    dispatch(setCredentials({ ...data }, "pedro"));
-    console.log(data);
-  };
-
-  const teste = () => {
-    console.log(state);
+    try {
+      const data = await login({
+        email,
+        password,
+      }).unwrap();
+      setEmail("");
+      setPassword("");
+      navigate("/");
+      dispatch(setCredentials(data, data.username));
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -47,7 +49,6 @@ const Login = () => {
           Login
         </button>
       </form>
-      <button onClick={teste}>teste</button>
     </section>
   );
 };

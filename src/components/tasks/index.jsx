@@ -6,13 +6,19 @@ import EditTaskModal from "./modals/editTaskModal";
 import {
   useDeleteTaskMutation,
   useEditTaskMutation,
+  useGetAllTasksQuery,
 } from "../../app/api/tasksSlice";
+import { useSelector } from "react-redux";
 
-const Tasks = ({ tasks }) => {
+const Tasks = () => {
   const [deleteTask] = useDeleteTaskMutation();
   const [editTask] = useEditTaskMutation();
   const [showEditTaskModal, setShowEditTaskModal] = useState(false);
   const [taskToEdit, setTaskToEdit] = useState({});
+  const userId = useSelector((state) => state.auth.id);
+  const data = useGetAllTasksQuery(userId);
+
+  console.log(data);
 
   const handleEditModal = (task) => {
     setShowEditTaskModal(!showEditTaskModal);
@@ -29,7 +35,7 @@ const Tasks = ({ tasks }) => {
         />
       )}
       <div className={styles.tasksContainer}>
-        {tasks?.map((task) => {
+        {/* {tasks?.map((task) => {
           const { _id, category, comments } = task;
 
           const handleComplete = (id) => {
@@ -62,7 +68,7 @@ const Tasks = ({ tasks }) => {
               </Button>
             </div>
           );
-        })}
+        })} */}
       </div>
     </>
   );

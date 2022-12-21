@@ -1,25 +1,18 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import CreateTaskModal from "../tasks/modals/createTaskModal";
 import Tasks from "../tasks/index";
 import Button from "../buttons";
 import Text from "../text/index";
 import styles from "./index.module.scss";
 import { MdOutlineAddBox } from "react-icons/md";
-import { useGetAllTasksQuery } from "../../app/api/tasksSlice";
 
 const Home = () => {
   const [tasks, setTasks] = useState([]);
   const [showCreateTaskModal, setShowCreateTaskModal] = useState(false);
 
-  const { data } = useGetAllTasksQuery();
-
   const handleCreateTaskModal = () => {
     setShowCreateTaskModal(!showCreateTaskModal);
   };
-
-  useEffect(() => {
-    setTasks(data);
-  }, [setTasks, data]);
 
   return (
     <div className={styles.container}>

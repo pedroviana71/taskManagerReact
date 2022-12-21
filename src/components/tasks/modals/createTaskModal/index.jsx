@@ -4,15 +4,18 @@ import Button from "../../../buttons";
 import Text from "../../../text";
 import styles from "./index.module.scss";
 import { useCreateTaskMutation } from "../../../../app/api/tasksSlice";
+import { useSelector } from "react-redux";
 
 const CreateTaskModal = ({ setShowCreateTaskModal }) => {
   const [title, setTitle] = useState("");
   const [comments, setComments] = useState("");
   const [category, setCategory] = useState("");
   const [createTask] = useCreateTaskMutation();
+  const userId = useSelector((state) => state.auth.id);
 
   const handleSubmit = () => {
-    const task = { title, comments, category };
+    console.log(userId, "userId no createTaskModal");
+    const task = { title, comments, category, userId };
     createTask(task);
     setShowCreateTaskModal(false);
   };
@@ -26,14 +29,14 @@ const CreateTaskModal = ({ setShowCreateTaskModal }) => {
 
   const handleClose = () => setShowCreateTaskModal(false);
 
-  const handleClickOutside = (e) => {
-    if (e.target.className.includes("clickOutside")) {
-      handleClose();
-    }
-  };
+  // const handleClickOutside = (e) => {
+  //   if (e.target.className.includes("clickOutside")) {
+  //     handleClose();
+  //   }
+  // };
 
   return (
-    <div className={styles.clickOutside} onClick={handleClickOutside}>
+    <div className={styles.clickOutside}>
       <div className={styles.container} onKeyDown={handleKeyDown}>
         <div className={styles.titleContainer}>
           <Text className={styles.title}>Criar Tarefa</Text>

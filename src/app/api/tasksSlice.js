@@ -16,7 +16,10 @@ export const tasksSlice = createApi({
   tagTypes: ["Tasks"],
   endpoints: (builder) => ({
     getAllTasks: builder.query({
-      query: () => "tasks",
+      query: (userId) => ({
+        url: `tasks/${userId}`,
+        method: "GET",
+      }),
       providesTags: ["Tasks"],
     }),
     deleteTask: builder.mutation({
