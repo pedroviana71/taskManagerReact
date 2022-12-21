@@ -2,15 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { store } from "./app/store";
 import { Provider } from "react-redux";
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./app";
-import Login from "./components/login.js";
+import Register from "./components/register/index.js";
+import Login from "./components/login";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -21,7 +16,11 @@ const router = createBrowserRouter([
     errorElement: <div>404</div>,
   },
   {
-    path: "teste",
+    path: "register",
+    element: <Register />,
+  },
+  {
+    path: "login",
     element: <Login />,
   },
 ]);

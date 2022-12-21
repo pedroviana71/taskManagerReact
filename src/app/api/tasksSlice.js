@@ -4,7 +4,7 @@ export const tasksSlice = createApi({
   reducerPath: "tasks",
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:3005/api/",
-    credentials: "include",
+    // credentials: "include",
     prepareHeaders: (headers, { getState }) => {
       const token = getState().auth.token;
       if (token) {
@@ -15,13 +15,6 @@ export const tasksSlice = createApi({
   }),
   tagTypes: ["Tasks"],
   endpoints: (builder) => ({
-    login: builder.mutation({
-      query: (credentials) => ({
-        url: "/auth",
-        method: "POST",
-        body: { ...credentials },
-      }),
-    }),
     getAllTasks: builder.query({
       query: () => "tasks",
       providesTags: ["Tasks"],
@@ -57,5 +50,4 @@ export const {
   useDeleteTaskMutation,
   useCreateTaskMutation,
   useEditTaskMutation,
-  useLoginMutation,
 } = tasksSlice;
