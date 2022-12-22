@@ -3,19 +3,15 @@ import { useLoginMutation } from "../../app/api/authSlice";
 import { setCredentials } from "../../features/userSlice";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import styles from "./index.module.scss";
 
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
 
   const [login] = useLoginMutation();
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-
-  if (user.username !== null) {
-    navigate("/teste");
-  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -35,22 +31,37 @@ const Login = () => {
   };
 
   return (
-    <section>
-      <h1>Login</h1>
-      <form>
-        <label htmlFor="email">Email</label>
-        <input
-          type="email"
-          id="email"
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          id="password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="submit" onClick={handleSubmit}>
+    <section className={styles.loginSection}>
+      <h1 className={styles.title}>Login</h1>
+      <h4>Digite seus dados abaixo:</h4>
+      <form className={styles.form}>
+        <div className={styles.container}>
+          <label className={styles.label} htmlFor="email">
+            Email
+          </label>
+          <input
+            type="email"
+            id="email"
+            onChange={(e) => setEmail(e.target.value)}
+            className={styles.input}
+          />
+        </div>
+        <div className={styles.container}>
+          <label className={styles.label} htmlFor="password">
+            Password
+          </label>
+          <input
+            type="password"
+            id="password"
+            onChange={(e) => setPassword(e.target.value)}
+            className={styles.input}
+          />
+        </div>
+        <button
+          type="submit"
+          onClick={handleSubmit}
+          className={styles.loginButton}
+        >
           Login
         </button>
       </form>

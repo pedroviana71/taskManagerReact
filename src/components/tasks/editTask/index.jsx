@@ -11,7 +11,7 @@ const EditTask = () => {
   const [newTitle, setNewTitle] = useState("");
   const [newComments, setNewComments] = useState("");
   const [newCategory, setNewCategory] = useState("");
-  let { id } = useParams();
+  const { id } = useParams();
   const navigate = useNavigate();
 
   const handleSubmit = async () => {

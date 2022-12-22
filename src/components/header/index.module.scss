@@ -1,0 +1,60 @@
+@use "../../utils//styles/colors" as color;
+
+.container {
+  background-color: color.$background-primary;
+  text-align: center;
+  .title {
+    padding-left: 20px;
+    color: color.$text-secondary;
+    font-size: 38px;
+    margin-right: 20px;
+  }
+  .button {
+    display: flex;
+    align-items: center;
+    border: 0;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.233);
+    background-color: color.$button-primary;
+    border-radius: 3px;
+    margin-left: 20px;
+  }
+  .icon {
+    color: color.$text-primary;
+    margin: 4px 4px;
+    font-size: 24px;
+  }
+  .buttonText {
+    color: color.$text-primary;
+    font-size: 16px;
+    margin-inline: 8px;
+  }
+}
+
+@media (min-width: 600px) {
+  .container {
+    background-color: color.$background-primary;
+    .title {
+      color: color.$text-secondary;
+      font-size: 40px;
+      margin-right: 20px;
+    }
+    .icon {
+      margin-right: 4px;
+      font-size: 20px;
+    }
+    .button {
+      display: flex;
+      align-items: center;
+      padding: 5px;
+      height: 35px;
+      border: 0;
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.233);
+      background-color: #1267e7;
+      color: color.$background-primary;
+      border-radius: 3px;
+    }
+    .buttonText {
+      font-size: 15px;
+    }
+  }
+}
