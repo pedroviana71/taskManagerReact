@@ -1,16 +1,17 @@
 import { useState } from "react";
-import { MdClose } from "react-icons/md";
-import Button from "../../../buttons";
-import Text from "../../../text";
+import Button from "../../buttons";
+import Text from "../../text";
 import styles from "./index.module.scss";
-import { useCreateTaskMutation } from "../../../../app/api/tasksSlice";
+import { useCreateTaskMutation } from "../../../app/api/tasksSlice";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-const CreateTaskModal = ({ setShowCreateTaskModal }) => {
+const CreateTask = ({ setShowCreateTaskModal }) => {
   const [title, setTitle] = useState("");
   const [comments, setComments] = useState("");
   const [category, setCategory] = useState("");
   const [createTask] = useCreateTaskMutation();
+  const navigate = useNavigate();
   const userId = useSelector((state) => state.auth.id);
 
   const handleSubmit = () => {
@@ -27,22 +28,15 @@ const CreateTaskModal = ({ setShowCreateTaskModal }) => {
     }
   };
 
-  const handleClose = () => setShowCreateTaskModal(false);
-
-  // const handleClickOutside = (e) => {
-  //   if (e.target.className.includes("clickOutside")) {
-  //     handleClose();
-  //   }
-  // };
+  const handleGoBack = () => {
+    navigate("/");
+  };
 
   return (
     <div className={styles.clickOutside}>
       <div className={styles.container} onKeyDown={handleKeyDown}>
         <div className={styles.titleContainer}>
           <Text className={styles.title}>Criar Tarefa</Text>
-          <button onClick={handleClose} className={styles.closeButton}>
-            <MdClose />
-          </button>
         </div>
         <div className={styles.inputContainer}>
           <Text>Título</Text>
@@ -73,10 +67,13 @@ const CreateTaskModal = ({ setShowCreateTaskModal }) => {
           <Button onClick={handleSubmit} className={styles.submitButton}>
             Adicionar
           </Button>
+          <Button onClick={handleGoBack} className={styles.submitButton}>
+            Cancelar
+          </Button>
         </div>
       </div>
     </div>
   );
 };
 
-export default CreateTaskModal;
+export default CreateTask;

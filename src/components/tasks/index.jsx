@@ -2,7 +2,6 @@ import styles from "./tasks.module.scss";
 import Button from "../buttons";
 import { memo, useState } from "react";
 
-import EditTaskModal from "./modals/editTaskModal";
 import {
   useDeleteTaskMutation,
   useEditTaskMutation,
@@ -16,19 +15,11 @@ import { useNavigate } from "react-router-dom";
 const Tasks = () => {
   const [deleteTask] = useDeleteTaskMutation();
   const [editTask] = useEditTaskMutation();
-  const [showEditTaskModal, setShowEditTaskModal] = useState(false);
-  const [taskToEdit, setTaskToEdit] = useState({});
   const [tasks, setTasks] = useState([]);
   const user = useSelector(selectCurrentUser);
   const navigate = useNavigate();
 
   const { data } = useGetAllTasksQuery();
-
-  const handleEditModal = (task) => {
-    setShowEditTaskModal(!showEditTaskModal);
-    setTaskToEdit(task);
-    setTaskToEdit(task);
-  };
 
   useEffect(() => {
     if (!user) {
@@ -39,12 +30,6 @@ const Tasks = () => {
 
   return (
     <>
-      {showEditTaskModal && (
-        <EditTaskModal
-          task={taskToEdit}
-          setShowEditTaskModal={setShowEditTaskModal}
-        />
-      )}
       <div className={styles.tasksContainer}>
         {tasks?.map((task) => {
           const { _id, category, comments } = task;
@@ -74,7 +59,7 @@ const Tasks = () => {
               >
                 Deletar
               </Button>
-              <Button id={_id} onClick={() => handleEditModal(task)}>
+              <Button id={_id} onClick={() => navigate(`/edit/${_id}`)}>
                 Editar
               </Button>
             </div>

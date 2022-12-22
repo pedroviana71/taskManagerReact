@@ -1,40 +1,38 @@
 import { useState } from "react";
-import Button from "../../../buttons";
-import Text from "../../../text";
+import Button from "../../buttons";
+import Text from "../../text";
 import styles from "./index.module.scss";
 import { MdClose } from "react-icons/md";
-import { useEditTaskMutation } from "../../../../app/api/tasksSlice";
+import { useEditTaskMutation } from "../../../app/api/tasksSlice";
+import { useNavigate, useParams } from "react-router-dom";
 
-const EditTask = ({ task, setShowEditTaskModal }) => {
+const EditTask = () => {
   const [editTask] = useEditTaskMutation();
-  const [newTitle, setNewTitle] = useState(task.title);
-  const [newComments, setNewComments] = useState(task.comments);
-  const [newCategory, setNewCategory] = useState(task.category);
+  const [newTitle, setNewTitle] = useState("");
+  const [newComments, setNewComments] = useState("");
+  const [newCategory, setNewCategory] = useState("");
+  let { id } = useParams();
+  const navigate = useNavigate();
 
   const handleSubmit = async () => {
-    await editTask({
-      id: task._id,
-      title: newTitle,
-      category: newCategory,
-      comments: newComments,
-      completed: task.completed,
-    });
-    setShowEditTaskModal(false);
-  };
-
-  const handleClose = () => setShowEditTaskModal(false);
-
-  const handleKeyDown = (e) => {
-    if (e.key === "Escape") {
-      setShowEditTaskModal(false);
+    try {
+      await editTask({
+        id,
+        title: newTitle,
+        category: newCategory,
+        comments: newComments,
+      });
+      navigate("/");
+    } catch (error) {
+      console.log(error);
     }
   };
 
   return (
-    <div className={styles.container} onKeyDown={handleKeyDown}>
+    <div className={styles.container}>
       <div className={styles.titleContainer}>
         <Text className={styles.title}>Editar Tarefa</Text>
-        <button onClick={handleClose} className={styles.closeButton}>
+        <button onClick={() => {}} className={styles.closeButton}>
           <MdClose />
         </button>
       </div>
@@ -65,6 +63,7 @@ const EditTask = ({ task, setShowEditTaskModal }) => {
         }}
       />
       <Button onClick={handleSubmit}>Editar</Button>
+      <Button onClick={() => navigate("/")}>Voltar</Button>
     </div>
   );
 };

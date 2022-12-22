@@ -6,6 +6,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./app";
 import Register from "./components/register/index.js";
 import Login from "./components/login";
+import EditTask from "./components/tasks/editTask";
+import CreateTask from "./components/tasks/createTask";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -23,6 +25,8 @@ const router = createBrowserRouter([
     path: "login",
     element: <Login />,
   },
+  { path: "edit/:id", element: <EditTask /> },
+  { path: "create-task", element: <CreateTask /> },
 ]);
 
 root.render(

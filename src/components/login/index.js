@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useLoginMutation } from "../../app/api/authSlice";
 import { setCredentials } from "../../features/userSlice";
 import { useState } from "react";
@@ -9,7 +9,12 @@ const Login = () => {
   const dispatch = useDispatch();
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const user = useSelector((state) => state.user);
   const navigate = useNavigate();
+
+  if (user.username !== null) {
+    navigate("/");
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
