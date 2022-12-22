@@ -57,13 +57,15 @@ const Login = () => {
             className={styles.input}
           />
         </div>
-        <button
-          type="submit"
-          onClick={handleSubmit}
-          className={styles.loginButton}
-        >
-          Login
-        </button>
+        <div className={styles.buttonContainer}>
+          <button
+            type="submit"
+            onClick={handleSubmit}
+            className={styles.loginButton}
+          >
+            Login
+          </button>
+        </div>
       </form>
     </section>
   );

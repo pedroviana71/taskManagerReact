@@ -11,6 +11,7 @@
   flex-grow: 1;
   .title {
     color: color.$button-primary;
+    font-size: 36px;
   }
   .form {
     margin-top: 32px;
@@ -30,11 +31,19 @@
         box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.233);
       }
     }
-    .loginButton {
-      border: 0px;
-      background-color: color.$button-primary;
-      border-radius: 3px;
-      padding: 4px 8px;
+    .buttonContainer {
+      margin-top: 32px;
+      display: flex;
+      justify-content: flex-end;
+      padding-right: 8px;
+      width: 100%;
+      .loginButton {
+        border: 0px;
+        background-color: color.$button-primary;
+        border-radius: 3px;
+        padding: 4px 8px;
+        font-size: 16px;
+      }
     }
   }
 }
