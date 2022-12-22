@@ -5,20 +5,20 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const [login] = useLoginMutation();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
+
+  const [login] = useLoginMutation();
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const user = useSelector((state) => state.user);
-  const navigate = useNavigate();
 
   if (user.username !== null) {
-    navigate("/");
+    navigate("/teste");
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const data = await login({
         email,

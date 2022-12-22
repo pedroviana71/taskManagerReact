@@ -13,11 +13,12 @@ import { selectCurrentUser } from "../../features/userSlice";
 import { useNavigate } from "react-router-dom";
 
 const Tasks = () => {
+  const navigate = useNavigate();
+  const user = useSelector(selectCurrentUser);
   const [deleteTask] = useDeleteTaskMutation();
   const [editTask] = useEditTaskMutation();
+
   const [tasks, setTasks] = useState([]);
-  const user = useSelector(selectCurrentUser);
-  const navigate = useNavigate();
 
   const { data } = useGetAllTasksQuery();
 

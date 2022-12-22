@@ -63,7 +63,7 @@ const EditTask = () => {
         }}
       />
       <Button onClick={handleSubmit}>Editar</Button>
-      <Button onClick={() => navigate("/")}>Voltar</Button>
+      <Button onClick={() => navigate("/tasks")}>Voltar</Button>
     </div>
   );
 };

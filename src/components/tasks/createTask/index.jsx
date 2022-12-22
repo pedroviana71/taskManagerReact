@@ -12,13 +12,13 @@ const CreateTask = ({ setShowCreateTaskModal }) => {
   const [category, setCategory] = useState("");
   const [createTask] = useCreateTaskMutation();
   const navigate = useNavigate();
-  const userId = useSelector((state) => state.auth.id);
+  const userId = useSelector((state) => state.user.id);
 
   const handleSubmit = () => {
     console.log(userId, "userId no createTaskModal");
     const task = { title, comments, category, userId };
     createTask(task);
-    setShowCreateTaskModal(false);
+    navigate("/");
   };
 
   const handleKeyDown = (e) => {
