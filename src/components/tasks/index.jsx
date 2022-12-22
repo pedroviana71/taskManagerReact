@@ -9,22 +9,26 @@ import {
   useGetAllTasksQuery,
 } from "../../app/api/tasksSlice";
 import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const Tasks = () => {
   const [deleteTask] = useDeleteTaskMutation();
   const [editTask] = useEditTaskMutation();
   const [showEditTaskModal, setShowEditTaskModal] = useState(false);
   const [taskToEdit, setTaskToEdit] = useState({});
-  const userId = useSelector((state) => state.auth.id);
-  const data = useGetAllTasksQuery(userId);
+  const [tasks, setTasks] = useState([]);
 
-  console.log(data);
+  const { data } = useGetAllTasksQuery();
 
   const handleEditModal = (task) => {
     setShowEditTaskModal(!showEditTaskModal);
     setTaskToEdit(task);
     setTaskToEdit(task);
   };
+
+  useEffect(() => {
+    setTasks(data);
+  }, [data]);
 
   return (
     <>
@@ -35,7 +39,7 @@ const Tasks = () => {
         />
       )}
       <div className={styles.tasksContainer}>
-        {/* {tasks?.map((task) => {
+        {tasks?.map((task) => {
           const { _id, category, comments } = task;
 
           const handleComplete = (id) => {
@@ -68,7 +72,7 @@ const Tasks = () => {
               </Button>
             </div>
           );
-        })} */}
+        })}
       </div>
     </>
   );

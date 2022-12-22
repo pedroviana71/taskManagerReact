@@ -7,8 +7,13 @@ export const tasksSlice = createApi({
     // credentials: "include",
     prepareHeaders: (headers, { getState }) => {
       const token = getState().auth.token;
+      const userId = getState().auth.id;
+
       if (token) {
         headers.set("authorization", `Bearer ${token}`);
+      }
+      if (userId) {
+        headers.set("id", userId);
       }
       return headers;
     },
@@ -16,8 +21,8 @@ export const tasksSlice = createApi({
   tagTypes: ["Tasks"],
   endpoints: (builder) => ({
     getAllTasks: builder.query({
-      query: (userId) => ({
-        url: `tasks/${userId}`,
+      query: () => ({
+        url: "tasks",
         method: "GET",
       }),
       providesTags: ["Tasks"],
