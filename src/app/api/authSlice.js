@@ -1,12 +1,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-export const userSlice = createApi({
-  reducerPath: "user",
+export const authSlice = createApi({
+  reducerPath: "auth",
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:3005/api/",
     // credentials: "include",
     prepareHeaders: (headers, { getState }) => {
-      const token = getState().auth.token;
+      const token = getState().user.token;
       if (token) {
         headers.set("authorization", `Bearer ${token}`);
       }
@@ -31,4 +31,4 @@ export const userSlice = createApi({
   }),
 });
 
-export const { useLoginMutation, useRegisterMutation } = userSlice;
+export const { useLoginMutation, useRegisterMutation } = authSlice;

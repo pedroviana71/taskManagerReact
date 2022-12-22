@@ -10,6 +10,8 @@ import {
 } from "../../app/api/tasksSlice";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
+import { selectCurrentUser } from "../../features/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const Tasks = () => {
   const [deleteTask] = useDeleteTaskMutation();
@@ -17,6 +19,8 @@ const Tasks = () => {
   const [showEditTaskModal, setShowEditTaskModal] = useState(false);
   const [taskToEdit, setTaskToEdit] = useState({});
   const [tasks, setTasks] = useState([]);
+  const user = useSelector(selectCurrentUser);
+  const navigate = useNavigate();
 
   const { data } = useGetAllTasksQuery();
 
@@ -27,8 +31,11 @@ const Tasks = () => {
   };
 
   useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
     setTasks(data);
-  }, [data]);
+  }, [data, user, navigate]);
 
   return (
     <>

@@ -1,4 +1,4 @@
-import { useRegisterMutation } from "../../app/api/userSlice";
+import { useRegisterMutation } from "../../app/api/authSlice";
 
 const Register = () => {
   const [register] = useRegisterMutation();

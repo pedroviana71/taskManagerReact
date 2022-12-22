@@ -1,15 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { tasksSlice } from "./api/tasksSlice";
-import authSlice from "../features/authSlice";
-import { userSlice } from "./api/userSlice";
+import userSlice from "../features/userSlice";
+import { authSlice } from "./api/authSlice";
 
 export const store = configureStore({
   reducer: {
     [tasksSlice.reducerPath]: tasksSlice.reducer,
-    [userSlice.reducerPath]: userSlice.reducer,
-    auth: authSlice,
+    [authSlice.reducerPath]: authSlice.reducer,
+    user: userSlice,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(tasksSlice.middleware, userSlice.middleware),
+    getDefaultMiddleware().concat(tasksSlice.middleware, authSlice.middleware),
   devTools: true, //! mudar para false quando for para producao (preferencialmente usar env)
 });

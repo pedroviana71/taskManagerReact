@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
-import { useLoginMutation } from "../../app/api/userSlice";
-import { setCredentials } from "../../features/authSlice";
+import { useLoginMutation } from "../../app/api/authSlice";
+import { setCredentials } from "../../features/userSlice";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 

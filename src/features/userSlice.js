@@ -5,8 +5,8 @@ const initialState = {
   token: null,
 };
 
-const authSlice = createSlice({
-  name: "auth",
+const userSlice = createSlice({
+  name: "user",
   initialState,
   reducers: {
     setCredentials: (state, action) => {
@@ -24,9 +24,9 @@ const authSlice = createSlice({
   extraReducers: {},
 });
 
-export const { setCredentials, logOut } = authSlice.actions;
+export const { setCredentials, logOut } = userSlice.actions;
 
-export default authSlice.reducer;
+export default userSlice.reducer;
 
-export const selectCurrentUser = (state) => state.auth.username;
-export const selectCurrentToken = (state) => state.auth.token;
+export const selectCurrentUser = (state) => state.user.username;
+export const selectCurrentToken = (state) => state.user.token;
