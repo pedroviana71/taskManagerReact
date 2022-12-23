@@ -1,0 +1,56 @@
+@use "../../utils//styles/colors" as color;
+
+.registerSection {
+  display: flex;
+  flex-direction: column;
+  background-color: color.$background-primary;
+  padding-top: 160px;
+  padding-left: 16px;
+  color: color.$text-secondary;
+  height: 100%;
+  flex-grow: 1;
+  .title {
+    color: color.$button-primary;
+    font-size: 36px;
+  }
+  .form {
+    margin-top: 32px;
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-bottom: 16px;
+      padding-right: 8px;
+      .label {
+        margin-right: 8px;
+      }
+      .input {
+        width: 100%;
+        border: 1px solid color.$button-primary;
+        border-radius: 3px;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.233);
+      }
+    }
+    .buttonContainer {
+      margin-top: 32px;
+      display: flex;
+      justify-content: flex-end;
+      padding-right: 8px;
+      width: 100%;
+      .registerButton {
+        border: 0px;
+        background-color: color.$button-primary;
+        border-radius: 3px;
+        padding: 4px 8px;
+        font-size: 16px;
+      }
+    }
+  }
+  .linkContainer {
+    margin-top: 16px;
+    .link {
+      color: color.$button-primary;
+      font-size: 16px;
+    }
+  }
+}
