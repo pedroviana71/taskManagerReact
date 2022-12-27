@@ -31,42 +31,48 @@ const Tasks = () => {
 
   return (
     <>
-      <div className={styles.tasksContainer}>
-        {tasks?.map((task) => {
-          const { _id, category, comments } = task;
+      {tasks?.map((task) => {
+        const { _id, category, comments } = task;
 
-          const handleComplete = (id) => {
-            editTask({ id, completed: !task.completed });
-          };
+        const handleComplete = (id) => {
+          editTask({ id, completed: !task.completed });
+        };
 
-          return (
-            <div key={_id} className={styles.container}>
-              <div className={styles.title}>{task.title}</div>
-              <div className={styles.comments}>{category}</div>
-              <div className={styles.comments}>{comments}</div>
-              {task.completed ? (
-                <div className={styles.comments}>Completo!</div>
-              ) : null}
-              <input
-                type="checkBox"
-                defaultChecked={task.completed}
-                value={task.completed}
-                onChange={() => handleComplete(task._id)}
-              />
-              <Button
-                onClick={() => {
-                  deleteTask(_id);
-                }}
-              >
-                Deletar
-              </Button>
-              <Button id={_id} onClick={() => navigate(`/edit/${_id}`)}>
-                Editar
-              </Button>
-            </div>
-          );
-        })}
-      </div>
+        return (
+          <section key={_id} className={styles.container}>
+            <section className={styles.taskContainer}>
+              <div className={styles.timeContainer}>
+                <h4 className={styles.time}>16:45</h4>
+                <h6 className={styles.date}>25/12</h6>
+              </div>
+              <div className={styles.titleContainer}>
+                <h1 className={styles.title}>{task.title}</h1>
+                <p className={styles.category}>{category}</p>
+              </div>
+            </section>
+            <p className={styles.comments}>{comments}</p>
+            {task.completed ? (
+              <div className={styles.comments}>Completo!</div>
+            ) : null}
+            <input
+              type="checkBox"
+              defaultChecked={task.completed}
+              value={task.completed}
+              onChange={() => handleComplete(task._id)}
+            />
+            <Button
+              onClick={() => {
+                deleteTask(_id);
+              }}
+            >
+              Deletar
+            </Button>
+            <Button id={_id} onClick={() => navigate(`/edit/${_id}`)}>
+              Editar
+            </Button>
+          </section>
+        );
+      })}
     </>
   );
 };

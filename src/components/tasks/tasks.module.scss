@@ -1,27 +1,29 @@
-.tasksContainer {
-  display: grid;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  grid-template-columns: 300px 300px 300px;
-  padding: 20px;
-}
+@use "../../utils/styles/colors" as color;
 
 .container {
-  width: 250px;
-  word-break: break-all;
-  /* height: 150px;
-  background-color: #e48d3c; */
-}
-
-.title {
-  width: 80%;
-  height: 50px;
-  background-color: aqua;
-}
-
-.comments {
-  width: 80%;
-  // height: 50px;
-  background-color: yellowgreen;
+  background-color: color.$background-primary;
+  width: 100%;
+  margin-bottom: 16px;
+  .taskContainer {
+    display: flex;
+    width: 100%;
+    .timeContainer {
+      margin-right: 20px;
+      .time {
+        font-size: 16px;
+        font-weight: 600;
+        color: color.$text-terciary;
+      }
+      .date {
+        font-size: 12px;
+        color: color.$text-secondary;
+      }
+    }
+    .titleContainer {
+      background-color: color.$background-terciary;
+      width: 100%;
+      border-radius: 8px;
+      padding: 8px;
+    }
+  }
 }
