@@ -3,7 +3,7 @@
 .container {
   background-color: color.$background-primary;
   width: 100%;
-  margin-bottom: 16px;
+  padding-bottom: 16px;
   .taskContainer {
     display: flex;
     width: 100%;
@@ -20,10 +20,51 @@
       }
     }
     .titleContainer {
+      word-break: break-all;
       background-color: color.$background-terciary;
       width: 100%;
       border-radius: 8px;
       padding: 8px;
+      .titleCompleted {
+        text-decoration: line-through;
+        color: color.$text-secondary;
+      }
+    }
+  }
+  .toggleButton {
+    font-size: 32px;
+    margin-left: 8px;
+    background-color: color.$background-primary;
+    border: none;
+    border-radius: 4px;
+    padding: 0px 4px;
+    cursor: pointer;
+    &:hover {
+      background-color: color.$background-secondary;
+    }
+  }
+  .editButton {
+    font-size: 32px;
+    margin-left: 8px;
+    background-color: color.$background-primary;
+    border: none;
+    border-radius: 4px;
+    padding: 0px 4px;
+    cursor: pointer;
+    &:hover {
+      background-color: color.$background-secondary;
+    }
+  }
+  .deleteButton {
+    font-size: 28px;
+    margin-left: 8px;
+    background-color: color.$background-primary;
+    border: none;
+    border-radius: 8px;
+    padding: 0px 4px;
+    cursor: pointer;
+    &:hover {
+      background-color: color.$background-secondary;
     }
   }
 }

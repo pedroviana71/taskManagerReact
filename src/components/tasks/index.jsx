@@ -11,6 +11,11 @@ import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { selectCurrentUser } from "../../features/userSlice";
 import { useNavigate } from "react-router-dom";
+import { MdEditNote } from "react-icons/md";
+import { MdOutlineDeleteForever } from "react-icons/md";
+import { MdToggleOn } from "react-icons/md";
+import { MdOutlineToggleOff } from "react-icons/md";
+import clsx from "clsx";
 
 const Tasks = () => {
   const navigate = useNavigate();
@@ -46,29 +51,52 @@ const Tasks = () => {
                 <h6 className={styles.date}>25/12</h6>
               </div>
               <div className={styles.titleContainer}>
-                <h1 className={styles.title}>{task.title}</h1>
-                <p className={styles.category}>{category}</p>
+                <h1
+                  className={clsx(
+                    task.completed ? styles.titleCompleted : null
+                  )}
+                >
+                  {task.title}
+                </h1>
+                <p
+                  className={clsx(
+                    task.completed ? styles.titleCompleted : null
+                  )}
+                >
+                  {category}
+                </p>
               </div>
             </section>
-            <p className={styles.comments}>{comments}</p>
             {task.completed ? (
-              <div className={styles.comments}>Completo!</div>
-            ) : null}
-            <input
-              type="checkBox"
-              defaultChecked={task.completed}
-              value={task.completed}
-              onChange={() => handleComplete(task._id)}
-            />
+              <button
+                onClick={() => handleComplete(task._id)}
+                className={styles.toggleButton}
+              >
+                <MdToggleOn />
+              </button>
+            ) : (
+              <button
+                onClick={() => handleComplete(task._id)}
+                className={styles.toggleButton}
+              >
+                <MdOutlineToggleOff />
+              </button>
+            )}
+
+            <Button
+              id={_id}
+              onClick={() => navigate(`/edit/${_id}`)}
+              className={styles.editButton}
+            >
+              <MdEditNote />
+            </Button>
             <Button
               onClick={() => {
                 deleteTask(_id);
               }}
+              className={styles.deleteButton}
             >
-              Deletar
-            </Button>
-            <Button id={_id} onClick={() => navigate(`/edit/${_id}`)}>
-              Editar
+              <MdOutlineDeleteForever />
             </Button>
           </section>
         );
