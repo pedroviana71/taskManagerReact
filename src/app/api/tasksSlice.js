@@ -6,15 +6,17 @@ export const tasksSlice = createApi({
     baseUrl: "http://localhost:3005/api/",
     // credentials: "include",
     prepareHeaders: (headers, { getState }) => {
-      const token = getState().user.token;
-      const userId = getState().user.id;
+      const token = getState().user.token || localStorage.getItem("token");
+      const userId = getState().user.id || localStorage.getItem("id");
 
       if (token) {
         headers.set("authorization", `Bearer ${token}`);
       }
+
       if (userId) {
         headers.set("id", userId);
       }
+
       return headers;
     },
   }),

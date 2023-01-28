@@ -27,12 +27,14 @@ const Tasks = () => {
 
   const { data } = useGetAllTasksQuery();
 
+  const token = localStorage.getItem("token");
+
   useEffect(() => {
-    if (!user) {
+    if (!user && !token) {
       navigate("/login");
     }
     setTasks(data);
-  }, [data, user, navigate]);
+  }, [data, user, token, navigate]);
 
   return (
     <>

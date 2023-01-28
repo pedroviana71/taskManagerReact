@@ -3,11 +3,22 @@
 .container {
   background-color: color.$background-primary;
   text-align: center;
-  .title {
-    padding-left: 20px;
-    color: color.$text-secondary;
-    font-size: 38px;
-    margin-right: 20px;
+  .header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 16px;    
+      .sideBarIcon{
+        color: color.$button-primary;
+        font-size: 24px;
+        margin: 4px 4px;
+    }
+    .title {
+      padding-left: 20px;
+      color: color.$text-secondary;
+      font-size: 38px;
+      margin-right: 20px;
+    }
   }
   .button {
     display: flex;
@@ -33,6 +44,23 @@
 @media (min-width: 600px) {
   .container {
     background-color: color.$background-primary;
+    .header{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-right: 16px;
+      .sideBarIcon{
+        color: color.$button-primary;
+        font-size: 24px;
+        margin: 4px 4px;
+      }
+      .title {
+        padding-left: 20px;
+        color: color.$text-secondary;
+        font-size: 38px;
+        margin-right: 20px;
+      }
+    }
     .title {
       color: color.$text-secondary;
       font-size: 40px;
