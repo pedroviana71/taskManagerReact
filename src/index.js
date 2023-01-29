@@ -9,6 +9,7 @@ import Login from "./components/login";
 import EditTask from "./components/tasks/editTask";
 import CreateTask from "./components/tasks/createTask";
 import Tasks from "./components/tasks";
+import Logout from "./components/logout";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -29,6 +30,7 @@ const router = createBrowserRouter([
       },
       { path: "edit/:id", element: <EditTask /> },
       { path: "create-task", element: <CreateTask /> },
+      { path: 'logout', element: <Logout /> }
     ],
   },
 ]);

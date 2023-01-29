@@ -23,16 +23,16 @@ const Home = () => {
   return (
     <div className={styles.container}>
       <section className={styles.header}>
-        <h1 className={styles.title}>Tarefas</h1>
-        {showMenu ? <SideBar /> : null}
+        {user ? (
+          <Button className={styles.button} onClick={handleClick}>
+            <MdOutlineAddBox className={styles.icon} />
+            <Text className={styles.buttonText}>Add.</Text>
+          </Button>
+        ) : null}
+        <h1 className={styles.title}>suas tarefas</h1>
+        {showMenu ? <SideBar setShowMenu={setShowMenu} /> : null}
         <MdMenu className={styles.sideBarIcon} onClick={handleSideBar} />
       </section>
-      {user ? (
-        <Button className={styles.button} onClick={handleClick}>
-          <MdOutlineAddBox className={styles.icon} />
-          <Text className={styles.buttonText}>Add.</Text>
-        </Button>
-      ) : null}
     </div>
   );
 };

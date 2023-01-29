@@ -1,10 +1,17 @@
+import { useNavigate } from "react-router-dom";
 import styles from "./index.module.scss";
 
-export const SideBar = () => {
+export const SideBar = ({ setShowMenu }) => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    navigate("/logout");
+    setShowMenu(false);
+  };
+
   return (
     <div className={styles.container}>
-      <div>Meu perfil</div>
-      <div>Log Out</div>
+      <button onClick={handleLogout}>Log Out</button>
     </div>
   );
 };

@@ -10,6 +10,7 @@ const App = () => {
         display: "flex",
         flexGrow: 1,
         flexDirection: "column",
+        backgroundColor: "#f8f1ff",
       }}
     >
       <Header className={styles} />
