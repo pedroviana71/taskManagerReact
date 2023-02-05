@@ -30,14 +30,9 @@ const EditTask = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.titleContainer}>
-        <Text className={styles.title}>Editar Tarefa</Text>
-        <button onClick={() => {}} className={styles.closeButton}>
-          <MdClose />
-        </button>
-      </div>
       <Text>Titulo</Text>
-      <input
+      <textarea
+        className={styles.input}
         type="text"
         value={newTitle}
         onChange={(e) => {
@@ -46,7 +41,7 @@ const EditTask = () => {
         autoFocus
       />
       <Text>Categoria</Text>
-      <input
+      <textarea
         className={styles.input}
         type="text"
         value={newCategory}
@@ -55,15 +50,20 @@ const EditTask = () => {
         }}
       />
       <Text>Comentarios</Text>
-      <input
+      <textarea
+        className={styles.input}
         type="text"
         value={newComments}
         onChange={(e) => {
           setNewComments(e.target.value);
         }}
       />
-      <Button onClick={handleSubmit}>Editar</Button>
-      <Button onClick={() => navigate("/tasks")}>Voltar</Button>
+      <button onClick={handleSubmit} className={styles.button}>
+        Editar
+      </button>
+      <button onClick={() => navigate("/tasks")} className={styles.button}>
+        Voltar
+      </button>
     </div>
   );
 };
