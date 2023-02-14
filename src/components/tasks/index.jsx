@@ -1,17 +1,17 @@
 import styles from "./tasks.module.scss";
 import Button from "../buttons";
 import { memo, useState } from "react";
+import dayjs from "dayjs";
 
 import {
   useDeleteTaskMutation,
   useEditTaskMutation,
   useGetAllTasksQuery,
 } from "../../app/api/tasksSlice";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { selectCurrentUser } from "../../features/userSlice";
 import { useNavigate } from "react-router-dom";
-import { MdEditNote } from "react-icons/md";
 import { MdOutlineDeleteForever } from "react-icons/md";
 import { MdToggleOn } from "react-icons/md";
 import { MdOutlineToggleOff } from "react-icons/md";
@@ -27,6 +27,8 @@ const Tasks = () => {
 
   const { data } = useGetAllTasksQuery();
 
+  const dispatch = useDispatch();
+
   const token = localStorage.getItem("token");
 
   useEffect(() => {
@@ -34,12 +36,12 @@ const Tasks = () => {
       navigate("/login");
     }
     setTasks(data);
-  }, [data, user, token, navigate]);
+  }, [data, user, token, navigate, dispatch]);
 
   return (
     <>
       {tasks?.map((task) => {
-        const { _id, category, comments } = task;
+        const { _id, category, deadline } = task;
 
         const handleComplete = (id) => {
           editTask({ id, completed: !task.completed });
@@ -47,10 +49,18 @@ const Tasks = () => {
 
         return (
           <section key={_id} className={styles.container}>
-            <section className={styles.taskContainer}>
+            <button
+              className={styles.taskContainer}
+              onClick={() => navigate(`/edit/${_id}`)}
+            >
               <div className={styles.timeContainer}>
-                <h4 className={styles.time}>16:45</h4>
-                <h6 className={styles.date}>25/12</h6>
+                {deadline ? (
+                  <h4 className={styles.time}>
+                    {dayjs(deadline).format("DD/MM")}
+                  </h4>
+                ) : (
+                  <h3>-</h3>
+                )}
               </div>
               <div className={styles.titleContainer}>
                 <h1
@@ -68,30 +78,15 @@ const Tasks = () => {
                   {category}
                 </p>
               </div>
-            </section>
-            {task.completed ? (
-              <button
-                onClick={() => handleComplete(task._id)}
-                className={styles.toggleButton}
-              >
-                <MdToggleOn />
-              </button>
-            ) : (
-              <button
-                onClick={() => handleComplete(task._id)}
-                className={styles.toggleButton}
-              >
-                <MdOutlineToggleOff />
-              </button>
-            )}
+            </button>
 
-            <Button
-              id={_id}
-              onClick={() => navigate(`/edit/${_id}`)}
-              className={styles.editButton}
+            <button
+              onClick={() => handleComplete(task._id)}
+              className={styles.toggleButton}
             >
-              <MdEditNote />
-            </Button>
+              {task.completed ? <MdToggleOn /> : <MdOutlineToggleOff />}
+            </button>
+
             <Button
               onClick={() => {
                 deleteTask(_id);

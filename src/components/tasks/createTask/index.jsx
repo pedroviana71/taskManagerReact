@@ -5,11 +5,13 @@ import styles from "./index.module.scss";
 import { useCreateTaskMutation } from "../../../app/api/tasksSlice";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import DateTimePicker from "react-datetime-picker";
 
 const CreateTask = ({ setShowCreateTaskModal }) => {
   const [title, setTitle] = useState("");
   const [comments, setComments] = useState("");
   const [category, setCategory] = useState("");
+  const [deadline, setDeadline] = useState(new Date());
 
   const [createTask] = useCreateTaskMutation();
   const navigate = useNavigate();
@@ -18,7 +20,7 @@ const CreateTask = ({ setShowCreateTaskModal }) => {
     useSelector((state) => state.user.id) || localStorage.getItem("id");
 
   const handleSubmit = () => {
-    const task = { title, comments, category, userId };
+    const task = { title, comments, category, userId, deadline };
     createTask(task);
     navigate("/");
   };
@@ -61,6 +63,9 @@ const CreateTask = ({ setShowCreateTaskModal }) => {
           setComments(e.target.value);
         }}
       />
+      <DateTimePicker onChange={setDeadline} value={deadline} />
+
+      <p>{JSON.stringify(deadline)}</p>
 
       <Button onClick={handleSubmit} className={styles.button}>
         Adicionar
