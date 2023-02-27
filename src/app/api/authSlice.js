@@ -5,13 +5,13 @@ export const authSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:3005/api/",
     // credentials: "include",
-    prepareHeaders: (headers, { getState }) => {
-      const token = getState().user.token;
-      if (token) {
-        headers.set("authorization", `Bearer ${token}`);
-      }
-      return headers;
-    },
+    // prepareHeaders: (headers, { getState }) => {
+    //   const token = getState().user.token;
+    //   if (token) {
+    //     headers.set("authorization", `Bearer ${token}`);
+    //   }
+    //   return headers;
+    // }, //! acredito ser desnecessário esse prepareHeaders
   }),
   endpoints: (builder) => ({
     login: builder.mutation({

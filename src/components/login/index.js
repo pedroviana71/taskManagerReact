@@ -26,7 +26,6 @@ const Login = () => {
       dispatch(setCredentials(data, data.username));
       localStorage.setItem("token", data.token); //! mudar para refreshed token assim que possivel 
       localStorage.setItem("id", data.id);
-      // console.log(data, 'data');
     } catch (error) {
       console.log(error);
     }

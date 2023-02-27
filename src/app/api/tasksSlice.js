@@ -59,6 +59,13 @@ export const tasksSlice = createApi({
       }),
       invalidatesTags: ["Tasks"],
     }),
+    getUser: builder.query({
+      query: () => ({
+          url: "auth/user",
+          method: "GET",
+      }),
+      providesTags: ["User"],
+  }),
   }),
 });
 
@@ -67,5 +74,6 @@ export const {
   useDeleteTaskMutation,
   useCreateTaskMutation,
   useEditTaskMutation,
-  useGetTaskQuery
+  useGetTaskQuery,
+  useGetUserQuery,
 } = tasksSlice;
