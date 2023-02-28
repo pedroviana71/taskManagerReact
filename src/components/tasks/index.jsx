@@ -7,6 +7,7 @@ import {
   useDeleteTaskMutation,
   useEditTaskMutation,
   useGetAllTasksQuery,
+  useGetUserQuery,
 } from "../../app/api/tasksSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -22,6 +23,7 @@ const Tasks = () => {
   const user = useSelector(selectCurrentUser);
   const [deleteTask] = useDeleteTaskMutation();
   const [editTask] = useEditTaskMutation();
+  useGetUserQuery();
 
   const [tasks, setTasks] = useState([]);
 
@@ -41,7 +43,7 @@ const Tasks = () => {
   return (
     <>
       {tasks?.map((task) => {
-        const { _id, category, deadline } = task;
+        const { _id, category, deadline, title } = task;
 
         const handleComplete = (id) => {
           editTask({ id, completed: !task.completed });
@@ -49,11 +51,8 @@ const Tasks = () => {
 
         return (
           <section key={_id} className={styles.container}>
-            <button
-              className={styles.taskContainer}
-              onClick={() => navigate(`/edit/${_id}`)}
-            >
-              <div className={styles.timeContainer}>
+            <div className={styles.taskContainer}>
+              <div className={styles.buttonsContainer}>
                 {deadline ? (
                   <h4 className={styles.time}>
                     {dayjs(deadline).format("DD/MM")}
@@ -61,14 +60,33 @@ const Tasks = () => {
                 ) : (
                   <h3>-</h3>
                 )}
+                <div className={styles.eventsContainer}>
+                  <button
+                    onClick={() => {
+                      deleteTask(_id);
+                    }}
+                    className={styles.deleteButton}
+                  >
+                    <MdOutlineDeleteForever />
+                  </button>
+                  <button
+                    onClick={() => handleComplete(task._id)}
+                    className={styles.toggleButton}
+                  >
+                    {task.completed ? <MdToggleOn /> : <MdOutlineToggleOff />}
+                  </button>
+                </div>
               </div>
-              <div className={styles.titleContainer}>
+              <button
+                className={styles.titleContainer}
+                onClick={() => navigate(`/edit/${_id}`)}
+              >
                 <h1
                   className={clsx(
                     task.completed ? styles.titleCompleted : null
                   )}
                 >
-                  {task.title}
+                  {title}
                 </h1>
                 <p
                   className={clsx(
@@ -77,24 +95,8 @@ const Tasks = () => {
                 >
                   {category}
                 </p>
-              </div>
-            </button>
-
-            <button
-              onClick={() => handleComplete(task._id)}
-              className={styles.toggleButton}
-            >
-              {task.completed ? <MdToggleOn /> : <MdOutlineToggleOff />}
-            </button>
-
-            <Button
-              onClick={() => {
-                deleteTask(_id);
-              }}
-              className={styles.deleteButton}
-            >
-              <MdOutlineDeleteForever />
-            </Button>
+              </button>
+            </div>
           </section>
         );
       })}

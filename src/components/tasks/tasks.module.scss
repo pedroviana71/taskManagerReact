@@ -9,8 +9,10 @@
     width: 100%;
     border: 0;
     background-color: color.$background-primary;
-    .timeContainer {
+    .buttonsContainer {
       margin-right: 20px;
+      display: flex;
+      flex-direction: column;
       .time {
         font-size: 16px;
         font-weight: 600;
@@ -19,6 +21,31 @@
       .date {
         font-size: 12px;
         color: color.$text-secondary;
+      }
+      .eventsContainer {
+        display: flex;
+        .toggleButton {
+          font-size: 24px;
+          background-color: color.$background-primary;
+          border: none;
+          border-radius: 4px;
+          padding: 0px 4px;
+          cursor: pointer;
+          &:hover {
+            background-color: color.$background-secondary;
+          }
+        }
+        .deleteButton {
+          font-size: 24px;
+          background-color: color.$background-primary;
+          border: none;
+          border-radius: 8px;
+          padding: 0px 4px;
+          cursor: pointer;
+          &:hover {
+            background-color: color.$background-secondary;
+          }
+        }
       }
     }
     .titleContainer {
@@ -31,42 +58,6 @@
         text-decoration: line-through;
         color: color.$text-secondary;
       }
-    }
-  }
-  .toggleButton {
-    font-size: 32px;
-    margin-left: 8px;
-    background-color: color.$background-primary;
-    border: none;
-    border-radius: 4px;
-    padding: 0px 4px;
-    cursor: pointer;
-    &:hover {
-      background-color: color.$background-secondary;
-    }
-  }
-  .editButton {
-    font-size: 32px;
-    margin-left: 8px;
-    background-color: color.$background-primary;
-    border: none;
-    border-radius: 4px;
-    padding: 0px 4px;
-    cursor: pointer;
-    &:hover {
-      background-color: color.$background-secondary;
-    }
-  }
-  .deleteButton {
-    font-size: 28px;
-    margin-left: 8px;
-    background-color: color.$background-primary;
-    border: none;
-    border-radius: 8px;
-    padding: 0px 4px;
-    cursor: pointer;
-    &:hover {
-      background-color: color.$background-secondary;
     }
   }
 }
