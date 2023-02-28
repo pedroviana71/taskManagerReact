@@ -46,48 +46,52 @@ const EditTask = () => {
   }, [data]);
 
   return (
-    <div>
+    <div className={styles.outerContainer}>
       {data ? (
-        <div>
-          <p>Criado em {createdAtDate} às {createdAtTime}</p>
-          <div className={styles.container}>
-            {isEditingTitle ? (
-              <textarea
+        <div className={styles.container}>
+          <p>
+            Criado em {createdAtDate} às {createdAtTime}
+          </p>
+          {isEditingTitle ? (
+            <textarea
               className={styles.input}
               type="text"
               value={newTitle}
               onChange={(e) => {
                 setNewTitle(e.target.value);
-                }}
-                autoFocus
-                />
-                ) : (
-              <h2 onClick={()=> setIsEditingTitle(true)}>{newTitle}</h2>
-            )}
+              }}
+              autoFocus
+            />
+          ) : (
+            <h2 onClick={() => setIsEditingTitle(true)}>{newTitle}</h2>
+          )}
 
-            {isEditingCategory ? (
-              <textarea
-                className={styles.input}
-                type="text"
-                value={newCategory}
-                onChange={(e) => {
-                  setNewCategory(e.target.value);
-                }}
-              /> ) : (
-              <h4 onClick={()=> setIsEditingCategory(true)}>{newCategory}</h4>
-            )}
+          {isEditingCategory ? (
+            <textarea
+              className={styles.input}
+              type="text"
+              value={newCategory}
+              onChange={(e) => {
+                setNewCategory(e.target.value);
+              }}
+            />
+          ) : (
+            <h4 onClick={() => setIsEditingCategory(true)}>{newCategory}</h4>
+          )}
 
-            {isEditingComments ? (
-              <textarea
-                className={styles.input}
-                type="text"
-                value={newComments}
-                onChange={(e) => {
-                  setNewComments(e.target.value);
-                }}
-              /> ) : (
-              <h5 onClick={()=> setIsEditingComments(true)}>{newComments}</h5>
-            )}
+          {isEditingComments ? (
+            <textarea
+              className={styles.input}
+              type="text"
+              value={newComments}
+              onChange={(e) => {
+                setNewComments(e.target.value);
+              }}
+            />
+          ) : (
+            <h5 onClick={() => setIsEditingComments(true)}>{newComments}</h5>
+          )}
+          <div className={styles.buttonsContainer}>
             <button onClick={handleSubmit} className={styles.button}>
               Editar
             </button>

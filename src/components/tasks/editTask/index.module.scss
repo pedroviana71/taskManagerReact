@@ -1,30 +1,39 @@
 @use "../../../utils/styles/colors" as color;
 @use "../../../utils/styles/shadows" as shadow;
-
-.container {
-  display: flex;
-  flex-direction: column;
-  margin: 10px;
-  .input {
-    border: none;
-    border-bottom: 1px solid color.$border-primary;
-    margin-bottom: 24px;
-    padding: 4px 0px;
-    resize: none;
-    height: 32px;
-  }
-  :focus {
-    outline: none;
-  }
-}
-.button {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 16px;
-  padding: 4px 8px;
-  border: 0;
-  background-color: color.$button-primary;
-  color: color.$text-primary;
-  font-size: 16px;
-  border-radius: 8px;
+.outerContainer{
+  height: 100%;  
+    .container {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      .input {
+        border: none;
+        border-bottom: 1px solid color.$border-primary;
+        margin-bottom: 24px;
+        padding: 4px 0px;
+        resize: none;
+        height: 32px;
+      }
+      :focus {
+        outline: none;
+      }
+    }
+    .buttonsContainer{
+      height: 100%;
+      display: flex;
+      justify-content: flex-end;
+      flex-direction: column;
+      width: 100%;
+      .button {
+        display: flex;
+        justify-content: center;
+        padding: 4px 8px;
+        border: 0;
+        background-color: color.$button-primary;
+        color: color.$text-primary;
+        font-size: 16px;
+        border-radius: 8px;
+        margin: 8px 8px;
+      }
+    }
 }
