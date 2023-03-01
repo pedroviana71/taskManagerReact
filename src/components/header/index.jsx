@@ -6,6 +6,7 @@ import { MdOutlineAddBox, MdMenu } from "react-icons/md";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { SideBar } from "../sideBar";
+import OutsideClickHandler from "react-outside-click-handler/build/OutsideClickHandler";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -38,9 +39,13 @@ const Home = () => {
         <h1 className={styles.title}>
           {titles[location.pathname] || "editar tarefa"}
         </h1>
-        {showMenu ? <SideBar setShowMenu={setShowMenu} /> : null}
         <MdMenu className={styles.sideBarIcon} onClick={handleSideBar} />
       </section>
+      {showMenu ? (
+        <OutsideClickHandler onOutsideClick={handleSideBar}>
+          <SideBar setShowMenu={setShowMenu} />
+        </OutsideClickHandler>
+      ) : null}
     </div>
   );
 };

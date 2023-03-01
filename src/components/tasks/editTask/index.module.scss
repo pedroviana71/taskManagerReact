@@ -17,6 +17,15 @@
       :focus {
         outline: none;
       }
+      .title {
+        cursor: pointer;
+      }
+      .category {
+        cursor: pointer;
+      }
+      .comments{
+         cursor: pointer;
+      }
     }
     .buttonsContainer{
       height: 100%;
@@ -34,6 +43,13 @@
         font-size: 16px;
         border-radius: 8px;
         margin: 8px 8px;
+        cursor: pointer;
       }
     }
+}
+
+@media screen and (min-width: 900px) {
+  .container{
+    padding: 0px 256px;
+  }
 }

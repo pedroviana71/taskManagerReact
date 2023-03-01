@@ -2,12 +2,10 @@ import { useNavigate } from "react-router-dom";
 import styles from "./index.module.scss";
 import { useGetUserQuery } from "../../app/api/tasksSlice";
 
+
 export const SideBar = ({ setShowMenu }) => {
   const navigate = useNavigate();
-
-  const {data} = useGetUserQuery();
-
-  console.log(data);
+  const { data } = useGetUserQuery();
 
   const handleLogout = () => {
     navigate("/logout");

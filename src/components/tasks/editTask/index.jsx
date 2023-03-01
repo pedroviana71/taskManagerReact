@@ -63,7 +63,12 @@ const EditTask = () => {
               autoFocus
             />
           ) : (
-            <h2 onClick={() => setIsEditingTitle(true)}>{newTitle}</h2>
+            <h2
+              onClick={() => setIsEditingTitle(true)}
+              className={styles.title}
+            >
+              {newTitle}
+            </h2>
           )}
 
           {isEditingCategory ? (
@@ -76,7 +81,12 @@ const EditTask = () => {
               }}
             />
           ) : (
-            <h4 onClick={() => setIsEditingCategory(true)}>{newCategory}</h4>
+            <h4
+              onClick={() => setIsEditingCategory(true)}
+              className={styles.category}
+            >
+              {newCategory}
+            </h4>
           )}
 
           {isEditingComments ? (
@@ -89,7 +99,12 @@ const EditTask = () => {
               }}
             />
           ) : (
-            <h5 onClick={() => setIsEditingComments(true)}>{newComments}</h5>
+            <h5
+              onClick={() => setIsEditingComments(true)}
+              className={styles.comments}
+            >
+              {newComments}
+            </h5>
           )}
           <div className={styles.buttonsContainer}>
             <button onClick={handleSubmit} className={styles.button}>

@@ -6,6 +6,15 @@
     border-radius: 8px 0px 0px 8px;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.233);
     right: 0;
-    top: 48px;
+    top: 0px;
     padding: 16px 32px;
-}   
+}
+
+@media screen and (min-width: 900px) {
+    .container {
+        top: 15px;
+        right: 256px;
+        border-radius: 8px 0px 8px 8px;
+    }
+  }
+  

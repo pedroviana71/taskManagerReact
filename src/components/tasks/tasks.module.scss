@@ -11,11 +11,29 @@
     border: 0;
     background-color: color.$background-primary;
     padding-left: 10px;
+    .titleContainer {
+      word-break: break-all;
+      background-color: color.$background-terciary;
+      width: 100%;
+      border-radius: 8px 0px 0px 8px;
+      border: 0;
+      box-shadow: shadow.$primary;
+      padding: 8px;
+      &:hover{
+        background-color: color.$background-secondary;
+        cursor: pointer;
+      }
+      .titleCompleted {
+        text-decoration: line-through;
+        color: color.$text-secondary;
+      }
+    }
     .buttonsContainer {
       margin-right: 20px;
       display: flex;
       flex-direction: column;
       .time {
+        text-align: center;
         font-size: 16px;
         font-weight: 600;
         color: color.$text-terciary;
@@ -34,7 +52,7 @@
           padding: 0px 4px;
           cursor: pointer;
           &:hover {
-            background-color: color.$background-secondary;
+            color: color.$toggle;
           }
         }
         .deleteButton {
@@ -43,23 +61,21 @@
           border: none;
           cursor: pointer;
           &:hover {
-            background-color: color.$background-secondary;
+            color: color.$delete;
           }
         }
       }
     }
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .container {
+    background-color: color.$background-primary;
+    width: 100%;
+    padding: 0px 256px 16px 256px;
     .titleContainer {
-      word-break: break-all;
-      background-color: color.$background-terciary;
-      width: 100%;
-      border-radius: 8px 0px 0px 8px;
-      border: 0;
-      box-shadow: shadow.$primary;
-      padding: 8px;
-      .titleCompleted {
-        text-decoration: line-through;
-        color: color.$text-secondary;
-      }
+      border-radius: 16px;
     }
   }
 }
