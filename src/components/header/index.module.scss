@@ -7,7 +7,7 @@
   .header{
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-evenly;
     padding-right: 16px;    
       .sideBarIcon{
         color: color.$button-primary;
@@ -45,7 +45,7 @@
 
 @media screen and (min-width: 900px) {
   .container{
-    margin: 0px 256px 32px 256px;
+    // margin: 0px 256px 32px 256px;
   }
 }
 
