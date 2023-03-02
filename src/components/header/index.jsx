@@ -1,8 +1,7 @@
 import { useSelector } from "react-redux";
 import Button from "../buttons";
-import Text from "../text/index";
 import styles from "./index.module.scss";
-import { MdOutlineAddBox, MdMenu } from "react-icons/md";
+import { MdOutlineAddBox, MdMenu, MdFormatColorFill } from "react-icons/md";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { SideBar } from "../sideBar";
@@ -27,9 +26,14 @@ const Home = () => {
       <section className={styles.header}>
         <MdMenu className={styles.sideBarIcon} onClick={handleSideBar} />
         {user && location.pathname !== "/create-task" ? (
-          <Button className={styles.button} onClick={handleClick}>
-            <MdOutlineAddBox className={styles.icon} />
-          </Button>
+          <div className={styles.icons}>
+            <Button className={styles.button} onClick={handleClick}>
+              <MdOutlineAddBox className={styles.icon} />
+            </Button>
+            <Button className={styles.button} onClick={() => {}}>
+              <MdFormatColorFill />
+            </Button>
+          </div>
         ) : null}
       </section>
       {showMenu ? (

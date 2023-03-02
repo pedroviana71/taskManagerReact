@@ -51,6 +51,7 @@ const Tasks = () => {
     }
     setTasks(data);
     setFiltered(data);
+    console.log(data);
   }, [data, user, token, navigate, dispatch]);
 
   return (
@@ -114,8 +115,11 @@ const Tasks = () => {
                     task.completed ? styles.titleCompleted : null
                   )}
                 >
-                  {category}
+                  {category.category}
                 </p>
+                <div style={{ backgroundColor: task.category.color }}>
+                  teste
+                </div>
               </button>
             </div>
           </section>

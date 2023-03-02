@@ -6,11 +6,13 @@ import { useCreateTaskMutation } from "../../../app/api/tasksSlice";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import DateTimePicker from "react-datetime-picker";
+import { SliderPicker } from "react-color";
 
 const CreateTask = ({ setShowCreateTaskModal }) => {
   const [title, setTitle] = useState("");
   const [comments, setComments] = useState("");
   const [category, setCategory] = useState("");
+  const [color, setColor] = useState("");
   const [deadline, setDeadline] = useState(new Date());
 
   const [createTask] = useCreateTaskMutation();
@@ -20,16 +22,19 @@ const CreateTask = ({ setShowCreateTaskModal }) => {
     useSelector((state) => state.user.id) || localStorage.getItem("id");
 
   const handleSubmit = () => {
-    const task = { title, comments, category, userId, deadline };
+    const task = {
+      title,
+      comments,
+      category: { category, color },
+      userId,
+      deadline,
+    };
     createTask(task);
     navigate("/");
   };
 
-  const handleKeyDown = (e) => {
-    if (e.key === "Escape") {
-      setShowCreateTaskModal(false);
-      console.log("entrei");
-    }
+  const handleColor = (color) => {
+    setColor(color.hex);
   };
 
   const handleGoBack = () => {
@@ -37,7 +42,7 @@ const CreateTask = ({ setShowCreateTaskModal }) => {
   };
 
   return (
-    <div className={styles.container} onKeyDown={handleKeyDown}>
+    <div className={styles.container}>
       <h3>Título</h3>
       <textarea
         className={styles.input}
@@ -55,6 +60,7 @@ const CreateTask = ({ setShowCreateTaskModal }) => {
           setCategory(e.target.value);
         }}
       />
+      <SliderPicker color={color} onChangeComplete={handleColor} />
       <Text>Comentários</Text>
       <textarea
         className={styles.input}

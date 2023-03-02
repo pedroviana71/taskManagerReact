@@ -9,6 +9,10 @@
     align-items: center;
     justify-content: space-between;
     padding: 0px 16px;
+    .icons{
+      display: flex;
+      flex-direction: column;
+    }
     .sideBarIcon {
       color: color.$button-primary;
       font-size: 24px;
@@ -29,6 +33,7 @@
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.233);
     background-color: color.$button-primary;
     border-radius: 3px;
+    margin-bottom: 8px;
   }
   .icon {
     color: color.$text-primary;

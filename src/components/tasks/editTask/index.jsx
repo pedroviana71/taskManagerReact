@@ -41,7 +41,7 @@ const EditTask = () => {
 
   useEffect(() => {
     setNewTitle(data?.title);
-    setNewCategory(data?.category);
+    setNewCategory(data?.category.category);
     setNewComments(data?.comments);
   }, [data]);
 
