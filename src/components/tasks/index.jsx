@@ -26,6 +26,7 @@ const Tasks = () => {
   useGetUserQuery();
 
   const [tasks, setTasks] = useState([]);
+  const [filtered, setFiltered] = useState([]);
 
   const { data } = useGetAllTasksQuery();
 
@@ -33,16 +34,36 @@ const Tasks = () => {
 
   const token = localStorage.getItem("token");
 
+  const filteredTasks = (word) => {
+    const filtered = tasks.filter((task) => {
+      if (word === "") {
+        return task;
+      } else {
+        return task.title.toLowerCase().includes(word.toLowerCase());
+      }
+    });
+    setFiltered(filtered);
+  };
+
   useEffect(() => {
     if (!user && !token) {
       navigate("/login");
     }
     setTasks(data);
+    setFiltered(data);
   }, [data, user, token, navigate, dispatch]);
 
   return (
-    <>
-      {tasks?.map((task) => {
+    <div className={styles.outerContainer}>
+      <div>
+        <input
+          className={styles.search}
+          type="text"
+          placeholder="Search"
+          onChange={(e) => filteredTasks(e.target.value)}
+        />
+      </div>
+      {filtered?.map((task) => {
         const { _id, category, deadline, title } = task;
 
         const handleComplete = (id) => {
@@ -100,7 +121,7 @@ const Tasks = () => {
           </section>
         );
       })}
-    </>
+    </div>
   );
 };
 

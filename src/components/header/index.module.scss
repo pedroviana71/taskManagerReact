@@ -4,16 +4,16 @@
   background-color: color.$background-primary;
   text-align: center;
   margin-bottom: 32px;
-  .header{
+  .header {
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
-    padding-right: 16px;    
-      .sideBarIcon{
-        color: color.$button-primary;
-        font-size: 24px;
-        margin: 4px 4px;
-        cursor: pointer;
+    justify-content: space-between;
+    padding: 0px 16px;
+    .sideBarIcon {
+      color: color.$button-primary;
+      font-size: 24px;
+      margin: 4px 4px;
+      cursor: pointer;
     }
     .title {
       padding-left: 20px;
@@ -29,7 +29,6 @@
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.233);
     background-color: color.$button-primary;
     border-radius: 3px;
-    margin-left: 20px;
   }
   .icon {
     color: color.$text-primary;
@@ -44,8 +43,7 @@
 }
 
 @media screen and (min-width: 900px) {
-  .container{
-    // margin: 0px 256px 32px 256px;
+  .header {
+    flex-direction: column;
   }
 }
-

@@ -16,10 +16,14 @@ export const SideBar = ({ setShowMenu }) => {
 
   return (
     <div className={width > 900 ? styles.container : styles.mobileContainer}>
-      <p>{data?.username}</p>
-      <p>{data?.email}</p>
-      <button onClick={handleLogout}>Log Out</button>
-      <button onClick={() => setShowMenu(false)}>
+      <div className={styles.profileContainer}>
+        <p className={styles.profileName}>{data?.username}</p>
+        <p>{data?.email}</p>
+        <button onClick={handleLogout} className={styles.logout}>
+          Log Out
+        </button>
+      </div>
+      <button onClick={() => setShowMenu(false)} className={styles.closeIcon}>
         <MdClose />
       </button>
     </div>
