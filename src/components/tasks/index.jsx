@@ -7,6 +7,7 @@ import {
   useDeleteTaskMutation,
   useEditTaskMutation,
   useGetAllTasksQuery,
+  useGetCategoriesQuery,
   useGetUserQuery,
 } from "../../app/api/tasksSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -24,6 +25,7 @@ const Tasks = () => {
   const [deleteTask] = useDeleteTaskMutation();
   const [editTask] = useEditTaskMutation();
   useGetUserQuery();
+  const { data: categories } = useGetCategoriesQuery();
 
   const [tasks, setTasks] = useState([]);
   const [filtered, setFiltered] = useState([]);
@@ -65,7 +67,7 @@ const Tasks = () => {
         />
       </div>
       {filtered?.map((task) => {
-        const { _id, category, deadline, title } = task;
+        const { _id, deadline, title } = task;
 
         const handleComplete = (id) => {
           editTask({ id, completed: !task.completed });
@@ -114,12 +116,7 @@ const Tasks = () => {
                   className={clsx(
                     task.completed ? styles.titleCompleted : null
                   )}
-                >
-                  {category.category}
-                </p>
-                <div style={{ backgroundColor: task.category.color }}>
-                  teste
-                </div>
+                ></p>
               </button>
             </div>
           </section>

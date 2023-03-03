@@ -2,7 +2,10 @@ import { useState } from "react";
 import Button from "../../buttons";
 import Text from "../../text";
 import styles from "./index.module.scss";
-import { useCreateTaskMutation } from "../../../app/api/tasksSlice";
+import {
+  useCreateTaskMutation,
+  useGetCategoriesQuery,
+} from "../../../app/api/tasksSlice";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import DateTimePicker from "react-datetime-picker";
@@ -11,9 +14,10 @@ import { SliderPicker } from "react-color";
 const CreateTask = ({ setShowCreateTaskModal }) => {
   const [title, setTitle] = useState("");
   const [comments, setComments] = useState("");
-  const [category, setCategory] = useState("");
+  const [categoryId, setCategoryId] = useState("");
   const [color, setColor] = useState("");
   const [deadline, setDeadline] = useState(new Date());
+  const { data: categories } = useGetCategoriesQuery();
 
   const [createTask] = useCreateTaskMutation();
   const navigate = useNavigate();
@@ -25,7 +29,7 @@ const CreateTask = ({ setShowCreateTaskModal }) => {
     const task = {
       title,
       comments,
-      category: { category, color },
+      categoryId,
       userId,
       deadline,
     };
@@ -53,13 +57,17 @@ const CreateTask = ({ setShowCreateTaskModal }) => {
         autoFocus
       />
       <Text>Categoria</Text>
-      <textarea
-        className={styles.input}
-        type="text"
-        onChange={(e) => {
-          setCategory(e.target.value);
-        }}
-      />
+      {categories?.map((category) => {
+        return (
+          <button
+            onClick={() => setCategoryId(category._id)}
+            key={category._id}
+          >
+            {category.name}
+          </button>
+        );
+      })}
+      <button onClick={() => navigate("/categories")}>Criar Categoria</button>
       <SliderPicker color={color} onChangeComplete={handleColor} />
       <Text>Comentários</Text>
       <textarea

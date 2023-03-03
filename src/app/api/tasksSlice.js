@@ -25,7 +25,7 @@ export const tasksSlice = createApi({
     getAllTasks: builder.query({
       query: () => ({
         url: "tasks",
-        method: "GET",
+        method: "GET", 
       }),
       providesTags: ["Tasks"],
     }),
@@ -66,6 +66,19 @@ export const tasksSlice = createApi({
       }),
       providesTags: ["User"],
   }),
+    getCategories: builder.query({
+      query: () => ({
+        url: "category",
+        method: "GET",
+      }),
+    }),
+    createCategory: builder.mutation({
+      query: (category) => ({
+        url: "category",
+        method: "POST",
+        body: category,
+      }),
+    }),
   }),
 });
 
@@ -76,4 +89,6 @@ export const {
   useEditTaskMutation,
   useGetTaskQuery,
   useGetUserQuery,
+  useGetCategoriesQuery,
+  useCreateCategoryMutation,
 } = tasksSlice;
