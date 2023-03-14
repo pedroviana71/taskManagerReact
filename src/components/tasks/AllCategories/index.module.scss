@@ -1,0 +1,7 @@
+@use '../../../utils/styles/colors' as color;
+
+.container {
+    background-color: color.$background-quartenary;
+    width: 100%;
+    padding-bottom: 16px;
+}

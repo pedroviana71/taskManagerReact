@@ -1,34 +1,24 @@
 import styles from "./tasks.module.scss";
-import Button from "../buttons";
 import { memo, useState } from "react";
-import dayjs from "dayjs";
 
-import {
-  useDeleteTaskMutation,
-  useEditTaskMutation,
-  useGetAllTasksQuery,
-  useGetCategoriesQuery,
-  useGetUserQuery,
-} from "../../app/api/tasksSlice";
+import { useGetAllTasksQuery, useGetUserQuery } from "../../app/api/tasksSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { selectCurrentUser } from "../../features/userSlice";
 import { useNavigate } from "react-router-dom";
-import { MdOutlineDeleteForever } from "react-icons/md";
-import { MdToggleOn } from "react-icons/md";
-import { MdOutlineToggleOff } from "react-icons/md";
-import clsx from "clsx";
+import AllTasks from "./AllTasks";
+import { MdOutlineFolderOpen } from "react-icons/md";
+import { MdFolder } from "react-icons/md";
+import AllCategories from "./AllCategories";
 
 const Tasks = () => {
   const navigate = useNavigate();
   const user = useSelector(selectCurrentUser);
-  const [deleteTask] = useDeleteTaskMutation();
-  const [editTask] = useEditTaskMutation();
   useGetUserQuery();
-  const { data: categories } = useGetCategoriesQuery();
 
   const [tasks, setTasks] = useState([]);
   const [filtered, setFiltered] = useState([]);
+  const [showFolder, setShowFolder] = useState(false);
 
   const { data } = useGetAllTasksQuery();
 
@@ -56,6 +46,10 @@ const Tasks = () => {
     console.log(data);
   }, [data, user, token, navigate, dispatch]);
 
+  const handleShowFolder = () => {
+    setShowFolder(!showFolder);
+  };
+
   return (
     <div className={styles.outerContainer}>
       <div>
@@ -65,63 +59,15 @@ const Tasks = () => {
           placeholder="Search"
           onChange={(e) => filteredTasks(e.target.value)}
         />
+        <button onClick={handleShowFolder}>
+          {showFolder ? <MdOutlineFolderOpen /> : <MdFolder />}
+        </button>
       </div>
-      {filtered?.map((task) => {
-        const { _id, deadline, title } = task;
-
-        const handleComplete = (id) => {
-          editTask({ id, completed: !task.completed });
-        };
-
-        return (
-          <section key={_id} className={styles.container}>
-            <div className={styles.taskContainer}>
-              <div className={styles.buttonsContainer}>
-                {deadline ? (
-                  <h4 className={styles.time}>
-                    {dayjs(deadline).format("DD/MM")}
-                  </h4>
-                ) : (
-                  <h3>-</h3>
-                )}
-                <div className={styles.eventsContainer}>
-                  <button
-                    onClick={() => {
-                      deleteTask(_id);
-                    }}
-                    className={styles.deleteButton}
-                  >
-                    <MdOutlineDeleteForever />
-                  </button>
-                  <button
-                    onClick={() => handleComplete(task._id)}
-                    className={styles.toggleButton}
-                  >
-                    {task.completed ? <MdToggleOn /> : <MdOutlineToggleOff />}
-                  </button>
-                </div>
-              </div>
-              <button
-                className={styles.titleContainer}
-                onClick={() => navigate(`/edit/${_id}`)}
-              >
-                <h1
-                  className={clsx(
-                    task.completed ? styles.titleCompleted : null
-                  )}
-                >
-                  {title}
-                </h1>
-                <p
-                  className={clsx(
-                    task.completed ? styles.titleCompleted : null
-                  )}
-                ></p>
-              </button>
-            </div>
-          </section>
-        );
-      })}
+      {showFolder ? (
+        <AllCategories filtered={filtered} />
+      ) : (
+        <AllTasks filtered={filtered} />
+      )}
     </div>
   );
 };

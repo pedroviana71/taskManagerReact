@@ -13,8 +13,12 @@ const Home = () => {
   const location = useLocation();
   const [showMenu, setShowMenu] = useState(false);
 
-  const handleClick = () => {
+  const handleCreateTask = () => {
     navigate("/create-task");
+  };
+
+  const handleCategories = () => {
+    navigate("/categories");
   };
 
   const handleSideBar = () => {
@@ -27,10 +31,10 @@ const Home = () => {
         <MdMenu className={styles.sideBarIcon} onClick={handleSideBar} />
         {user && location.pathname !== "/create-task" ? (
           <div className={styles.icons}>
-            <Button className={styles.button} onClick={handleClick}>
+            <Button className={styles.button} onClick={handleCreateTask}>
               <MdOutlineAddBox className={styles.icon} />
             </Button>
-            <Button className={styles.button} onClick={() => {}}>
+            <Button className={styles.button} onClick={handleCategories}>
               <MdFormatColorFill />
             </Button>
           </div>

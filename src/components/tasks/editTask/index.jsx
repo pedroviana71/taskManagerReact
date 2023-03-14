@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Text from "../../text";
 import styles from "./index.module.scss";
 import {
   useEditTaskMutation,
@@ -23,6 +22,7 @@ const EditTask = () => {
 
   const navigate = useNavigate();
 
+  console.log(newTitle, newCategory, newComments);
 
   const handleSubmit = async () => {
     try {
@@ -38,10 +38,9 @@ const EditTask = () => {
     }
   };
 
-
   useEffect(() => {
     setNewTitle(data?.title);
-    setNewCategory(data?.category.category);
+    setNewCategory(data?.category?.category);
     setNewComments(data?.comments);
   }, [data]);
 

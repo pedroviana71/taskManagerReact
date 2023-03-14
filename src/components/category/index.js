@@ -7,7 +7,7 @@ import { SliderPicker } from "react-color";
 import { useNavigate } from "react-router-dom";
 
 const Category = () => {
-    let { data } = useGetCategoriesQuery();
+    const { data } = useGetCategoriesQuery();
     const [categories, setCategories] = useState([]);
     const [name, setName] = useState("");
     const [color, setColor] = useState("");
