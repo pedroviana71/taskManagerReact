@@ -60,7 +60,7 @@ const Tasks = () => {
           onChange={(e) => filteredTasks(e.target.value)}
         />
         <button onClick={handleShowFolder}>
-          {showFolder ? <MdOutlineFolderOpen /> : <MdFolder />}
+          {showFolder ? <MdFolder /> : <MdOutlineFolderOpen />}
         </button>
       </div>
       {showFolder ? (
