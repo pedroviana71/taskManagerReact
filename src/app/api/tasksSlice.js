@@ -80,14 +80,14 @@ export const tasksSlice = createApi({
       }),
     }),
     getTaskCategory: builder.mutation({
-      query: (category) => ({
+      query: (id) => ({
         url: "tasks/category",
-        method: "GET",
-        body: category,
+        method: "POST",
+        body: { id },
       }),
     }),
   }),
-});
+}); 
 
 export const {
   useGetAllTasksQuery,

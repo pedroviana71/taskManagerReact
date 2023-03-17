@@ -26,6 +26,14 @@ const Tasks = () => {
 
   const token = localStorage.getItem("token");
 
+  useEffect(() => {
+    if (!user && !token) {
+      navigate("/login");
+    }
+    setTasks(data);
+    setFiltered(data);
+  }, [data, user, token, navigate, dispatch]);
+
   const filteredTasks = (word) => {
     const filtered = tasks.filter((task) => {
       if (word === "") {
@@ -37,14 +45,6 @@ const Tasks = () => {
     setFiltered(filtered);
   };
 
-  useEffect(() => {
-    if (!user && !token) {
-      navigate("/login");
-    }
-    setTasks(data);
-    setFiltered(data);
-    console.log(data);
-  }, [data, user, token, navigate, dispatch]);
 
   const handleShowFolder = () => {
     setShowFolder(!showFolder);
