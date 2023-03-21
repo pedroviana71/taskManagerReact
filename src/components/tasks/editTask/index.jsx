@@ -22,7 +22,6 @@ const EditTask = () => {
 
   const navigate = useNavigate();
 
-  console.log(newTitle, newCategory, newComments);
 
   const handleSubmit = async () => {
     try {

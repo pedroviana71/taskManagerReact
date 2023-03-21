@@ -1,22 +1,17 @@
-import { useState } from "react";
-import { useGetTaskCategoryMutation } from "../../../../app/api/tasksSlice";
-import { useEffect } from "react";
+import { useGetAllTasksQuery } from "../../../../app/api/tasksSlice";
+import _ from "lodash";
+import AllTasks from "../../AllTasks";
 
-const Category = ({ categoriesIds }) => {
-  // const [teste, setTeste] = useState();
-  // const [getTask, result] = useGetTaskCategoryMutation();
+const Category = ({ id }) => {
+  const { data } = useGetAllTasksQuery();
 
-  // useEffect(() => {
-  //   getTask(categoriesIds);
-  // }, [categoriesIds, getTask]);
-
-  // console.log(result);
+  const tasks = data?.filter((task) => {
+    return task.categoryId === id;
+  });
 
   return (
     <div>
-      {/* {tasks.map((task) => {
-        return <h1>{task.title}</h1>;
-      })} */}
+      <AllTasks filtered={tasks} />
     </div>
   );
 };

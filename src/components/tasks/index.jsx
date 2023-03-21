@@ -64,7 +64,7 @@ const Tasks = () => {
         </button>
       </div>
       {showFolder ? (
-        <AllCategories filtered={filtered} />
+        <AllCategories tasks={filtered} />
       ) : (
         <AllTasks filtered={filtered} />
       )}
