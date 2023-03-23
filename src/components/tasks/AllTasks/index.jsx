@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
 
-const AllTasks = ({ filtered }) => {
+const AllTasks = ({ filtered, title }) => {
   const [deleteTask] = useDeleteTaskMutation();
   const [editTask] = useEditTaskMutation();
   const [categories, setCategories] = useState([]);
@@ -27,6 +27,7 @@ const AllTasks = ({ filtered }) => {
 
   return (
     <div>
+      {title ? <h1>{title}</h1> : null}
       {filtered?.map((task) => {
         const { _id, deadline, title } = task;
 

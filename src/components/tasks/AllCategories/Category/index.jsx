@@ -1,5 +1,4 @@
 import { useGetAllTasksQuery } from "../../../../app/api/tasksSlice";
-import _ from "lodash";
 import AllTasks from "../../AllTasks";
 
 const Category = ({ id }) => {
@@ -11,7 +10,7 @@ const Category = ({ id }) => {
 
   return (
     <div>
-      <AllTasks filtered={tasks} />
+      <AllTasks filtered={tasks} title={"caegoria"} />
     </div>
   );
 };
