@@ -31,10 +31,13 @@ const Home = () => {
         <MdMenu className={styles.sideBarIcon} onClick={handleSideBar} />
         {user && location.pathname !== "/create-task" ? (
           <div className={styles.icons}>
-            <Button className={styles.button} onClick={handleCreateTask}>
+            <Button className={styles.buttonAdd} onClick={handleCreateTask}>
               <MdOutlineAddBox className={styles.icon} />
             </Button>
-            <Button className={styles.button} onClick={handleCategories}>
+            <Button
+              className={styles.buttonCategory}
+              onClick={handleCategories}
+            >
               <MdFormatColorFill />
             </Button>
           </div>

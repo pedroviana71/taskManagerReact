@@ -1,4 +1,5 @@
 @use "../../utils//styles/colors" as color;
+@use "../../utils//styles/shadows" as shadow;
 
 .container {
   background-color: color.$background-primary;
@@ -9,9 +10,30 @@
     align-items: center;
     justify-content: space-between;
     padding: 0px 16px;
-    .icons{
+    .icons {
       display: flex;
       flex-direction: column;
+      .buttonCategory {
+        font-size: 24px;
+        margin: 4px 4px;
+        cursor: pointer;
+        border: 0;
+        background-color: color.$background-primary;
+        &:hover {
+          color: color.$button-primary;
+        }
+      }
+      .buttonAdd {
+        font-size: 28px;
+        margin: 4px 4px;
+        cursor: pointer;
+        border: 0;
+        color: black;
+        background-color: color.$background-primary;
+        &:hover {
+          color: color.$button-primary;
+        }
+      }
     }
     .sideBarIcon {
       color: color.$button-primary;
@@ -30,15 +52,10 @@
     display: flex;
     align-items: center;
     border: 0;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.233);
+    box-shadow: shadow.$primary;
     background-color: color.$button-primary;
     border-radius: 3px;
     margin-bottom: 8px;
-  }
-  .icon {
-    color: color.$text-primary;
-    margin: 4px 4px;
-    font-size: 24px;
   }
   .buttonText {
     color: color.$text-primary;

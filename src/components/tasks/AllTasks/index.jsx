@@ -9,6 +9,7 @@ import {
   MdOutlineDeleteForever,
   MdOutlineToggleOff,
   MdToggleOn,
+  MdBookmark,
 } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import clsx from "clsx";
@@ -26,7 +27,7 @@ const AllTasks = ({ filtered, title }) => {
   }, [data]);
 
   return (
-    <div>
+    <div className={styles.container}>
       {title ? <h1>{title}</h1> : null}
       {filtered?.map((task) => {
         const { _id, deadline, title } = task;
@@ -71,6 +72,12 @@ const AllTasks = ({ filtered, title }) => {
                 className={styles.titleContainer}
                 onClick={() => navigate(`/edit/${_id}`)}
               >
+                <MdBookmark
+                  style={{
+                    color: category?.color,
+                  }}
+                  className={styles.colorTag}
+                />
                 <h1
                   className={clsx(
                     task.completed ? styles.titleCompleted : null
@@ -78,13 +85,6 @@ const AllTasks = ({ filtered, title }) => {
                 >
                   {title}
                 </h1>
-                <div
-                  style={{
-                    backgroundColor: category?.color,
-                    width: "20px",
-                    height: "20px",
-                  }}
-                />
               </button>
             </div>
           </section>

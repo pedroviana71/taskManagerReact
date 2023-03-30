@@ -6,7 +6,6 @@ import useWindowDimensions from "./utils/customHooks/useWindowDimensions";
 const desktop = {
   height: "100vh",
   display: "flex",
-  backgroundColor: "#f8f1ff",
 }
 
 const mobile = {
@@ -14,7 +13,6 @@ const mobile = {
   display: "flex",
   flexGrow: 1,
   flexDirection: "column",
-  backgroundColor: "#f8f1ff",
 }
 
 

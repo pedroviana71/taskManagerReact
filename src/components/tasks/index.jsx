@@ -52,16 +52,16 @@ const Tasks = () => {
 
   return (
     <div className={styles.outerContainer}>
-      <div>
+      <div className={styles.search}>
+        <button onClick={handleShowFolder} className={styles.folder}>
+          {showFolder ? <MdFolder /> : <MdOutlineFolderOpen />}
+        </button>
         <input
-          className={styles.search}
+          className={styles.searchInput}
           type="text"
           placeholder="Search"
           onChange={(e) => filteredTasks(e.target.value)}
         />
-        <button onClick={handleShowFolder}>
-          {showFolder ? <MdFolder /> : <MdOutlineFolderOpen />}
-        </button>
       </div>
       {showFolder ? (
         <AllCategories tasks={filtered} />

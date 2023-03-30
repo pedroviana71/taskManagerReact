@@ -1,9 +1,12 @@
 @use "../../utils/styles/colors" as color;
 @use "../../utils/styles/shadows" as shadow;
-.outerContainer{
+.outerContainer {
   width: 100%;
+  padding: 0px 128px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   .container {
-    background-color: color.$background-primary;
     width: 100%;
     padding-bottom: 16px;
     .taskContainer {
@@ -20,7 +23,7 @@
         border: 0;
         box-shadow: shadow.$primary;
         padding: 8px;
-        &:hover{
+        &:hover {
           background-color: color.$background-secondary;
           cursor: pointer;
         }
@@ -69,6 +72,31 @@
       }
     }
   }
+  .search {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+    margin: 32px 0px;
+    padding: 0px 32px;
+    .searchInput {
+      width: 100%;
+      border: 0;
+      border-bottom: 2px solid color.$border-primary;
+      outline: 0;
+      margin-left: 16px;
+    }
+    .folder{
+      align-items: center;
+      font-size: 24px;
+      border: 0;
+      background-color: color.$background-primary;
+      &:hover{
+        color: color.$text-terciary;
+        cursor: pointer;
+      }
+    }
+  }
 }
 
 @media screen and (min-width: 900px) {
@@ -79,5 +107,11 @@
     .titleContainer {
       border-radius: 16px;
     }
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .outerContainer {
+    padding: 0px 256px;
   }
 }
