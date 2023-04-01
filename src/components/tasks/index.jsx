@@ -7,19 +7,21 @@ import { useEffect } from "react";
 import { selectCurrentUser } from "../../features/userSlice";
 import { useNavigate } from "react-router-dom";
 import AllTasks from "./AllTasks";
-import { MdOutlineFolderOpen } from "react-icons/md";
+import { MdOutlineFolderOpen, MdSearch } from "react-icons/md";
 import { MdFolder } from "react-icons/md";
 import AllCategories from "./AllCategories";
+import useWindowDimensions from "../../utils/customHooks/useWindowDimensions";
 
 const Tasks = () => {
   const navigate = useNavigate();
   const user = useSelector(selectCurrentUser);
   useGetUserQuery();
+  const { width } = useWindowDimensions();
 
   const [tasks, setTasks] = useState([]);
   const [filtered, setFiltered] = useState([]);
   const [showFolder, setShowFolder] = useState(false);
-
+  const [showSearchBar, setShowSearchBar] = useState(false);
   const { data } = useGetAllTasksQuery();
 
   const dispatch = useDispatch();
@@ -45,7 +47,6 @@ const Tasks = () => {
     setFiltered(filtered);
   };
 
-
   const handleShowFolder = () => {
     setShowFolder(!showFolder);
   };
@@ -56,12 +57,26 @@ const Tasks = () => {
         <button onClick={handleShowFolder} className={styles.folder}>
           {showFolder ? <MdFolder /> : <MdOutlineFolderOpen />}
         </button>
-        <input
-          className={styles.searchInput}
-          type="text"
-          placeholder="Search"
-          onChange={(e) => filteredTasks(e.target.value)}
-        />
+        {width < 900 ? (
+          <button onClick={() => setShowSearchBar(true)}>
+            <MdSearch />
+          </button>
+        ) : (
+          <input
+            className={styles.searchInputMobile}
+            type="text"
+            placeholder="Search"
+            onChange={(e) => filteredTasks(e.target.value)}
+          />
+        )}
+        {showSearchBar && width < 900 ? (
+          <input
+            className={styles.searchInput}
+            type="text"
+            placeholder="Search"
+            onChange={(e) => filteredTasks(e.target.value)}
+          />
+        ) : null}
       </div>
       {showFolder ? (
         <AllCategories tasks={filtered} />

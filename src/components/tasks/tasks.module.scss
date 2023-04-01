@@ -2,10 +2,11 @@
 @use "../../utils/styles/shadows" as shadow;
 .outerContainer {
   width: 100%;
-  padding: 0px 128px;
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
+  height: 100%;
   align-items: center;
+  justify-content: space-between;
   .container {
     width: 100%;
     padding-bottom: 16px;
@@ -86,12 +87,12 @@
       outline: 0;
       margin-left: 16px;
     }
-    .folder{
+    .folder {
       align-items: center;
       font-size: 24px;
       border: 0;
       background-color: color.$background-primary;
-      &:hover{
+      &:hover {
         color: color.$text-terciary;
         cursor: pointer;
       }
@@ -100,12 +101,15 @@
 }
 
 @media screen and (min-width: 900px) {
-  .container {
-    background-color: color.$background-primary;
-    width: 100%;
-    padding: 0px 200px 16px 200px;
-    .titleContainer {
-      border-radius: 16px;
+  .outerContainer {
+    padding: 0px 128px;
+    flex-direction: column;
+    .container {
+      background-color: color.$background-primary;
+      width: 100%;
+      .titleContainer {
+        border-radius: 16px;
+      }
     }
   }
 }
