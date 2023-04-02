@@ -92,6 +92,17 @@
       font-size: 24px;
       border: 0;
       background-color: color.$background-primary;
+      margin-right: 8px;
+      &:hover {
+        color: color.$text-terciary;
+        cursor: pointer;
+      }
+    }
+    .searchButton{
+      align-items: center;
+      font-size: 24px;
+      border: 0px;
+      background-color: color.$background-primary;
       &:hover {
         color: color.$text-terciary;
         cursor: pointer;
@@ -104,6 +115,7 @@
   .outerContainer {
     padding: 0px 128px;
     flex-direction: column;
+    justify-content: flex-start;
     .container {
       background-color: color.$background-primary;
       width: 100%;

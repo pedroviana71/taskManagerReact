@@ -58,12 +58,15 @@ const Tasks = () => {
           {showFolder ? <MdFolder /> : <MdOutlineFolderOpen />}
         </button>
         {width < 900 ? (
-          <button onClick={() => setShowSearchBar(true)}>
+          <button
+            onClick={() => setShowSearchBar(true)}
+            className={styles.searchButton}
+          >
             <MdSearch />
           </button>
         ) : (
           <input
-            className={styles.searchInputMobile}
+            className={styles.searchInput}
             type="text"
             placeholder="Search"
             onChange={(e) => filteredTasks(e.target.value)}
