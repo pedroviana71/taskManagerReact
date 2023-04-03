@@ -15,6 +15,7 @@
   }
   .form {
     margin-top: 32px;
+    margin-bottom: 118px;
     .container {
       display: flex;
       flex-direction: column;
@@ -40,10 +41,23 @@
       .loginButton {
         border: 0px;
         background-color: color.$button-primary;
-        border-radius: 3px;
+        border-radius: 8px;
         padding: 4px 8px;
         font-size: 16px;
       }
+    }
+  }
+  .createAccount{
+    display: flex;
+    align-items: center;
+    .createAccountButton{
+      margin-left: 16px;
+      border: 1px solid color.$button-primary;
+      background-color: color.$background-primary;
+      border-radius: 8px;
+      padding: 4px 8px;
+      font-size: 16px;
+      color: color.$button-primary;
     }
   }
 }

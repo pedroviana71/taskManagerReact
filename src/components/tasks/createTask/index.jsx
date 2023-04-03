@@ -1,6 +1,5 @@
 import { useState } from "react";
 import Button from "../../buttons";
-import Text from "../../text";
 import styles from "./index.module.scss";
 import {
   useCreateTaskMutation,
@@ -11,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import DateTimePicker from "react-datetime-picker";
 import { SliderPicker } from "react-color";
 
-const CreateTask = ({ setShowCreateTaskModal }) => {
+const CreateTask = () => {
   const [title, setTitle] = useState("");
   const [comments, setComments] = useState("");
   const [categoryId, setCategoryId] = useState("");
@@ -47,7 +46,7 @@ const CreateTask = ({ setShowCreateTaskModal }) => {
 
   return (
     <div className={styles.container}>
-      <h3>Título</h3>
+      <h1>Título</h1>
       <textarea
         className={styles.input}
         type="text"
@@ -56,7 +55,7 @@ const CreateTask = ({ setShowCreateTaskModal }) => {
         }}
         autoFocus
       />
-      <Text>Categoria</Text>
+      <h1>Categoria</h1>
       {categories?.map((category) => {
         return (
           <button
@@ -69,7 +68,7 @@ const CreateTask = ({ setShowCreateTaskModal }) => {
       })}
       <button onClick={() => navigate("/categories")}>Criar Categoria</button>
       <SliderPicker color={color} onChangeComplete={handleColor} />
-      <Text>Comentários</Text>
+      <h1>Comentários</h1>
       <textarea
         className={styles.input}
         type="text"

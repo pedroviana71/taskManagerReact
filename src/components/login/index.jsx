@@ -24,11 +24,15 @@ const Login = () => {
       setPassword("");
       navigate("/");
       dispatch(setCredentials(data, data.username));
-      localStorage.setItem("token", data.token); //! mudar para refreshed token assim que possivel 
+      localStorage.setItem("token", data.token); //! mudar para refreshed token assim que possivel
       localStorage.setItem("id", data.id);
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handleCreateAccount = () => {
+    navigate("/register");
   };
 
   return (
@@ -68,6 +72,15 @@ const Login = () => {
           </button>
         </div>
       </form>
+      <div className={styles.createAccount}>
+        <p>Ainda não tem uma conta?</p>
+        <button
+          className={styles.createAccountButton}
+          onClick={handleCreateAccount}
+        >
+          Criar uma conta
+        </button>
+      </div>
     </section>
   );
 };
