@@ -1,27 +1,17 @@
 import { useSelector } from "react-redux";
-import Button from "../buttons";
 import styles from "./index.module.scss";
-import { MdOutlineAddBox, MdMenu, MdFormatColorFill } from "react-icons/md";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useState } from "react";
 import { SideBar } from "../sideBar";
 import OutsideClickHandler from "react-outside-click-handler/build/OutsideClickHandler";
 import { useEffect } from "react";
+import Icons from "./Icons";
 
 const Home = () => {
-  const navigate = useNavigate();
   const user = useSelector((state) => state.user);
   const location = useLocation();
   const [showMenu, setShowMenu] = useState(false);
   const [isLogged, setIsLogged] = useState(false);
-
-  const handleCreateTask = () => {
-    navigate("/create-task");
-  };
-
-  const handleCategories = () => {
-    navigate("/categories");
-  };
 
   const handleSideBar = () => {
     setShowMenu(!showMenu);
@@ -33,22 +23,7 @@ const Home = () => {
 
   return (
     <div className={styles.container}>
-      {user && location.pathname !== "/create-task" && isLogged ? (
-        <section className={styles.header}>
-          <MdMenu className={styles.sideBarIcon} onClick={handleSideBar} />
-          <div className={styles.icons}>
-            <Button className={styles.buttonAdd} onClick={handleCreateTask}>
-              <MdOutlineAddBox className={styles.icon} />
-            </Button>
-            <Button
-              className={styles.buttonCategory}
-              onClick={handleCategories}
-            >
-              <MdFormatColorFill />
-            </Button>
-          </div>
-        </section>
-      ) : null}
+      {user && isLogged ? <Icons /> : null}
       {showMenu && isLogged ? (
         <OutsideClickHandler onOutsideClick={handleSideBar}>
           <SideBar setShowMenu={setShowMenu} />
