@@ -15,6 +15,9 @@
   :focus {
     outline: none;
   }
+  .chooseCategory :hover{
+    cursor: pointer;
+  }
 }
 .button {
   display: flex;

@@ -16,6 +16,7 @@ const CreateTask = () => {
   const [categoryId, setCategoryId] = useState("");
   const [color, setColor] = useState("");
   const [deadline, setDeadline] = useState(new Date());
+  const [showCategories, setShowCategories] = useState(false);
   const { data: categories } = useGetCategoriesQuery();
 
   const [createTask] = useCreateTaskMutation();
@@ -55,17 +56,22 @@ const CreateTask = () => {
         }}
         autoFocus
       />
-      <h1>Categoria</h1>
-      {categories?.map((category) => {
-        return (
-          <button
-            onClick={() => setCategoryId(category._id)}
-            key={category._id}
-          >
-            {category.name}
-          </button>
-        );
-      })}
+      <button
+        className={styles.chooseCategory}
+        onClick={() => setShowCategories(!showCategories)}
+      >
+        Escolher categoria
+      </button>
+      {showCategories &&
+        categories?.map((category) => {
+          return (
+            <ul key={category._id}>
+              <button onClick={() => setCategoryId(category._id)}>
+                {category.name}
+              </button>
+            </ul>
+          );
+        })}
       <button onClick={() => navigate("/categories")}>Criar Categoria</button>
       <SliderPicker color={color} onChangeComplete={handleColor} />
       <h1>Comentários</h1>
