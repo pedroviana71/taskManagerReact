@@ -2,83 +2,67 @@
 @use "../../../utils/styles/shadows" as shadow;
 
 .container {
-  background-color: color.$background-primary;
   width: 100%;
   padding-bottom: 16px;
+  .checkBox {
+    display: flex;
+    align-items: center;
+    border: 0;
+    background-color: transparent;
+    .checkBoxIcon {
+      font-size: 24px;
+      margin-right: 24px;
+    }
+  }
   .taskContainer {
     display: flex;
     width: 100%;
     border: 0;
-    background-color: color.$background-primary;
-    padding-left: 10px;
+    margin-left: 24px;
+    margin-bottom: 16px;
     .titleContainer {
+      background-color: transparent;
       word-break: break-all;
-      background-color: color.$background-terciary;
       width: 100%;
       border-radius: 8px;
       border: 0;
-      box-shadow: shadow.$primary;
       padding: 8px;
-      position: relative;
-      &:hover {
-        background-color: color.$background-secondary;
-        cursor: pointer;
-      }
-      .colorTag {
-        position: absolute;
-        font-size: 32px;
-        right: 0px;
-        top: -8px;
-      }
       .titleCompleted {
         text-decoration: line-through;
         color: color.$text-secondary;
       }
-    }
-    .buttonsContainer {
-      margin-right: 20px;
-      display: flex;
-      flex-direction: column;
-      .time {
-        text-align: center;
-        font-size: 16px;
-        font-weight: 600;
-        color: color.$text-terciary;
-      }
-      .date {
-        font-size: 12px;
-        color: color.$text-secondary;
-      }
-      .eventsContainer {
+      .taskFooter {
         display: flex;
-        .toggleButton {
-          font-size: 24px;
-          background-color: color.$background-primary;
-          border: none;
-          border-radius: 4px;
-          padding: 0px 4px;
-          cursor: pointer;
-          &:hover {
-            color: color.$toggle;
-          }
+        .date {
+          display: flex;
+          align-items: center;
+          padding: 0px 16px;
+          border-radius: 20px;
+          font-size: 16px;
+          font-weight: 400;
+          margin-right: 16px;
         }
-        .deleteButton {
-          font-size: 24px;
-          background-color: color.$background-primary;
-          border: none;
-          cursor: pointer;
-          &:hover {
-            color: color.$delete;
-          }
+        .category {
+          display: flex;
+          align-items: center;
+          background-color: color.$black25;
+          padding: 0px 16px;
+          border-radius: 20px;
+          font-size: 16px;
+          font-weight: 400;
+          margin-right: 16px;
         }
       }
     }
+  }
+  .line {
+    margin-left: 24px;
+    margin-bottom: 16px;
   }
 }
 
 @media screen and (min-width: 900px) {
   .container {
-    background-color: color.$background-primary;
     width: 100%;
     padding: 0px 10px 16px 10px;
     .titleContainer {

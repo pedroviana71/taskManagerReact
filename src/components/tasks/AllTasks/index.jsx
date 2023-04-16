@@ -5,15 +5,14 @@ import {
   useGetCategoriesQuery,
 } from "../../../app/api/tasksSlice";
 import styles from "./index.module.scss";
-import {
-  MdOutlineDeleteForever,
-  MdOutlineToggleOff,
-  MdToggleOn,
-  MdBookmark,
-} from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
+import {
+  MdCheckBoxOutlineBlank,
+  MdOutlineCheckBox,
+  MdOutlineModeComment,
+} from "react-icons/md";
 
 const AllTasks = ({ filtered, title }) => {
   const [deleteTask] = useDeleteTaskMutation();
@@ -41,43 +40,19 @@ const AllTasks = ({ filtered, title }) => {
         );
 
         return (
-          <section key={_id} className={styles.container}>
-            <div className={styles.taskContainer}>
-              <div className={styles.buttonsContainer}>
-                {deadline ? (
-                  <h4 className={styles.time}>
-                    {dayjs(deadline).format("DD/MM")}
-                  </h4>
+          <div>
+            <section key={_id} className={styles.taskContainer}>
+              <button className={styles.checkBox}>
+                {task.completed ? (
+                  <MdOutlineCheckBox className={styles.checkBoxIcon} />
                 ) : (
-                  <h3>-</h3>
+                  <MdCheckBoxOutlineBlank className={styles.checkBoxIcon} />
                 )}
-                <div className={styles.eventsContainer}>
-                  <button
-                    onClick={() => {
-                      deleteTask(_id);
-                    }}
-                    className={styles.deleteButton}
-                  >
-                    <MdOutlineDeleteForever />
-                  </button>
-                  <button
-                    onClick={() => handleComplete(task._id)}
-                    className={styles.toggleButton}
-                  >
-                    {task.completed ? <MdToggleOn /> : <MdOutlineToggleOff />}
-                  </button>
-                </div>
-              </div>
+              </button>
               <button
                 className={styles.titleContainer}
                 onClick={() => navigate(`/edit/${_id}`)}
               >
-                <MdBookmark
-                  style={{
-                    color: category?.color,
-                  }}
-                  className={styles.colorTag}
-                />
                 <h1
                   className={clsx(
                     task.completed ? styles.titleCompleted : null
@@ -85,9 +60,24 @@ const AllTasks = ({ filtered, title }) => {
                 >
                   {title}
                 </h1>
+                <div className={styles.taskFooter}>
+                  {deadline ? (
+                    <h4
+                      className={styles.date}
+                      style={{ backgroundColor: category.color }}
+                    >
+                      {dayjs(deadline).locale("pt-br").format("ddd, DD MMM")}
+                    </h4>
+                  ) : null}
+                  {category ? (
+                    <h5 className={styles.category}>{category.name}</h5>
+                  ) : null}
+                  {task.comments ? <MdOutlineModeComment /> : null}
+                </div>
               </button>
-            </div>
-          </section>
+            </section>
+            <hr className={styles.line} />
+          </div>
         );
       })}
     </div>

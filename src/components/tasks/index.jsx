@@ -1,5 +1,5 @@
 import styles from "./tasks.module.scss";
-import { memo, useState } from "react";
+import { useState } from "react";
 
 import { useGetAllTasksQuery, useGetUserQuery } from "../../app/api/tasksSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,16 +13,16 @@ import AllCategories from "./AllCategories";
 import useWindowDimensions from "../../utils/customHooks/useWindowDimensions";
 
 const Tasks = () => {
+  useGetUserQuery();
   const navigate = useNavigate();
   const user = useSelector(selectCurrentUser);
-  useGetUserQuery();
   const { width } = useWindowDimensions();
+  const { data } = useGetAllTasksQuery();
 
   const [tasks, setTasks] = useState([]);
   const [filtered, setFiltered] = useState([]);
   const [showFolder, setShowFolder] = useState(false);
   const [showSearchBar, setShowSearchBar] = useState(false);
-  const { data } = useGetAllTasksQuery();
 
   const dispatch = useDispatch();
 
@@ -90,4 +90,4 @@ const Tasks = () => {
   );
 };
 
-export default memo(Tasks);
+export default Tasks;

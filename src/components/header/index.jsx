@@ -5,7 +5,7 @@ import { useState } from "react";
 import { SideBar } from "../sideBar";
 import OutsideClickHandler from "react-outside-click-handler/build/OutsideClickHandler";
 import { useEffect } from "react";
-import Icons from "./Icons";
+import sideBar from "../../assets/SideBar.svg";
 
 const Home = () => {
   const user = useSelector((state) => state.user);
@@ -23,7 +23,10 @@ const Home = () => {
 
   return (
     <div className={styles.container}>
-      {user && isLogged ? <Icons /> : null}
+      <button className={styles.menuSideBar}>
+        <img src={sideBar} alt="Menu" />
+      </button>
+      <h1 className={styles.appTitle}>LISTING</h1>
       {showMenu && isLogged ? (
         <OutsideClickHandler onOutsideClick={handleSideBar}>
           <SideBar setShowMenu={setShowMenu} />
