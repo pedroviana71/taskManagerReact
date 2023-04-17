@@ -1,4 +1,6 @@
 import dayjs from "dayjs";
+import "dayjs/locale/pt-br";
+
 import {
   useDeleteTaskMutation,
   useEditTaskMutation,
@@ -14,7 +16,7 @@ import {
   MdOutlineModeComment,
 } from "react-icons/md";
 
-const AllTasks = ({ filtered, title }) => {
+const AllTasks = ({ filtered }) => {
   const [deleteTask] = useDeleteTaskMutation();
   const [editTask] = useEditTaskMutation();
   const [categories, setCategories] = useState([]);
@@ -27,7 +29,6 @@ const AllTasks = ({ filtered, title }) => {
 
   return (
     <div className={styles.container}>
-      {title ? <h1>{title}</h1> : null}
       {filtered?.map((task) => {
         const { _id, deadline, title } = task;
 
@@ -40,9 +41,12 @@ const AllTasks = ({ filtered, title }) => {
         );
 
         return (
-          <div>
-            <section key={_id} className={styles.taskContainer}>
-              <button className={styles.checkBox}>
+          <div key={_id}>
+            <section className={styles.taskContainer}>
+              <button
+                className={styles.checkBox}
+                onClick={() => handleComplete(_id)}
+              >
                 {task.completed ? (
                   <MdOutlineCheckBox className={styles.checkBoxIcon} />
                 ) : (
@@ -55,22 +59,24 @@ const AllTasks = ({ filtered, title }) => {
               >
                 <h1
                   className={clsx(
-                    task.completed ? styles.titleCompleted : null
+                    task.completed ? styles.titleCompleted : styles.completed
                   )}
                 >
                   {title}
                 </h1>
                 <div className={styles.taskFooter}>
                   {deadline ? (
-                    <h4
-                      className={styles.date}
-                      style={{ backgroundColor: category.color }}
-                    >
-                      {dayjs(deadline).locale("pt-br").format("ddd, DD MMM")}
+                    <h4 className={styles.date}>
+                      {dayjs(deadline).locale("pt-BR").format("ddd, DD MMM")}
                     </h4>
                   ) : null}
                   {category ? (
-                    <h5 className={styles.category}>{category.name}</h5>
+                    <h5
+                      className={styles.category}
+                      style={{ backgroundColor: `${category.color}66` }}
+                    >
+                      {category.name}
+                    </h5>
                   ) : null}
                   {task.comments ? <MdOutlineModeComment /> : null}
                 </div>

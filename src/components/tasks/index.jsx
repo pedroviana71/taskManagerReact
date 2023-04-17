@@ -16,7 +16,7 @@ const Tasks = () => {
   useGetUserQuery();
   const navigate = useNavigate();
   const user = useSelector(selectCurrentUser);
-  const { width } = useWindowDimensions();
+  const { width, height } = useWindowDimensions();
   const { data } = useGetAllTasksQuery();
 
   const [tasks, setTasks] = useState([]);
@@ -52,35 +52,7 @@ const Tasks = () => {
   };
 
   return (
-    <div className={styles.outerContainer}>
-      <div className={styles.search}>
-        <button onClick={handleShowFolder} className={styles.folder}>
-          {showFolder ? <MdFolder /> : <MdOutlineFolderOpen />}
-        </button>
-        {width < 900 ? (
-          <button
-            onClick={() => setShowSearchBar(true)}
-            className={styles.searchButton}
-          >
-            <MdSearch />
-          </button>
-        ) : (
-          <input
-            className={styles.searchInput}
-            type="text"
-            placeholder="Search"
-            onChange={(e) => filteredTasks(e.target.value)}
-          />
-        )}
-        {showSearchBar && width < 900 ? (
-          <input
-            className={styles.searchInput}
-            type="text"
-            placeholder="Search"
-            onChange={(e) => filteredTasks(e.target.value)}
-          />
-        ) : null}
-      </div>
+    <div className={styles.container} style={{ maxHeight: height - 94 }}>
       {showFolder ? (
         <AllCategories tasks={filtered} />
       ) : (
