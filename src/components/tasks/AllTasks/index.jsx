@@ -14,7 +14,7 @@ import {
   MdCheckBoxOutlineBlank,
   MdOutlineCheckBox,
   MdOutlineModeComment,
-} from "react-icons/md";
+} from "react-icons/md"; 
 
 const AllTasks = ({ filtered }) => {
   const [deleteTask] = useDeleteTaskMutation();

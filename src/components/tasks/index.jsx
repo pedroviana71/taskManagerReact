@@ -1,24 +1,26 @@
 import styles from "./tasks.module.scss";
 import { useState } from "react";
 
-import { useGetAllTasksQuery, useGetUserQuery } from "../../app/api/tasksSlice";
+import {
+  useGetAllTasksQuery,
+  useGetCategoriesQuery,
+  useGetUserQuery,
+} from "../../app/api/tasksSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { selectCurrentUser } from "../../features/userSlice";
 import { useNavigate } from "react-router-dom";
 import AllTasks from "./AllTasks";
-import { MdOutlineFolderOpen, MdSearch } from "react-icons/md";
-import { MdFolder } from "react-icons/md";
+import { MdAdd, MdSearch, MdCategory, MdStarOutline } from "react-icons/md";
 import AllCategories from "./AllCategories";
-import useWindowDimensions from "../../utils/customHooks/useWindowDimensions";
 
 const Tasks = () => {
   useGetUserQuery();
   const navigate = useNavigate();
   const user = useSelector(selectCurrentUser);
-  const { width, height } = useWindowDimensions();
   const { data } = useGetAllTasksQuery();
-
+  const { data: categoriesData } = useGetCategoriesQuery();
+  const [categories, setCategories] = useState([]);
   const [tasks, setTasks] = useState([]);
   const [filtered, setFiltered] = useState([]);
   const [showFolder, setShowFolder] = useState(false);
@@ -32,9 +34,10 @@ const Tasks = () => {
     if (!user && !token) {
       navigate("/login");
     }
+    setCategories(categoriesData);
     setTasks(data);
     setFiltered(data);
-  }, [data, user, token, navigate, dispatch]);
+  }, [data, user, token, navigate, dispatch, categoriesData]);
 
   const filteredTasks = (word) => {
     const filtered = tasks.filter((task) => {
@@ -51,13 +54,41 @@ const Tasks = () => {
     setShowFolder(!showFolder);
   };
 
+  console.log(categories);
+
   return (
-    <div className={styles.container} style={{ maxHeight: height - 94 }}>
+    <div className={styles.container}>
+      <div className={styles.categoriesBar}>
+        <div className={styles.category} onClick={() => setFiltered(tasks)}>
+          Todas
+        </div>
+        {categories?.map((category) => {
+          const { _id, name } = category;
+          return (
+            <div
+              key={_id}
+              className={styles.category}
+              onClick={() => filteredTasks(name)}
+            >
+              {name}
+            </div>
+          );
+        })}
+      </div>
       {showFolder ? (
         <AllCategories tasks={filtered} />
       ) : (
         <AllTasks filtered={filtered} />
       )}
+      <div className={styles.bottomBar}>
+        <MdAdd
+          onClick={() => navigate("create-task")}
+          className={styles.buttonBottomBar}
+        />
+        <MdSearch />
+        <MdCategory />
+        <MdStarOutline />
+      </div>
     </div>
   );
 };

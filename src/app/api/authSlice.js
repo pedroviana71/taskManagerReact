@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const authSlice = createApi({
   reducerPath: "auth",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3005/api/",
+    baseUrl: "https://colorful-hare-zipper.cyclic.app/api",
     // credentials: "include",
     // prepareHeaders: (headers, { getState }) => {
     //   const token = getState().user.token;
