@@ -13,17 +13,18 @@ import { useNavigate } from "react-router-dom";
 import AllTasks from "./AllTasks";
 import { MdAdd, MdSearch, MdCategory, MdStarOutline } from "react-icons/md";
 import AllCategories from "./AllCategories";
+import clsx from "clsx";
 
 const Tasks = () => {
   useGetUserQuery();
   const navigate = useNavigate();
   const user = useSelector(selectCurrentUser);
-  const { data } = useGetAllTasksQuery();
+  const { data: tasksData } = useGetAllTasksQuery();
   const { data: categoriesData } = useGetCategoriesQuery();
   const [categories, setCategories] = useState([]);
   const [tasks, setTasks] = useState([]);
-  const [filtered, setFiltered] = useState([]);
   const [showFolder, setShowFolder] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState("");
   const [showSearchBar, setShowSearchBar] = useState(false);
 
   const dispatch = useDispatch();
@@ -35,50 +36,72 @@ const Tasks = () => {
       navigate("/login");
     }
     setCategories(categoriesData);
-    setTasks(data);
-    setFiltered(data);
-  }, [data, user, token, navigate, dispatch, categoriesData]);
+    setTasks(tasksData);
+  }, [tasksData, user, token, navigate, dispatch, categoriesData]);
 
-  const filteredTasks = (word) => {
-    const filtered = tasks.filter((task) => {
-      if (word === "") {
-        return task;
-      } else {
+  const filteredTasks = (word, id) => {
+    if (!word && !id) {
+      setTasks(tasksData);
+    } else if (word && !id) {
+      const filtered = tasksData.filter((task) => {
         return task.title.toLowerCase().includes(word.toLowerCase());
-      }
-    });
-    setFiltered(filtered);
+      });
+      setTasks(filtered);
+    } else {
+      const filtered = tasksData.filter((task) => {
+        return task.categoryId === id;
+      });
+      setTasks(filtered);
+    }
   };
 
   const handleShowFolder = () => {
     setShowFolder(!showFolder);
   };
 
-  console.log(categories);
+  console.log(categories, "selectedIndex");
 
   return (
     <div className={styles.container}>
       <div className={styles.categoriesBar}>
-        <div className={styles.category} onClick={() => setFiltered(tasks)}>
-          Todas
-        </div>
-        {categories?.map((category) => {
+        <h1
+          className={clsx(
+            selectedIndex || selectedIndex === 0
+              ? styles.category
+              : styles.categoryActive
+          )}
+          onClick={() => {
+            setSelectedIndex("");
+            setTasks(tasksData);
+          }}
+        >
+          Todastesteteste
+        </h1>
+        {categories?.map((category, index) => {
           const { _id, name } = category;
           return (
-            <div
+            <h1
               key={_id}
-              className={styles.category}
-              onClick={() => filteredTasks(name)}
+              className={clsx(
+                selectedIndex === index
+                  ? styles.categoryActive
+                  : styles.category
+              )}
+              onClick={() => {
+                console.log(index, "index");
+                setSelectedIndex(index);
+                filteredTasks(null, _id);
+              }}
             >
               {name}
-            </div>
+            </h1>
           );
         })}
       </div>
       {showFolder ? (
-        <AllCategories tasks={filtered} />
+        <AllCategories tasks={tasks} />
       ) : (
-        <AllTasks filtered={filtered} />
+        <AllTasks filtered={tasks} />
       )}
       <div className={styles.bottomBar}>
         <MdAdd
