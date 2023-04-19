@@ -12,6 +12,7 @@ import clsx from "clsx";
 import { useEffect, useState } from "react";
 import {
   MdCheckBoxOutlineBlank,
+  MdMoreVert,
   MdOutlineCheckBox,
   MdOutlineModeComment,
 } from "react-icons/md";
@@ -22,14 +23,21 @@ const AllTasks = ({ filtered }) => {
   const [categories, setCategories] = useState([]);
   const { data } = useGetCategoriesQuery();
   const navigate = useNavigate();
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState("");
 
   useEffect(() => {
     setCategories(data);
   }, [data]);
 
+  const handleDelete = (index) => {
+    setShowDeleteModal(!showDeleteModal);
+    setSelectedIndex(index);
+  };
+
   return (
     <div className={styles.container}>
-      {filtered?.map((task) => {
+      {filtered?.map((task, index) => {
         const { _id, deadline, title } = task;
 
         const handleComplete = (id) => {
@@ -54,7 +62,7 @@ const AllTasks = ({ filtered }) => {
                 )}
               </button>
               <button
-                className={styles.titleContainer}
+                className={styles.innetTaskContainer}
                 onClick={() => navigate(`/edit/${_id}`)}
               >
                 <h1
@@ -71,16 +79,31 @@ const AllTasks = ({ filtered }) => {
                     </h4>
                   ) : null}
                   {category ? (
-                    <h5
+                    <h4
                       className={styles.category}
                       style={{ backgroundColor: `${category.color}66` }}
                     >
                       {category.name}
-                    </h5>
+                    </h4>
                   ) : null}
                   {task.comments ? <MdOutlineModeComment /> : null}
                 </div>
               </button>
+              <MdMoreVert
+                className={styles.moreVertButton}
+                onClick={() => handleDelete(index)}
+              />
+              {showDeleteModal && selectedIndex === index ? (
+                <div className={styles.deleteModal}>
+                  <h1
+                    onClick={() => {
+                      deleteTask(_id);
+                    }}
+                  >
+                    Deletar
+                  </h1>
+                </div>
+              ) : null}
             </section>
             <hr className={styles.line} />
           </div>

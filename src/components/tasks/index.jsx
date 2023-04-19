@@ -59,8 +59,6 @@ const Tasks = () => {
     setShowFolder(!showFolder);
   };
 
-  console.log(categories, "selectedIndex");
-
   return (
     <div className={styles.container}>
       <div className={styles.categoriesBar}>
@@ -75,7 +73,7 @@ const Tasks = () => {
             setTasks(tasksData);
           }}
         >
-          Todastesteteste
+          Todas
         </h1>
         {categories?.map((category, index) => {
           const { _id, name } = category;
@@ -88,7 +86,6 @@ const Tasks = () => {
                   : styles.category
               )}
               onClick={() => {
-                console.log(index, "index");
                 setSelectedIndex(index);
                 filteredTasks(null, _id);
               }}
@@ -109,7 +106,7 @@ const Tasks = () => {
           className={styles.buttonBottomBar}
         />
         <MdSearch />
-        <MdCategory />
+        <MdCategory onClick={handleShowFolder} />
         <MdStarOutline />
       </div>
     </div>
