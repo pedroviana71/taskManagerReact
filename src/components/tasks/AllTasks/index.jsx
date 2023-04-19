@@ -16,6 +16,7 @@ import {
   MdOutlineCheckBox,
   MdOutlineModeComment,
 } from "react-icons/md";
+import ClickOutside from "../../../utils/customHooks/useClickOutside";
 
 const AllTasks = ({ filtered }) => {
   const [deleteTask] = useDeleteTaskMutation();
@@ -25,14 +26,31 @@ const AllTasks = ({ filtered }) => {
   const navigate = useNavigate();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState("");
+  const [outsideClickControl, setOutsideClickControl] = useState(false);
 
   useEffect(() => {
     setCategories(data);
   }, [data]);
+  console.log(showDeleteModal);
 
-  const handleDelete = (index) => {
+  const handleDeleteButton = (index) => {
     setShowDeleteModal(!showDeleteModal);
     setSelectedIndex(index);
+  };
+
+  const handleNavigate = (id) => {
+    console.log("clickTask", showDeleteModal);
+    if (showDeleteModal || outsideClickControl) {
+      setShowDeleteModal(false);
+      setOutsideClickControl(false);
+    } else {
+      navigate(`/edit/${id}`);
+    }
+  };
+
+  const hadleClickOutside = () => {
+    setOutsideClickControl(true);
+    setShowDeleteModal(false);
   };
 
   return (
@@ -63,7 +81,7 @@ const AllTasks = ({ filtered }) => {
               </button>
               <button
                 className={styles.innetTaskContainer}
-                onClick={() => navigate(`/edit/${_id}`)}
+                onClick={() => handleNavigate(_id)}
               >
                 <h1
                   className={clsx(
@@ -91,18 +109,20 @@ const AllTasks = ({ filtered }) => {
               </button>
               <MdMoreVert
                 className={styles.moreVertButton}
-                onClick={() => handleDelete(index)}
+                onClick={() => handleDeleteButton(index)}
               />
               {showDeleteModal && selectedIndex === index ? (
-                <div className={styles.deleteModal}>
-                  <h1
-                    onClick={() => {
-                      deleteTask(_id);
-                    }}
-                  >
-                    Deletar
-                  </h1>
-                </div>
+                <ClickOutside onClick={hadleClickOutside}>
+                  <div className={styles.deleteModal}>
+                    <h1
+                      onClick={() => {
+                        deleteTask(_id);
+                      }}
+                    >
+                      Deletar
+                    </h1>
+                  </div>
+                </ClickOutside>
               ) : null}
             </section>
             <hr className={styles.line} />
