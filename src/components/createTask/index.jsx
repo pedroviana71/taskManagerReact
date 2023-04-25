@@ -1,10 +1,10 @@
 import { useState } from "react";
-import Button from "../../buttons";
+import Button from "../buttons";
 import styles from "./index.module.scss";
 import {
   useCreateTaskMutation,
   useGetCategoriesQuery,
-} from "../../../app/api/tasksSlice";
+} from "../../app/api/tasksSlice";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import DateTimePicker from "react-datetime-picker";
