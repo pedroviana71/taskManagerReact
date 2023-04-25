@@ -1,0 +1,34 @@
+@use "../../../utils/styles/colors" as color;
+
+.categoriesBar {
+  padding-left: 84px;
+  display: flex;
+  overflow-y: hidden;
+  margin-bottom: 32px;
+  width: 100%;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  .category {
+    padding: 0px 16px;
+    white-space: nowrap;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 400;
+    margin-right: 8px;
+    color: color.$black50;
+    background-color: color.$black5;
+  }
+  .categoryActive {
+    white-space: nowrap;
+    padding: 0px 16px;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 400;
+    margin-right: 8px;
+    background-color: color.$black100;
+    color: color.$white;
+  }
+}

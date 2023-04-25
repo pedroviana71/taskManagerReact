@@ -1,133 +1,21 @@
 @use "../../utils/styles/colors" as color;
-@use "../../utils/styles/shadows" as shadow;
-.outerContainer {
-  width: 100%;
+
+.container {
   display: flex;
-  flex-direction: column-reverse;
-  height: 100%;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  .container {
-    width: 100%;
-    padding-bottom: 16px;
-    .taskContainer {
-      display: flex;
-      width: 100%;
-      border: 0;
-      background-color: color.$background-primary;
-      padding-left: 10px;
-      .titleContainer {
-        word-break: break-all;
-        background-color: color.$background-terciary;
-        width: 100%;
-        border-radius: 8px 0px 0px 8px;
-        border: 0;
-        box-shadow: shadow.$primary;
-        padding: 8px;
-        &:hover {
-          background-color: color.$background-secondary;
-          cursor: pointer;
-        }
-        .titleCompleted {
-          text-decoration: line-through;
-          color: color.$text-secondary;
-        }
-      }
-      .buttonsContainer {
-        margin-right: 20px;
-        display: flex;
-        flex-direction: column;
-        .time {
-          text-align: center;
-          font-size: 16px;
-          font-weight: 600;
-          color: color.$text-terciary;
-        }
-        .date {
-          font-size: 12px;
-          color: color.$text-secondary;
-        }
-        .eventsContainer {
-          display: flex;
-          .toggleButton {
-            font-size: 24px;
-            background-color: color.$background-primary;
-            border: none;
-            border-radius: 4px;
-            padding: 0px 4px;
-            cursor: pointer;
-            &:hover {
-              color: color.$toggle;
-            }
-          }
-          .deleteButton {
-            font-size: 24px;
-            background-color: color.$background-primary;
-            border: none;
-            cursor: pointer;
-            &:hover {
-              color: color.$delete;
-            }
-          }
-        }
-      }
-    }
-  }
-  .search {
+  overflow-x: auto;
+  height: 100%;
+  .bottomBar {
     display: flex;
-    align-items: center;
-    width: 100%;
-    justify-content: center;
-    margin: 32px 0px;
-    padding: 0px 32px;
-    .searchInput {
-      width: 100%;
-      border: 0;
-      border-bottom: 2px solid color.$border-primary;
-      outline: 0;
-      margin-left: 16px;
-    }
-    .folder {
-      align-items: center;
-      font-size: 24px;
-      border: 0;
-      background-color: color.$background-primary;
-      margin-right: 8px;
-      &:hover {
-        color: color.$text-terciary;
-        cursor: pointer;
-      }
-    }
-    .searchButton{
-      align-items: center;
-      font-size: 24px;
-      border: 0px;
-      background-color: color.$background-primary;
-      &:hover {
-        color: color.$text-terciary;
-        cursor: pointer;
-      }
-    }
-  }
-}
-
-@media screen and (min-width: 900px) {
-  .outerContainer {
-    padding: 0px 128px;
-    flex-direction: column;
-    justify-content: flex-start;
-    .container {
-      background-color: color.$background-primary;
-      width: 100%;
-      .titleContainer {
-        border-radius: 16px;
-      }
-    }
-  }
-}
-
-@media screen and (min-width: 1200px) {
-  .outerContainer {
-    padding: 0px 256px;
+    position: fixed;
+    bottom: 0;
+    background-color: color.$black100;
+    margin-bottom: 32px;
+    padding: 16px 32px;
+    color: color.$white;
+    border-radius: 50px;
+    font-size: 32px;
+    gap: 32px;
   }
 }

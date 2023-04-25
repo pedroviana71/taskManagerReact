@@ -3,7 +3,8 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const tasksSlice = createApi({
   reducerPath: "tasks",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3005/api/",
+    // baseUrl: "https://colorful-hare-zipper.cyclic.app/api",
+    baseUrl: "http://localhost:3005/api",
     // credentials: "include",
     prepareHeaders: (headers, { getState }) => {
       const token = getState().user.token || localStorage.getItem("token");
@@ -87,7 +88,7 @@ export const tasksSlice = createApi({
       }),
     }),
   }),
-}); 
+});
 
 export const {
   useGetAllTasksQuery,

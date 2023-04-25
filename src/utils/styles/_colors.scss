@@ -1,3 +1,17 @@
+$background-primary: rgba(249, 242, 237, 0.5);
+$black100: rgba(45, 43, 53, 1);
+$black75: rgba(45, 43, 53, 0.75);
+$black50: rgba(45, 43, 53, 0.5);
+$black25: rgba(45, 43, 53, 0.25);
+$black10: rgba(45, 43, 53, 0.1);
+$black5: rgba(45, 43, 53, 0.05);
+
+$white: rgba(199, 199, 199, 1);
+
+$success: rgba(42, 192, 103, 1);
+$error: rgba(235, 78, 68, 1);
+
+//! cores antigas, retirar aos poucos
 $background-primary: #ffffff;
 $background-secondary: #e7e7e7da;
 $background-terciary: #fcfcfc;
@@ -5,9 +19,7 @@ $background-quartenary: #717171;
 $background-semi-transparent: #000000c0;
 $background-transparent: #00000000;
 
-
 $background-dark: #3d3d3d;
-
 
 $button-primary: #3991af;
 

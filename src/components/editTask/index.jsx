@@ -1,9 +1,6 @@
 import { useState } from "react";
 import styles from "./index.module.scss";
-import {
-  useEditTaskMutation,
-  useGetTaskQuery,
-} from "../../../app/api/tasksSlice";
+import { useEditTaskMutation, useGetTaskQuery } from "../../app/api/tasksSlice";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 
@@ -18,10 +15,9 @@ const EditTask = () => {
   const [isEditingCategory, setIsEditingCategory] = useState(false);
   const [isEditingComments, setIsEditingComments] = useState(false);
   const createdAtDate = new Date(data?.createdAt).toLocaleDateString("pt-BR");
-  const createdAtTime = new Date(data?.createdAt).toLocaleTimeString("pt-BR", );
+  const createdAtTime = new Date(data?.createdAt).toLocaleTimeString("pt-BR");
 
   const navigate = useNavigate();
-
 
   const handleSubmit = async () => {
     try {

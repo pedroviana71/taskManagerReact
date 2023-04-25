@@ -1,28 +1,31 @@
 import styles from "./tasks.module.scss";
-import { memo, useState } from "react";
+import { useState } from "react";
 
-import { useGetAllTasksQuery, useGetUserQuery } from "../../app/api/tasksSlice";
+import {
+  useGetAllTasksQuery,
+  useGetCategoriesQuery,
+  useGetUserQuery,
+} from "../../app/api/tasksSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { selectCurrentUser } from "../../features/userSlice";
 import { useNavigate } from "react-router-dom";
 import AllTasks from "./AllTasks";
-import { MdOutlineFolderOpen, MdSearch } from "react-icons/md";
-import { MdFolder } from "react-icons/md";
+import { MdAdd, MdSearch, MdCategory, MdStarOutline } from "react-icons/md";
 import AllCategories from "./AllCategories";
-import useWindowDimensions from "../../utils/customHooks/useWindowDimensions";
+import clsx from "clsx";
+import CategoriesBar from "./CategoriesBar";
 
 const Tasks = () => {
+  useGetUserQuery();
   const navigate = useNavigate();
   const user = useSelector(selectCurrentUser);
-  useGetUserQuery();
-  const { width } = useWindowDimensions();
-
+  const { data: tasksData } = useGetAllTasksQuery();
+  const { data: categoriesData } = useGetCategoriesQuery();
+  const [categories, setCategories] = useState([]);
   const [tasks, setTasks] = useState([]);
-  const [filtered, setFiltered] = useState([]);
   const [showFolder, setShowFolder] = useState(false);
   const [showSearchBar, setShowSearchBar] = useState(false);
-  const { data } = useGetAllTasksQuery();
 
   const dispatch = useDispatch();
 
@@ -32,19 +35,24 @@ const Tasks = () => {
     if (!user && !token) {
       navigate("/login");
     }
-    setTasks(data);
-    setFiltered(data);
-  }, [data, user, token, navigate, dispatch]);
+    setCategories(categoriesData);
+    setTasks(tasksData);
+  }, [tasksData, user, token, navigate, dispatch, categoriesData]);
 
-  const filteredTasks = (word) => {
-    const filtered = tasks.filter((task) => {
-      if (word === "") {
-        return task;
-      } else {
+  const filteredTasks = (word, id) => {
+    if (!word && !id) {
+      setTasks(tasksData);
+    } else if (word && !id) {
+      const filtered = tasksData.filter((task) => {
         return task.title.toLowerCase().includes(word.toLowerCase());
-      }
-    });
-    setFiltered(filtered);
+      });
+      setTasks(filtered);
+    } else {
+      const filtered = tasksData.filter((task) => {
+        return task.categoryId === id;
+      });
+      setTasks(filtered);
+    }
   };
 
   const handleShowFolder = () => {
@@ -52,42 +60,29 @@ const Tasks = () => {
   };
 
   return (
-    <div className={styles.outerContainer}>
-      <div className={styles.search}>
-        <button onClick={handleShowFolder} className={styles.folder}>
-          {showFolder ? <MdFolder /> : <MdOutlineFolderOpen />}
-        </button>
-        {width < 900 ? (
-          <button
-            onClick={() => setShowSearchBar(true)}
-            className={styles.searchButton}
-          >
-            <MdSearch />
-          </button>
-        ) : (
-          <input
-            className={styles.searchInput}
-            type="text"
-            placeholder="Search"
-            onChange={(e) => filteredTasks(e.target.value)}
-          />
-        )}
-        {showSearchBar && width < 900 ? (
-          <input
-            className={styles.searchInput}
-            type="text"
-            placeholder="Search"
-            onChange={(e) => filteredTasks(e.target.value)}
-          />
-        ) : null}
-      </div>
+    <div className={styles.container}>
+      <CategoriesBar
+        setTasks={setTasks}
+        tasksData={tasksData}
+        categories={categories}
+        filteredTasks={filteredTasks}
+      />
       {showFolder ? (
-        <AllCategories tasks={filtered} />
+        <AllCategories tasks={tasks} />
       ) : (
-        <AllTasks filtered={filtered} />
+        <AllTasks filtered={tasks} />
       )}
+      <div className={styles.bottomBar}>
+        <MdAdd
+          onClick={() => navigate("create-task")}
+          className={styles.buttonBottomBar}
+        />
+        <MdSearch />
+        <MdCategory onClick={handleShowFolder} />
+        <MdStarOutline />
+      </div>
     </div>
   );
 };
 
-export default memo(Tasks);
+export default Tasks;

@@ -1,5 +1,5 @@
-@use "../../../utils/styles/colors" as color;
-@use "../../../utils/styles/shadows" as shadow;
+@use "../../utils/styles/colors" as color;
+@use "../../utils/styles/shadows" as shadow;
 
 .container {
   display: flex;
@@ -15,7 +15,7 @@
   :focus {
     outline: none;
   }
-  .chooseCategory :hover{
+  .chooseCategory :hover {
     cursor: pointer;
   }
 }

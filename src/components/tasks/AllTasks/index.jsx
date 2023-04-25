@@ -1,35 +1,61 @@
 import dayjs from "dayjs";
+import "dayjs/locale/pt-br";
+
 import {
   useDeleteTaskMutation,
   useEditTaskMutation,
   useGetCategoriesQuery,
 } from "../../../app/api/tasksSlice";
 import styles from "./index.module.scss";
-import {
-  MdOutlineDeleteForever,
-  MdOutlineToggleOff,
-  MdToggleOn,
-  MdBookmark,
-} from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
+import {
+  MdCheckBoxOutlineBlank,
+  MdMoreVert,
+  MdOutlineCheckBox,
+  MdOutlineModeComment,
+} from "react-icons/md";
+import ClickOutside from "../../../utils/customHooks/useClickOutside";
 
-const AllTasks = ({ filtered, title }) => {
+const AllTasks = ({ filtered }) => {
   const [deleteTask] = useDeleteTaskMutation();
   const [editTask] = useEditTaskMutation();
   const [categories, setCategories] = useState([]);
   const { data } = useGetCategoriesQuery();
   const navigate = useNavigate();
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState("");
+  const [outsideClickControl, setOutsideClickControl] = useState(false);
 
   useEffect(() => {
     setCategories(data);
   }, [data]);
+  console.log(showDeleteModal);
+
+  const handleDeleteButton = (index) => {
+    setShowDeleteModal(!showDeleteModal);
+    setSelectedIndex(index);
+  };
+
+  const handleNavigate = (id) => {
+    console.log("clickTask", showDeleteModal);
+    if (showDeleteModal || outsideClickControl) {
+      setShowDeleteModal(false);
+      setOutsideClickControl(false);
+    } else {
+      navigate(`/edit/${id}`);
+    }
+  };
+
+  const hadleClickOutside = () => {
+    setOutsideClickControl(true);
+    setShowDeleteModal(false);
+  };
 
   return (
     <div className={styles.container}>
-      {title ? <h1>{title}</h1> : null}
-      {filtered?.map((task) => {
+      {filtered?.map((task, index) => {
         const { _id, deadline, title } = task;
 
         const handleComplete = (id) => {
@@ -41,53 +67,66 @@ const AllTasks = ({ filtered, title }) => {
         );
 
         return (
-          <section key={_id} className={styles.container}>
-            <div className={styles.taskContainer}>
-              <div className={styles.buttonsContainer}>
-                {deadline ? (
-                  <h4 className={styles.time}>
-                    {dayjs(deadline).format("DD/MM")}
-                  </h4>
-                ) : (
-                  <h3>-</h3>
-                )}
-                <div className={styles.eventsContainer}>
-                  <button
-                    onClick={() => {
-                      deleteTask(_id);
-                    }}
-                    className={styles.deleteButton}
-                  >
-                    <MdOutlineDeleteForever />
-                  </button>
-                  <button
-                    onClick={() => handleComplete(task._id)}
-                    className={styles.toggleButton}
-                  >
-                    {task.completed ? <MdToggleOn /> : <MdOutlineToggleOff />}
-                  </button>
-                </div>
-              </div>
+          <div key={_id}>
+            <section className={styles.taskContainer}>
               <button
-                className={styles.titleContainer}
-                onClick={() => navigate(`/edit/${_id}`)}
+                className={styles.checkBox}
+                onClick={() => handleComplete(_id)}
               >
-                <MdBookmark
-                  style={{
-                    color: category?.color,
-                  }}
-                  className={styles.colorTag}
-                />
+                {task.completed ? (
+                  <MdOutlineCheckBox className={styles.checkBoxIcon} />
+                ) : (
+                  <MdCheckBoxOutlineBlank className={styles.checkBoxIcon} />
+                )}
+              </button>
+              <button
+                className={styles.innetTaskContainer}
+                onClick={() => handleNavigate(_id)}
+              >
                 <h1
                   className={clsx(
-                    task.completed ? styles.titleCompleted : null
+                    task.completed ? styles.titleCompleted : styles.completed
                   )}
                 >
                   {title}
                 </h1>
+                <div className={styles.taskFooter}>
+                  {deadline ? (
+                    <h4 className={styles.date}>
+                      {dayjs(deadline).locale("pt-BR").format("ddd, DD MMM")}
+                    </h4>
+                  ) : null}
+                  {category ? (
+                    <h4
+                      className={styles.category}
+                      style={{ backgroundColor: `${category.color}66` }}
+                    >
+                      {category.name}
+                    </h4>
+                  ) : null}
+                  {task.comments ? <MdOutlineModeComment /> : null}
+                </div>
               </button>
-            </div>
-          </section>
+              <MdMoreVert
+                className={styles.moreVertButton}
+                onClick={() => handleDeleteButton(index)}
+              />
+              {showDeleteModal && selectedIndex === index ? (
+                <ClickOutside onClick={hadleClickOutside}>
+                  <div className={styles.deleteModal}>
+                    <h1
+                      onClick={() => {
+                        deleteTask(_id);
+                      }}
+                    >
+                      Deletar
+                    </h1>
+                  </div>
+                </ClickOutside>
+              ) : null}
+            </section>
+            <hr className={styles.line} />
+          </div>
         );
       })}
     </div>
