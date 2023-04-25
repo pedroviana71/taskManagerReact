@@ -14,6 +14,7 @@ import AllTasks from "./AllTasks";
 import { MdAdd, MdSearch, MdCategory, MdStarOutline } from "react-icons/md";
 import AllCategories from "./AllCategories";
 import clsx from "clsx";
+import CategoriesBar from "./CategoriesBar";
 
 const Tasks = () => {
   useGetUserQuery();
@@ -24,7 +25,6 @@ const Tasks = () => {
   const [categories, setCategories] = useState([]);
   const [tasks, setTasks] = useState([]);
   const [showFolder, setShowFolder] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState("");
   const [showSearchBar, setShowSearchBar] = useState(false);
 
   const dispatch = useDispatch();
@@ -61,40 +61,12 @@ const Tasks = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.categoriesBar}>
-        <h1
-          className={clsx(
-            selectedIndex || selectedIndex === 0
-              ? styles.category
-              : styles.categoryActive
-          )}
-          onClick={() => {
-            setSelectedIndex("");
-            setTasks(tasksData);
-          }}
-        >
-          Todas
-        </h1>
-        {categories?.map((category, index) => {
-          const { _id, name } = category;
-          return (
-            <h1
-              key={_id}
-              className={clsx(
-                selectedIndex === index
-                  ? styles.categoryActive
-                  : styles.category
-              )}
-              onClick={() => {
-                setSelectedIndex(index);
-                filteredTasks(null, _id);
-              }}
-            >
-              {name}
-            </h1>
-          );
-        })}
-      </div>
+      <CategoriesBar
+        setTasks={setTasks}
+        tasksData={tasksData}
+        categories={categories}
+        filteredTasks={filteredTasks}
+      />
       {showFolder ? (
         <AllCategories tasks={tasks} />
       ) : (
