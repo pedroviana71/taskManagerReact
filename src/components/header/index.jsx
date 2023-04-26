@@ -8,7 +8,6 @@ import { useEffect } from "react";
 import sideBar from "../../assets/SideBar.svg";
 
 const Home = () => {
-  const user = useSelector((state) => state.user);
   const location = useLocation();
   const [showMenu, setShowMenu] = useState(false);
   const [isLogged, setIsLogged] = useState(false);
