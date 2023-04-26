@@ -15,7 +15,7 @@ export const SideBar = ({ setShowMenu }) => {
   };
 
   return (
-    <div className={width > 900 ? styles.container : styles.mobileContainer}>
+    <div className={styles.container}>
       <div className={styles.profileContainer}>
         <p className={styles.profileName}>{data?.username}</p>
         <p>{data?.email}</p>

@@ -23,7 +23,7 @@ const Home = () => {
 
   return (
     <div className={styles.container}>
-      <button className={styles.menuSideBar}>
+      <button className={styles.menuSideBar} onClick={handleSideBar}>
         <img src={sideBar} alt="Menu" />
       </button>
       <h1 className={styles.appTitle}>LISTING</h1>
