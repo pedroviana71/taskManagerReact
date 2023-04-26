@@ -1,12 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import styles from "./index.module.scss";
 import { useGetUserQuery } from "../../app/api/tasksSlice";
-import { MdClose } from "react-icons/md";
-import useWindowDimensions from "../../utils/customHooks/useWindowDimensions";
+import { MdKeyboardArrowLeft, MdLogout } from "react-icons/md";
+import { BsPersonCircle } from "react-icons/bs";
 
 export const SideBar = ({ setShowMenu }) => {
   const navigate = useNavigate();
-  const { width } = useWindowDimensions();
   const { data } = useGetUserQuery();
 
   const handleLogout = () => {
@@ -15,17 +14,20 @@ export const SideBar = ({ setShowMenu }) => {
   };
 
   return (
-    <div className={width > 900 ? styles.container : styles.mobileContainer}>
+    <div className={styles.container}>
+      <button onClick={() => setShowMenu(false)} className={styles.arrowBack}>
+        <MdKeyboardArrowLeft />
+      </button>
       <div className={styles.profileContainer}>
-        <p className={styles.profileName}>{data?.username}</p>
-        <p>{data?.email}</p>
+        <div>
+          <BsPersonCircle className={styles.profilePic} />
+          <p className={styles.profileName}>{data?.username}</p>
+        </div>
         <button onClick={handleLogout} className={styles.logout}>
-          Log Out
+          <p>Log Out</p>
+          <MdLogout />
         </button>
       </div>
-      <button onClick={() => setShowMenu(false)} className={styles.closeIcon}>
-        <MdClose />
-      </button>
     </div>
   );
 };

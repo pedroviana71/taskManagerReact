@@ -8,7 +8,6 @@ import { useEffect } from "react";
 import sideBar from "../../assets/SideBar.svg";
 
 const Home = () => {
-  const user = useSelector((state) => state.user);
   const location = useLocation();
   const [showMenu, setShowMenu] = useState(false);
   const [isLogged, setIsLogged] = useState(false);
@@ -23,7 +22,7 @@ const Home = () => {
 
   return (
     <div className={styles.container}>
-      <button className={styles.menuSideBar}>
+      <button className={styles.menuSideBar} onClick={handleSideBar}>
         <img src={sideBar} alt="Menu" />
       </button>
       <h1 className={styles.appTitle}>LISTING</h1>

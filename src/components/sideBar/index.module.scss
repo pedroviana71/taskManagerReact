@@ -1,56 +1,51 @@
 @use "../../utils//styles/colors" as color;
 
-.mobileContainer {
-  width: 100%;
-  height: 100%;
+.container {
   position: absolute;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  background-color: color.$background-semi-transparent;
-  color: white;
-  right: 0px;
-  top: 0px;
-  z-index: 1;
-  padding: 16px 32px;
-  .profileContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 16px;
-    .profileName {
-      margin-bottom: 4px;
-      font-size: 40px;
-      font-weight: 600;
-    }
-    .logout {
-      color: color.$text-primary;
-      background-color: color.$background-quartenary;
-      font-size: 16px;
-      cursor: pointer;
-      padding: 2px 8px;
-      border-radius: 8px;
-      margin-top: 32px;
-      border: 0px;
-    }
-  }
-  .closeIcon {
-    font-size: 32px;
-    cursor: pointer;
-    width: 56px;
-    border-radius: 50%;
-    background-color: color.$background-transparent;
-    border: 0px;
-    color: color.$text-terciary;
-  }
-}
-
-.container {
-  position: absolute;
+  align-items: flex-end;
   height: 100%;
   left: 0px;
   top: 0px;
-  background-color: color.$background-quartenary;
+  background-color: color.$whiteSideBar;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.233);
+  z-index: 1;
+  .arrowBack {
+    font-size: 24px;
+    cursor: pointer;
+    background-color: color.$background-transparent;
+    border: 0px;
+    color: color.$black100;
+    margin: 32px;
+  }
+  .profileContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    width: 100%;
+    height: 100%;
+    .profilePic {
+      font-size: 64px;
+      margin-bottom: 8px;
+      margin-left: 88px;
+      margin-right: 88px;
+    }
+    .profileName {
+      font-size: 32px;
+      font-weight: 700;
+    }
+    .logout {
+      display: flex;
+      gap: 8px;
+      color: color.$black100;
+      background-color: transparent;
+      font-weight: 700;
+      font-size: 24px;
+      cursor: pointer;
+      margin: 32px 32px 32px 94px;
+      border: 0px;
+    }
+  }
 }
