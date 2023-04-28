@@ -4,29 +4,60 @@
 .container {
   display: flex;
   flex-direction: column;
+  margin: 0px 32px;
   .input {
-    border: none;
-    border-bottom: 1px solid color.$border-primary;
+    display: flex;
+    border: 1px solid color.$black100;
+    border-radius: 15px;
     margin-bottom: 24px;
-    padding: 4px 0px;
+    padding-left: 32px;
+    background-color: transparent;
     resize: none;
     height: 32px;
+  }
+  .commentsContainer {
+    position: relative;
+    width: 100%;
+    .comments {
+      display: flex;
+      height: 200px;
+      padding-top: 4px;
+      width: 100%;
+    }
+    .addTopics {
+      position: absolute;
+      right: 24px;
+      bottom: 40px;
+      font-size: 24px;
+      color: color.$black100;
+    }
   }
   :focus {
     outline: none;
   }
-  .chooseCategory :hover {
-    cursor: pointer;
+  .iconsContainer {
+    display: flex;
+    gap: 16px;
+    font-size: 24px;
+    margin-bottom: 24px;
   }
-}
-.button {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 16px;
-  padding: 4px 8px;
-  border: 0;
-  background-color: color.$button-primary;
-  color: color.$text-primary;
-  font-size: 16px;
-  border-radius: 8px;
+  .button {
+    display: flex;
+    justify-content: center;
+    margin: 16px 0px;
+    padding: 8px 8px;
+    border: 0;
+    background-color: color.$black100;
+    color: color.$text-primary;
+    font-size: 16px;
+    border-radius: 20px;
+  }
+  .calendar {
+    display: flex;
+    justify-content: center;
+    padding: 8px 0px;
+    margin-bottom: 16px;
+    border-radius: 20px;
+    background-color: color.$black10;
+  }
 }

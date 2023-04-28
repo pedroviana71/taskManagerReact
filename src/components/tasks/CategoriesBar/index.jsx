@@ -2,24 +2,38 @@ import clsx from "clsx";
 import styles from "./index.module.scss";
 import { useState } from "react";
 
-const CategoriesBar = ({ setTasks, tasksData, categories, filteredTasks }) => {
+const CategoriesBar = ({
+  setTasks,
+  tasksData,
+  categories,
+  filteredTasks,
+  setCategoryId,
+}) => {
   const [selectedIndex, setSelectedIndex] = useState("");
+  const isAllTasks = setTasks && tasksData;
 
   return (
-    <div className={styles.categoriesBar}>
-      <h1
-        className={clsx(
-          selectedIndex || selectedIndex === 0
-            ? styles.category
-            : styles.categoryActive
-        )}
-        onClick={() => {
-          setSelectedIndex("");
-          setTasks(tasksData);
-        }}
-      >
-        Todas
-      </h1>
+    <div
+      className={clsx(
+        styles.categoriesBar,
+        isAllTasks ? null : styles.categoriesBarCreateTask
+      )}
+    >
+      {isAllTasks ? (
+        <h1
+          className={clsx(
+            selectedIndex || selectedIndex === 0
+              ? styles.category
+              : styles.categoryActive
+          )}
+          onClick={() => {
+            setSelectedIndex("");
+            setTasks(tasksData);
+          }}
+        >
+          Todas
+        </h1>
+      ) : null}
       {categories?.map((category, index) => {
         const { _id, name } = category;
         return (
@@ -30,7 +44,11 @@ const CategoriesBar = ({ setTasks, tasksData, categories, filteredTasks }) => {
             )}
             onClick={() => {
               setSelectedIndex(index);
-              filteredTasks(null, _id);
+              if (isAllTasks) {
+                filteredTasks(null, _id);
+              } else {
+                setCategoryId(_id);
+              }
             }}
           >
             {name}

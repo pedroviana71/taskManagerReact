@@ -31,7 +31,6 @@ const AllTasks = ({ filtered }) => {
   useEffect(() => {
     setCategories(data);
   }, [data]);
-  console.log(showDeleteModal);
 
   const handleDeleteButton = (index) => {
     setShowDeleteModal(!showDeleteModal);
@@ -39,7 +38,6 @@ const AllTasks = ({ filtered }) => {
   };
 
   const handleNavigate = (id) => {
-    console.log("clickTask", showDeleteModal);
     if (showDeleteModal || outsideClickControl) {
       setShowDeleteModal(false);
       setOutsideClickControl(false);
