@@ -11,7 +11,13 @@ import { useEffect } from "react";
 import { selectCurrentUser } from "../../features/userSlice";
 import { useNavigate } from "react-router-dom";
 import AllTasks from "./AllTasks";
-import { MdAdd, MdSearch, MdCategory, MdStarOutline } from "react-icons/md";
+import {
+  MdAdd,
+  MdSearch,
+  MdCategory,
+  MdStarOutline,
+  MdOutlineStar,
+} from "react-icons/md";
 import AllCategories from "./AllCategories";
 import clsx from "clsx";
 import CategoriesBar from "./CategoriesBar";
@@ -25,6 +31,7 @@ const Tasks = () => {
   const [categories, setCategories] = useState([]);
   const [tasks, setTasks] = useState([]);
   const [showFolder, setShowFolder] = useState(false);
+  const [isFavoriteSelected, setIsFavoriteSelected] = useState(false);
   const [showSearchBar, setShowSearchBar] = useState(false);
 
   const dispatch = useDispatch();
@@ -39,12 +46,17 @@ const Tasks = () => {
     setTasks(tasksData);
   }, [tasksData, user, token, navigate, dispatch, categoriesData]);
 
-  const filteredTasks = (word, id) => {
-    if (!word && !id) {
+  const filteredTasks = (word, id, filterFavorites) => {
+    if (!word && !id && !filterFavorites) {
       setTasks(tasksData);
     } else if (word && !id) {
       const filtered = tasksData.filter((task) => {
         return task.title.toLowerCase().includes(word.toLowerCase());
+      });
+      setTasks(filtered);
+    } else if (filterFavorites) {
+      const filtered = tasksData.filter((task) => {
+        return task.isFavorite;
       });
       setTasks(filtered);
     } else {
@@ -57,6 +69,16 @@ const Tasks = () => {
 
   const handleShowFolder = () => {
     setShowFolder(!showFolder);
+  };
+
+  const handleFavorites = () => {
+    if (isFavoriteSelected) {
+      setTasks(tasksData);
+      setIsFavoriteSelected(false);
+    } else {
+      filteredTasks(null, null, true);
+      setIsFavoriteSelected(true);
+    }
   };
 
   return (
@@ -79,7 +101,11 @@ const Tasks = () => {
         />
         <MdSearch />
         <MdCategory onClick={handleShowFolder} />
-        <MdStarOutline />
+        {isFavoriteSelected ? (
+          <MdOutlineStar onClick={handleFavorites} />
+        ) : (
+          <MdStarOutline onClick={handleFavorites} />
+        )}
       </div>
     </div>
   );

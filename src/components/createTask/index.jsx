@@ -44,6 +44,7 @@ const CreateTask = () => {
       deadline,
       isFavorite,
     };
+    console.log(task);
     createTask(task);
     navigate("/");
   };
