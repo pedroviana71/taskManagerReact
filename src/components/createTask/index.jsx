@@ -6,27 +6,27 @@ import {
 } from "../../app/api/tasksSlice";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import DateTimePicker from "react-datetime-picker";
-import { SliderPicker } from "react-color";
+import DatePicker from "react-date-picker";
 import clsx from "clsx";
 import {
   MdEditCalendar,
   MdOutlineAddComment,
-  MdOutlineColorLens,
   MdOutlineImage,
   MdStarOutline,
 } from "react-icons/md";
 import CategoriesBar from "../tasks/CategoriesBar";
 import { AiOutlineAppstoreAdd } from "react-icons/ai";
+import "react-date-picker/dist/DatePicker.css";
+import "react-calendar/dist/Calendar.css";
+import dayjs from "dayjs";
 
 const CreateTask = () => {
   const [title, setTitle] = useState("");
   const [comments, setComments] = useState("");
   const [categoryId, setCategoryId] = useState("");
-  const [color, setColor] = useState("");
-  const [deadline, setDeadline] = useState(new Date());
+  const [showCalendar, setShowCalendar] = useState(false);
+  const [deadline, setDeadline] = useState(dayjs().add(1, "day").format());
   const { data: categories } = useGetCategoriesQuery();
-
   const [createTask] = useCreateTaskMutation();
   const navigate = useNavigate();
 
@@ -43,10 +43,6 @@ const CreateTask = () => {
     };
     createTask(task);
     navigate("/");
-  };
-
-  const handleColor = (color) => {
-    setColor(color.hex);
   };
 
   const handleGoBack = () => {
@@ -78,15 +74,23 @@ const CreateTask = () => {
         <MdOutlineAddComment className={styles.addTopics} />
       </div>
       <div className={styles.iconsContainer}>
-        <MdEditCalendar />
+        <MdEditCalendar onClick={() => setShowCalendar(!showCalendar)} />
         <MdStarOutline />
         <AiOutlineAppstoreAdd />
-        <MdOutlineColorLens />
+        {/* <MdOutlineColorLens /> */}
         <MdOutlineImage />
       </div>
+      {showCalendar && (
+        <div className={styles.calendar}>
+          <DatePicker
+            onChange={setDeadline}
+            value={deadline}
+            minDate={dayjs().toDate()}
+          />
+        </div>
+      )}
+
       <CategoriesBar categories={categories} setCategoryId={setCategoryId} />
-      <SliderPicker color={color} onChangeComplete={handleColor} />
-      <DateTimePicker onChange={setDeadline} value={deadline} />
 
       <button onClick={handleSubmit} className={styles.button}>
         Criar tarefa

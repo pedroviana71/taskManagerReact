@@ -52,4 +52,12 @@
     font-size: 16px;
     border-radius: 20px;
   }
+  .calendar {
+    display: flex;
+    justify-content: center;
+    padding: 8px 0px;
+    margin-bottom: 16px;
+    border-radius: 20px;
+    background-color: color.$black10;
+  }
 }
