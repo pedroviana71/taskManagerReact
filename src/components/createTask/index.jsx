@@ -9,7 +9,15 @@ import { useNavigate } from "react-router-dom";
 import DateTimePicker from "react-datetime-picker";
 import { SliderPicker } from "react-color";
 import clsx from "clsx";
+import {
+  MdEditCalendar,
+  MdOutlineAddComment,
+  MdOutlineColorLens,
+  MdOutlineImage,
+  MdStarOutline,
+} from "react-icons/md";
 import CategoriesBar from "../tasks/CategoriesBar";
+import { AiOutlineAppstoreAdd } from "react-icons/ai";
 
 const CreateTask = () => {
   const [title, setTitle] = useState("");
@@ -57,23 +65,31 @@ const CreateTask = () => {
         placeholder="Escreva o título ..."
         maxLength={140}
       />
-      <textarea
-        className={clsx(styles.input, styles.comments)}
-        type="text"
-        onChange={(e) => {
-          setComments(e.target.value);
-        }}
-        placeholder="Escreva comentários (opcional) ..."
-        maxLength={240}
-      />
-
+      <div className={styles.commentsContainer}>
+        <textarea
+          className={clsx(styles.input, styles.comments)}
+          type="text"
+          onChange={(e) => {
+            setComments(e.target.value);
+          }}
+          placeholder="Escreva comentários (opcional) ..."
+          maxLength={240}
+        />
+        <MdOutlineAddComment className={styles.addTopics} />
+      </div>
+      <div className={styles.iconsContainer}>
+        <MdEditCalendar />
+        <MdStarOutline />
+        <AiOutlineAppstoreAdd />
+        <MdOutlineColorLens />
+        <MdOutlineImage />
+      </div>
       <CategoriesBar categories={categories} setCategoryId={setCategoryId} />
       <SliderPicker color={color} onChangeComplete={handleColor} />
-
       <DateTimePicker onChange={setDeadline} value={deadline} />
 
       <button onClick={handleSubmit} className={styles.button}>
-        Adicionar
+        Criar tarefa
       </button>
       <button onClick={handleGoBack} className={styles.button}>
         Cancelar
