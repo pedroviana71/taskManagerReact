@@ -12,6 +12,7 @@ import {
   MdEditCalendar,
   MdOutlineAddComment,
   MdOutlineImage,
+  MdOutlineStar,
   MdStarOutline,
 } from "react-icons/md";
 import CategoriesBar from "../tasks/CategoriesBar";
@@ -24,6 +25,7 @@ const CreateTask = () => {
   const [title, setTitle] = useState("");
   const [comments, setComments] = useState("");
   const [categoryId, setCategoryId] = useState("");
+  const [isFavorite, setIsFavorite] = useState(false);
   const [showCalendar, setShowCalendar] = useState(false);
   const [deadline, setDeadline] = useState(dayjs().add(1, "day").format());
   const { data: categories } = useGetCategoriesQuery();
@@ -40,6 +42,7 @@ const CreateTask = () => {
       categoryId,
       userId,
       deadline,
+      isFavorite,
     };
     createTask(task);
     navigate("/");
@@ -47,6 +50,10 @@ const CreateTask = () => {
 
   const handleGoBack = () => {
     navigate("/");
+  };
+
+  const handleGoCategories = () => {
+    navigate("/categories");
   };
 
   return (
@@ -75,9 +82,12 @@ const CreateTask = () => {
       </div>
       <div className={styles.iconsContainer}>
         <MdEditCalendar onClick={() => setShowCalendar(!showCalendar)} />
-        <MdStarOutline />
-        <AiOutlineAppstoreAdd />
-        {/* <MdOutlineColorLens /> */}
+        {isFavorite ? (
+          <MdOutlineStar onClick={() => setIsFavorite(!isFavorite)} />
+        ) : (
+          <MdStarOutline onClick={() => setIsFavorite(!isFavorite)} />
+        )}
+        <AiOutlineAppstoreAdd onClick={handleGoCategories} />
         <MdOutlineImage />
       </div>
       {showCalendar && (
