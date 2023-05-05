@@ -20,6 +20,7 @@ import CategoriesBar from "./CategoriesBar";
 import { Category, Task } from "../../app/api/tasksSlice";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
+import ReactLoading from "react-loading";
 
 interface User {
   id: string;
@@ -37,7 +38,7 @@ interface State {
 const Tasks = () => {
   const user = useSelector<State, User>((state) => state.user);
   const navigate = useNavigate();
-  const { data: tasksData, error } = useGetAllTasksQuery();
+  const { data: tasksData, error, isLoading } = useGetAllTasksQuery();
   const { data: categoriesData } = useGetCategoriesQuery();
   const [categories, setCategories] = useState<Category[]>();
   const [tasks, setTasks] = useState<Task[]>();
@@ -45,7 +46,6 @@ const Tasks = () => {
   const [isFavoriteSelected, setIsFavoriteSelected] = useState(false);
 
   const token = localStorage.getItem("token");
-  console.log(error);
 
   useEffect(() => {
     if (!user.token && !token) {
@@ -99,6 +99,14 @@ const Tasks = () => {
 
   return (
     <div className={styles.container}>
+      {isLoading ? (
+        <ReactLoading
+          type="spinningBubbles"
+          color={"#2D2B35"}
+          height={"64px"}
+          width={"64px"}
+        />
+      ) : null}
       <CategoriesBar
         setTasks={setTasks}
         tasksData={tasksData}
