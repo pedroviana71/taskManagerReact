@@ -102,7 +102,7 @@ export const tasksSlice = createApi({
         method: "GET",
       }),
     }),
-    createCategory: builder.mutation<null, Partial<Category>>({
+    createCategory: builder.mutation<Category, Partial<Category>>({
       query: (category) => ({
         url: "category",
         method: "POST",
