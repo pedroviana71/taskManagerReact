@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { store } from "./app/store";
 import { Provider } from "react-redux";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import App from "./app";
+import App from "./App";
 import Register from "./components/register/index.js";
 import Login from "./components/login";
 import EditTask from "./components/editTask";
@@ -13,8 +13,9 @@ import Logout from "./components/logout";
 import Profile from "./components/profile";
 import Category from "./components/category";
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-
+const root = ReactDOM.createRoot(
+  document.getElementById("root") as HTMLElement
+);
 const router = createBrowserRouter([
   {
     path: "/",

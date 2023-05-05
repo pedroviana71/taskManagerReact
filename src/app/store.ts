@@ -13,3 +13,5 @@ export const store = configureStore({
     getDefaultMiddleware().concat(tasksSlice.middleware, authSlice.middleware),
   devTools: true, //! mudar para false quando for para producao (preferencialmente usar env)
 });
+
+export type RootState = ReturnType<typeof store.getState>

@@ -5,8 +5,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 
 const EditTask = () => {
-  const { id } = useParams();
-  const { data } = useGetTaskQuery(id);
+  const { id: _id } = useParams();
+  const { data } = useGetTaskQuery(_id);
   const [editTask] = useEditTaskMutation();
   const [newTitle, setNewTitle] = useState("");
   const [newComments, setNewComments] = useState("");
@@ -22,7 +22,7 @@ const EditTask = () => {
   const handleSubmit = async () => {
     try {
       await editTask({
-        id,
+        _id,
         title: newTitle,
         category: newCategory,
         comments: newComments,
