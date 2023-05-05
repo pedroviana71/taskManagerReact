@@ -1,14 +1,44 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import type { RootState } from "../store";
+
+export interface Task {
+  _id: string;
+  title: string;
+  completed: boolean;
+  categoryId: string;
+  comments: string;
+  deadline: string;
+  isFavorite: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface User {
+  id: string;
+  username: string;
+  email: string;
+}
+
+export interface Category {
+  _id: string;
+  name: string;
+  color: string;
+  userId: string;
+  createdAt: string;
+  updatedAt: string;
+}
 
 export const tasksSlice = createApi({
   reducerPath: "tasks",
   baseQuery: fetchBaseQuery({
-    // baseUrl: "https://colorful-hare-zipper.cyclic.app/api",
-    baseUrl: "http://localhost:3005/api",
+    baseUrl: "https://colorful-hare-zipper.cyclic.app/api",
+    // baseUrl: "http://localhost:3005/api",
     // credentials: "include",
     prepareHeaders: (headers, { getState }) => {
-      const token = getState().user.token || localStorage.getItem("token");
-      const userId = getState().user.id || localStorage.getItem("id");
+      const token =
+        (getState() as RootState).user.token || localStorage.getItem("token");
+      const userId =
+        (getState() as RootState).user.id || localStorage.getItem("id");
 
       if (token) {
         headers.set("authorization", `Bearer ${token}`);
@@ -23,28 +53,28 @@ export const tasksSlice = createApi({
   }),
   tagTypes: ["Tasks"],
   endpoints: (builder) => ({
-    getAllTasks: builder.query({
+    getAllTasks: builder.query<Task[], void>({
       query: () => ({
         url: "tasks",
         method: "GET",
       }),
       providesTags: ["Tasks"],
     }),
-    getTask: builder.query({
+    getTask: builder.query<Task, string>({
       query: (id) => ({
         url: `tasks/${id}`,
         method: "GET",
       }),
       providesTags: ["Tasks"],
     }),
-    deleteTask: builder.mutation({
+    deleteTask: builder.mutation<null, string>({
       query: (id) => ({
         url: `tasks/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: ["Tasks"],
     }),
-    createTask: builder.mutation({
+    createTask: builder.mutation<null, Partial<Task>>({
       query: (task) => ({
         url: "tasks",
         method: "POST",
@@ -52,35 +82,34 @@ export const tasksSlice = createApi({
       }),
       invalidatesTags: ["Tasks"],
     }),
-    editTask: builder.mutation({
+    editTask: builder.mutation<null, Partial<Task>>({
       query: (task) => ({
-        url: `tasks/${task.id}`,
+        url: `tasks/${task._id}`,
         method: "PATCH",
         body: task,
       }),
       invalidatesTags: ["Tasks"],
     }),
-    getUser: builder.query({
+    getUser: builder.query<User, void>({
       query: () => ({
         url: "auth/user",
         method: "GET",
       }),
-      providesTags: ["User"],
     }),
-    getCategories: builder.query({
+    getCategories: builder.query<Category[], void>({
       query: () => ({
         url: "category",
         method: "GET",
       }),
     }),
-    createCategory: builder.mutation({
+    createCategory: builder.mutation<null, Partial<Category>>({
       query: (category) => ({
         url: "category",
         method: "POST",
         body: category,
       }),
     }),
-    getTaskCategory: builder.mutation({
+    getTaskCategory: builder.query({
       query: (id) => ({
         url: "tasks/category",
         method: "POST",
@@ -99,5 +128,5 @@ export const {
   useGetUserQuery,
   useGetCategoriesQuery,
   useCreateCategoryMutation,
-  useGetTaskCategoryMutation,
+  useGetTaskCategoryQuery,
 } = tasksSlice;

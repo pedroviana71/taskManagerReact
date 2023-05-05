@@ -17,27 +17,32 @@ import {
   MdOutlineModeComment,
 } from "react-icons/md";
 import ClickOutside from "../../../utils/customHooks/useClickOutside";
+import { Task, Category } from "../../../app/api/tasksSlice";
 
-const AllTasks = ({ filtered }) => {
+interface Filtered {
+  filtered: Task[] | undefined;
+}
+
+const AllTasks = ({ filtered }: Filtered) => {
   const [deleteTask] = useDeleteTaskMutation();
   const [editTask] = useEditTaskMutation();
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState<Category[]>();
   const { data } = useGetCategoriesQuery();
   const navigate = useNavigate();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState("");
+  const [selectedIndex, setSelectedIndex] = useState(0);
   const [outsideClickControl, setOutsideClickControl] = useState(false);
 
   useEffect(() => {
     setCategories(data);
   }, [data]);
 
-  const handleDeleteButton = (index) => {
+  const handleDeleteButton = (index: number) => {
     setShowDeleteModal(!showDeleteModal);
     setSelectedIndex(index);
   };
 
-  const handleNavigate = (id) => {
+  const handleNavigate = (id: string) => {
     if (showDeleteModal || outsideClickControl) {
       setShowDeleteModal(false);
       setOutsideClickControl(false);
@@ -56,8 +61,8 @@ const AllTasks = ({ filtered }) => {
       {filtered?.map((task, index) => {
         const { _id, deadline, title } = task;
 
-        const handleComplete = (id) => {
-          editTask({ id, completed: !task.completed });
+        const handleComplete = (_id: string) => {
+          editTask({ _id, completed: !task.completed });
         };
 
         const category = categories?.find(

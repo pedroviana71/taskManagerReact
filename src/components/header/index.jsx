@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import styles from "./index.module.scss";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";

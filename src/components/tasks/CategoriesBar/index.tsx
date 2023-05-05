@@ -1,6 +1,19 @@
 import clsx from "clsx";
 import styles from "./index.module.scss";
 import { useState } from "react";
+import { Task, Category } from "../../../app/api/tasksSlice";
+
+interface CategoriesBarProps {
+  setTasks?: React.Dispatch<React.SetStateAction<Task[] | undefined>>;
+  tasksData?: Task[];
+  categories?: Category[];
+  filteredTasks?: (
+    word: string | null,
+    id?: string,
+    filterFavorites?: boolean
+  ) => void;
+  setCategoryId?: React.Dispatch<React.SetStateAction<string>>;
+}
 
 const CategoriesBar = ({
   setTasks,
@@ -8,8 +21,8 @@ const CategoriesBar = ({
   categories,
   filteredTasks,
   setCategoryId,
-}) => {
-  const [selectedIndex, setSelectedIndex] = useState("");
+}: CategoriesBarProps) => {
+  const [selectedIndex, setSelectedIndex] = useState<number | "">();
   const isAllTasks = setTasks && tasksData;
 
   return (
@@ -44,9 +57,9 @@ const CategoriesBar = ({
             )}
             onClick={() => {
               setSelectedIndex(index);
-              if (isAllTasks) {
+              if (isAllTasks && filteredTasks) {
                 filteredTasks(null, _id);
-              } else {
+              } else if (setCategoryId) {
                 setCategoryId(_id);
               }
             }}

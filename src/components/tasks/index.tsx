@@ -4,11 +4,8 @@ import { useState } from "react";
 import {
   useGetAllTasksQuery,
   useGetCategoriesQuery,
-  useGetUserQuery,
 } from "../../app/api/tasksSlice";
-import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { selectCurrentUser } from "../../features/userSlice";
 import { useNavigate } from "react-router-dom";
 import AllTasks from "./AllTasks";
 import {
@@ -19,48 +16,67 @@ import {
   MdOutlineStar,
 } from "react-icons/md";
 import AllCategories from "./AllCategories";
-import clsx from "clsx";
 import CategoriesBar from "./CategoriesBar";
+import { Category, Task } from "../../app/api/tasksSlice";
+import { useSelector } from "react-redux";
+import { RootState } from "../../app/store";
+
+interface User {
+  id: string;
+  username: string;
+  email: string;
+  token: string;
+}
+
+interface State {
+  user: User;
+  tasks: RootState;
+  auth: RootState;
+}
 
 const Tasks = () => {
-  useGetUserQuery();
+  const user = useSelector<State, User>((state) => state.user);
   const navigate = useNavigate();
-  const user = useSelector(selectCurrentUser);
-  const { data: tasksData } = useGetAllTasksQuery();
+  const { data: tasksData, error } = useGetAllTasksQuery();
   const { data: categoriesData } = useGetCategoriesQuery();
-  const [categories, setCategories] = useState([]);
-  const [tasks, setTasks] = useState([]);
+  const [categories, setCategories] = useState<Category[]>();
+  const [tasks, setTasks] = useState<Task[]>();
   const [showFolder, setShowFolder] = useState(false);
   const [isFavoriteSelected, setIsFavoriteSelected] = useState(false);
-  const [showSearchBar, setShowSearchBar] = useState(false);
-
-  const dispatch = useDispatch();
 
   const token = localStorage.getItem("token");
+  console.log(error);
 
   useEffect(() => {
-    if (!user && !token) {
+    if (!user.token && !token) {
+      navigate("/login");
+    }
+    if (error && "status" in error && error.status === 401) {
       navigate("/login");
     }
     setCategories(categoriesData);
     setTasks(tasksData);
-  }, [tasksData, user, token, navigate, dispatch, categoriesData]);
+  }, [tasksData, user, token, navigate, categoriesData, error]);
 
-  const filteredTasks = (word, id, filterFavorites) => {
+  const filteredTasks = (
+    word: string | null,
+    id?: string,
+    filterFavorites?: boolean
+  ) => {
     if (!word && !id && !filterFavorites) {
       setTasks(tasksData);
     } else if (word && !id) {
-      const filtered = tasksData.filter((task) => {
+      const filtered = tasksData?.filter((task) => {
         return task.title.toLowerCase().includes(word.toLowerCase());
       });
       setTasks(filtered);
     } else if (filterFavorites) {
-      const filtered = tasksData.filter((task) => {
+      const filtered = tasksData?.filter((task) => {
         return task.isFavorite;
       });
       setTasks(filtered);
     } else {
-      const filtered = tasksData.filter((task) => {
+      const filtered = tasksData?.filter((task) => {
         return task.categoryId === id;
       });
       setTasks(filtered);
@@ -76,7 +92,7 @@ const Tasks = () => {
       setTasks(tasksData);
       setIsFavoriteSelected(false);
     } else {
-      filteredTasks(null, null, true);
+      filteredTasks("", "", true);
       setIsFavoriteSelected(true);
     }
   };
@@ -89,11 +105,7 @@ const Tasks = () => {
         categories={categories}
         filteredTasks={filteredTasks}
       />
-      {showFolder ? (
-        <AllCategories tasks={tasks} />
-      ) : (
-        <AllTasks filtered={tasks} />
-      )}
+      {showFolder ? <AllCategories /> : <AllTasks filtered={tasks} />}
       <div className={styles.bottomBar}>
         <MdAdd
           onClick={() => navigate("create-task")}
