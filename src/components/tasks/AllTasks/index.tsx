@@ -18,6 +18,7 @@ import {
 } from "react-icons/md";
 import ClickOutside from "../../../utils/customHooks/useClickOutside";
 import { Task, Category } from "../../../app/api/tasksSlice";
+import Divider from "../../../utils/Divider";
 
 interface Filtered {
   filtered: Task[] | undefined;
@@ -128,7 +129,7 @@ const AllTasks = ({ filtered }: Filtered) => {
                 </ClickOutside>
               ) : null}
             </section>
-            <hr className={styles.line} />
+            <Divider className={styles.line} />
           </div>
         );
       })}

@@ -11,11 +11,10 @@ import AllTasks from "./AllTasks";
 import {
   MdAdd,
   MdSearch,
-  MdCategory,
   MdStarOutline,
   MdOutlineStar,
+  MdOutlineCategory,
 } from "react-icons/md";
-import AllCategories from "./AllCategories";
 import CategoriesBar from "./CategoriesBar";
 import { Category, Task } from "../../app/api/tasksSlice";
 import { useSelector } from "react-redux";
@@ -42,7 +41,7 @@ const Tasks = () => {
   const { data: categoriesData } = useGetCategoriesQuery();
   const [categories, setCategories] = useState<Category[]>();
   const [tasks, setTasks] = useState<Task[]>();
-  const [showFolder, setShowFolder] = useState(false);
+  const [goToCategories, setGoToCategories] = useState(false);
   const [isFavoriteSelected, setIsFavoriteSelected] = useState(false);
 
   const token = localStorage.getItem("token");
@@ -83,8 +82,8 @@ const Tasks = () => {
     }
   };
 
-  const handleShowFolder = () => {
-    setShowFolder(!showFolder);
+  const handleGoToCategories = () => {
+    navigate("/categories");
   };
 
   const handleFavorites = () => {
@@ -113,14 +112,14 @@ const Tasks = () => {
         categories={categories}
         filteredTasks={filteredTasks}
       />
-      {showFolder ? <AllCategories /> : <AllTasks filtered={tasks} />}
+      <AllTasks filtered={tasks} />
       <div className={styles.bottomBar}>
         <MdAdd
           onClick={() => navigate("create-task")}
           className={styles.buttonBottomBar}
         />
         <MdSearch />
-        <MdCategory onClick={handleShowFolder} />
+        <MdOutlineCategory onClick={handleGoToCategories} />
         {isFavoriteSelected ? (
           <MdOutlineStar onClick={handleFavorites} />
         ) : (
