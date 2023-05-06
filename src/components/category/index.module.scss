@@ -1,9 +1,23 @@
+@use "../../utils//styles/colors" as color;
+
 .container {
+  overflow-y: scroll;
   .category {
     display: flex;
-    margin: 0px 0px 16px 64px;
-    padding: 8px 16px 8px 8px;
+    margin: 0px 16px 16px 64px;
+    padding: 8px 16px 8px 16px;
     justify-content: space-between;
     border-radius: 20px;
+    .categoryTitle {
+      font-size: 24px;
+      font-weight: lighter;
+      color: color.$black100;
+    }
+    .icons {
+      display: flex;
+      font-size: 24px;
+      gap: 8px;
+      color: color.$black100;
+    }
   }
 }

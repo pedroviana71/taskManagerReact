@@ -12,6 +12,7 @@ import Tasks from "./components/tasks";
 import Logout from "./components/logout";
 import Profile from "./components/profile";
 import Category from "./components/category";
+import CreateCategory from "./components/category/createCategory";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
       {
         path: "categories",
         element: <Category />,
+      },
+      {
+        path: "create-category",
+        element: <CreateCategory />,
       },
     ],
   },

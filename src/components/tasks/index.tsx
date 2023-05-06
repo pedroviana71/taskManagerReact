@@ -106,12 +106,14 @@ const Tasks = () => {
           width={"64px"}
         />
       ) : null}
-      <CategoriesBar
-        setTasks={setTasks}
-        tasksData={tasksData}
-        categories={categories}
-        filteredTasks={filteredTasks}
-      />
+      {!isLoading ? (
+        <CategoriesBar
+          setTasks={setTasks}
+          tasksData={tasksData}
+          categories={categories}
+          filteredTasks={filteredTasks}
+        />
+      ) : null}
       <AllTasks filtered={tasks} />
       <div className={styles.bottomBar}>
         <MdAdd

@@ -5,7 +5,7 @@ import {
   useGetCategoriesQuery,
 } from "../../app/api/tasksSlice";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import DatePicker from "react-date-picker";
 import clsx from "clsx";
 import {
@@ -31,6 +31,7 @@ const CreateTask = () => {
   const { data: categories } = useGetCategoriesQuery();
   const [createTask] = useCreateTaskMutation();
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   const userId =
     useSelector((state) => state.user.id) || localStorage.getItem("id");
@@ -44,7 +45,6 @@ const CreateTask = () => {
       deadline,
       isFavorite,
     };
-    console.log(task);
     createTask(task);
     navigate("/");
   };
@@ -54,7 +54,7 @@ const CreateTask = () => {
   };
 
   const handleGoCategories = () => {
-    navigate("/categories");
+    navigate("/categories", { state: { previousPath: pathname } });
   };
 
   return (

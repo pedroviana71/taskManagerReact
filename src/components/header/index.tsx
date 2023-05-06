@@ -1,11 +1,11 @@
 import styles from "./index.module.scss";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { SideBar } from "../sideBar";
-import OutsideClickHandler from "react-outside-click-handler/build/OutsideClickHandler";
 import { useEffect } from "react";
 import sideBar from "../../assets/SideBar.svg";
 import { MdArrowBack } from "react-icons/md";
+import ClickOutside from "../../utils/customHooks/useClickOutside";
 
 const Home = () => {
   const location = useLocation();
@@ -17,9 +17,14 @@ const Home = () => {
   const handleSideBar = () => {
     setShowMenu(!showMenu);
   };
-  const handleGoHome = () => {
-    navigate("/");
-  };
+
+  const handleGoHome = useCallback(() => {
+    if (location.state && location.state.previousPath === "/create-task") {
+      navigate("/create-task");
+    } else {
+      navigate("/");
+    }
+  }, [location.state, navigate]);
 
   useEffect(() => {
     setIsLogged(!!localStorage.getItem("id"));
@@ -33,9 +38,9 @@ const Home = () => {
       </button>
       <h1 className={styles.appTitle}>LISTING</h1>
       {showMenu && isLogged ? (
-        <OutsideClickHandler onOutsideClick={handleSideBar}>
+        <ClickOutside onClick={handleSideBar}>
           <SideBar setShowMenu={setShowMenu} />
-        </OutsideClickHandler>
+        </ClickOutside>
       ) : null}
       {showBackButton && location.pathname !== "/" ? (
         <MdArrowBack onClick={handleGoHome} className={styles.arrowBack} />

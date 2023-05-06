@@ -12,14 +12,6 @@ import { MdDelete, MdEdit } from "react-icons/md";
 const Category = () => {
   const { data } = useGetCategoriesQuery();
   const [categories, setCategories] = useState<CategoryType[] | []>([]);
-  //   const [name, setName] = useState("");
-  //   const [color, setColor] = useState("");
-  //   const [createCategory] = useCreateCategoryMutation();
-  //   const navigate = useNavigate();
-
-  //   const handleColor = (color: ColorResult) => {
-  //     setColor(color.hex);
-  //   };
 
   useEffect(() => {
     if (data) {
@@ -48,8 +40,8 @@ const Category = () => {
           className={styles.category}
           style={{ backgroundColor: `${category.color}66` }}
         >
-          <h1>{category?.name}</h1>
-          <div>
+          <h1 className={styles.categoryTitle}>{category?.name}</h1>
+          <div className={styles.icons}>
             <MdDelete />
             <MdEdit />
           </div>
