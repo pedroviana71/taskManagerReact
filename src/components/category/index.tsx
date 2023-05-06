@@ -42,8 +42,8 @@ const Category = () => {
         >
           <h1 className={styles.categoryTitle}>{category?.name}</h1>
           <div className={styles.icons}>
-            <MdDelete />
             <MdEdit />
+            <MdDelete />
           </div>
         </div>
       ))}
