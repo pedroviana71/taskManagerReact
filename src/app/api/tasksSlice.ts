@@ -31,8 +31,8 @@ export interface Category {
 export const tasksSlice = createApi({
   reducerPath: "tasks",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://colorful-hare-zipper.cyclic.app/api",
-    // baseUrl: "http://localhost:3005/api",
+    // baseUrl: "https://colorful-hare-zipper.cyclic.app/api",
+    baseUrl: "http://localhost:3005/api",
     // credentials: "include",
     prepareHeaders: (headers, { getState }) => {
       const token =

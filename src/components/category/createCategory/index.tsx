@@ -2,6 +2,7 @@ import { useState } from "react";
 import { CirclePicker, ColorResult } from "react-color";
 import { useCreateCategoryMutation } from "../../../app/api/tasksSlice";
 import { useNavigate } from "react-router-dom";
+import styles from "./index.module.scss";
 
 const CreateCategory = () => {
   const [name, setName] = useState("");
@@ -25,10 +26,19 @@ const CreateCategory = () => {
   };
 
   return (
-    <div>
-      <input onChange={handleInput} />
-      <CirclePicker color={color} onChangeComplete={handleColor} />
-      <button onClick={handleSubmit}>Criar categoria</button>
+    <div className={styles.container}>
+      <div className={styles.selectionContainer}>
+        <input
+          onChange={handleInput}
+          className={styles.input}
+          placeholder="Escreva o nome da categoria ..."
+        />
+        <p className={styles.chooseColor}>Escolha uma cor</p>
+        <CirclePicker color={color} onChangeComplete={handleColor} />
+      </div>
+      <button onClick={handleSubmit} className={styles.createCategory}>
+        Criar categoria
+      </button>
     </div>
   );
 };
