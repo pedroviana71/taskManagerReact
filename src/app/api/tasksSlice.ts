@@ -51,7 +51,7 @@ export const tasksSlice = createApi({
       return headers;
     },
   }),
-  tagTypes: ["Tasks"],
+  tagTypes: ["Tasks", "Categories"],
   endpoints: (builder) => ({
     getAllTasks: builder.query<Task[], void>({
       query: () => ({
@@ -65,7 +65,6 @@ export const tasksSlice = createApi({
         url: `tasks/${id}`,
         method: "GET",
       }),
-      providesTags: ["Tasks"],
     }),
     deleteTask: builder.mutation<null, string>({
       query: (id) => ({
@@ -101,6 +100,7 @@ export const tasksSlice = createApi({
         url: "category",
         method: "GET",
       }),
+      providesTags: ["Categories"],
     }),
     createCategory: builder.mutation<Category, Partial<Category>>({
       query: (category) => ({
@@ -108,6 +108,7 @@ export const tasksSlice = createApi({
         method: "POST",
         body: category,
       }),
+      invalidatesTags: ["Categories"],
     }),
     getTaskCategory: builder.query({
       query: (id) => ({

@@ -21,6 +21,11 @@ const Home = () => {
   const handleGoHome = useCallback(() => {
     if (location.state && location.state.previousPath === "/create-task") {
       navigate("/create-task");
+    } else if (
+      location.state &&
+      location.state.previousPath === "/create-category"
+    ) {
+      navigate("/categories");
     } else {
       navigate("/");
     }

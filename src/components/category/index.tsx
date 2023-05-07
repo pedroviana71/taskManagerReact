@@ -1,17 +1,17 @@
 import {
   Category as CategoryType,
-  useCreateCategoryMutation,
   useGetCategoriesQuery,
 } from "../../app/api/tasksSlice";
 import { useEffect, useState } from "react";
-import { CirclePicker, ColorResult } from "react-color";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./index.module.scss";
-import { MdDelete, MdEdit } from "react-icons/md";
+import { MdAdd, MdDelete, MdEdit } from "react-icons/md";
 
 const Category = () => {
   const { data } = useGetCategoriesQuery();
   const [categories, setCategories] = useState<CategoryType[] | []>([]);
+  const navigate = useNavigate();
+  // const location = useLocation();
 
   useEffect(() => {
     if (data) {
@@ -19,18 +19,11 @@ const Category = () => {
     }
   }, [data]);
 
-  //   const handleSubmit = async (e: React.SyntheticEvent) => {
-  //     e.preventDefault();
-  //     const category = await createCategory({ name, color }).unwrap();
-  //     setName("");
-  //     if (data) {
-  //       setCategories([...data, category]);
-  //     }
-  //   };
-
-  //   const handleGoBack = () => {
-  //     navigate("/create-task");
-  //   };
+  const handleAddCategory = () => {
+    navigate("/create-category", {
+      state: { previousPath: "/create-category" },
+    });
+  };
 
   return (
     <div className={styles.container}>
@@ -47,6 +40,9 @@ const Category = () => {
           </div>
         </div>
       ))}
+      <div className={styles.addCategory} onClick={handleAddCategory}>
+        <MdAdd />
+      </div>
     </div>
   );
 };
