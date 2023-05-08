@@ -3,6 +3,7 @@ import { CirclePicker, ColorResult } from "react-color";
 import { useCreateCategoryMutation } from "../../../app/api/tasksSlice";
 import { useNavigate } from "react-router-dom";
 import styles from "./index.module.scss";
+import InlineAlert from "../../custom/inlineAlert";
 
 const CreateCategory = () => {
   const [name, setName] = useState("");
@@ -19,10 +20,11 @@ const CreateCategory = () => {
   const handleSubmit = async (e: React.SyntheticEvent) => {
     if (!name || !color) {
       setShowAlert(true);
+    } else {
+      e.preventDefault();
+      await createCategory({ name, color }).unwrap();
+      navigate("/categories");
     }
-    e.preventDefault();
-    await createCategory({ name, color }).unwrap();
-    navigate("/categories");
   };
 
   const handleInput = (e: React.SyntheticEvent) => {
@@ -34,9 +36,7 @@ const CreateCategory = () => {
   return (
     <form className={styles.container}>
       <div className={styles.selectionContainer}>
-        {showAlert && (
-          <p className={styles.alert}>É preciso selecionar um nome e uma cor</p>
-        )}
+        {showAlert && <InlineAlert />}
         <input
           onChange={handleInput}
           className={styles.input}

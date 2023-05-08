@@ -25,6 +25,15 @@ const CategoriesBar = ({
   const [selectedIndex, setSelectedIndex] = useState<number | "">();
   const isAllTasks = setTasks && tasksData;
 
+  const handleCategory = (index: number, _id: string) => {
+    setSelectedIndex(index);
+    if (isAllTasks && filteredTasks) {
+      filteredTasks(null, _id);
+    } else if (setCategoryId) {
+      setCategoryId(_id);
+    }
+  };
+
   return (
     <div
       className={clsx(
@@ -55,14 +64,7 @@ const CategoriesBar = ({
             className={clsx(
               selectedIndex === index ? styles.categoryActive : styles.category
             )}
-            onClick={() => {
-              setSelectedIndex(index);
-              if (isAllTasks && filteredTasks) {
-                filteredTasks(null, _id);
-              } else if (setCategoryId) {
-                setCategoryId(_id);
-              }
-            }}
+            onClick={() => handleCategory(index, _id)}
           >
             {name}
           </h1>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import styles from "./index.module.scss";
 import {
   useCreateTaskMutation,
@@ -20,6 +20,8 @@ import { AiOutlineAppstoreAdd } from "react-icons/ai";
 import "react-date-picker/dist/DatePicker.css";
 import "react-calendar/dist/Calendar.css";
 import dayjs from "dayjs";
+import InlineAlert from "../custom/inlineAlert";
+import { RootState } from "../../app/store";
 
 const CreateTask = () => {
   const [title, setTitle] = useState("");
@@ -28,13 +30,15 @@ const CreateTask = () => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [showCalendar, setShowCalendar] = useState(false);
   const [deadline, setDeadline] = useState(dayjs().add(1, "day").format());
+  const [showAlert, setShowAlert] = useState(false);
   const { data: categories } = useGetCategoriesQuery();
   const [createTask] = useCreateTaskMutation();
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
   const userId =
-    useSelector((state) => state.user.id) || localStorage.getItem("id");
+    useSelector((state: RootState) => state.user.id) ||
+    localStorage.getItem("id");
 
   const handleSubmit = () => {
     const task = {
@@ -45,8 +49,13 @@ const CreateTask = () => {
       deadline,
       isFavorite,
     };
-    createTask(task);
-    navigate("/");
+
+    if (title) {
+      createTask(task);
+      navigate("/");
+    } else {
+      setShowAlert(true);
+    }
   };
 
   const handleGoBack = () => {
@@ -57,22 +66,24 @@ const CreateTask = () => {
     navigate("/categories", { state: { previousPath: pathname } });
   };
 
+  const handleTitleChange = (e: React.SyntheticEvent) => {
+    const target = e.target as HTMLInputElement;
+    setTitle(target.value);
+  };
+
   return (
     <div className={styles.container}>
       <textarea
         className={styles.input}
-        type="text"
-        onChange={(e) => {
-          setTitle(e.target.value);
-        }}
+        onChange={handleTitleChange}
         autoFocus
         placeholder="Escreva o título ..."
         maxLength={140}
       />
+      {showAlert && <InlineAlert />}
       <div className={styles.commentsContainer}>
         <textarea
           className={clsx(styles.input, styles.comments)}
-          type="text"
           onChange={(e) => {
             setComments(e.target.value);
           }}
@@ -94,7 +105,10 @@ const CreateTask = () => {
       {showCalendar && (
         <div className={styles.calendar}>
           <DatePicker
-            onChange={setDeadline}
+            //! fix type any
+            onChange={(date: any) => {
+              setDeadline(date);
+            }}
             value={deadline}
             minDate={dayjs().toDate()}
           />
