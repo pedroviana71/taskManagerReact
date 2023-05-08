@@ -114,9 +114,8 @@ const Tasks = () => {
           filteredTasks={filteredTasks}
         />
       ) : null}
-      {tasks && tasks.length > 0 ? (
-        <AllTasks filtered={tasks} />
-      ) : (
+      {tasks && tasks.length > 0 && <AllTasks filtered={tasks} />}
+      {tasks && tasks.length === 0 && !isLoading && (
         <p className={styles.alertAddTask}>Adicione uma tarefa!</p>
       )}
       <div className={styles.bottomBar}>
