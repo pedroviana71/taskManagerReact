@@ -114,7 +114,11 @@ const Tasks = () => {
           filteredTasks={filteredTasks}
         />
       ) : null}
-      <AllTasks filtered={tasks} />
+      {tasks && tasks.length > 0 ? (
+        <AllTasks filtered={tasks} />
+      ) : (
+        <p className={styles.alertAddTask}>Adicione uma tarefa!</p>
+      )}
       <div className={styles.bottomBar}>
         <MdAdd
           onClick={() => navigate("create-task")}
