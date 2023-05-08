@@ -41,7 +41,6 @@ const Tasks = () => {
   const { data: categoriesData } = useGetCategoriesQuery();
   const [categories, setCategories] = useState<Category[]>();
   const [tasks, setTasks] = useState<Task[]>();
-  const [goToCategories, setGoToCategories] = useState(false);
   const [isFavoriteSelected, setIsFavoriteSelected] = useState(false);
 
   const token = localStorage.getItem("token");

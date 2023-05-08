@@ -32,7 +32,7 @@ const router = createBrowserRouter([
         path: "login",
         element: <Login />,
       },
-      { path: "edit/:id", element: <EditTask /> },
+      { path: "edit/:id", element: <CreateTask /> },
       { path: "create-task", element: <CreateTask /> },
       { path: "logout", element: <Logout /> },
       { path: "user/:id", element: <Profile /> },

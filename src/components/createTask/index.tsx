@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./index.module.scss";
 import {
   useCreateTaskMutation,
+  useEditTaskMutation,
   useGetCategoriesQuery,
+  useGetTaskQuery,
 } from "../../app/api/tasksSlice";
 import { useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import DatePicker from "react-date-picker";
 import clsx from "clsx";
 import {
@@ -28,13 +30,32 @@ const CreateTask = () => {
   const [comments, setComments] = useState("");
   const [categoryId, setCategoryId] = useState("");
   const [isFavorite, setIsFavorite] = useState(false);
-  const [showCalendar, setShowCalendar] = useState(false);
   const [deadline, setDeadline] = useState(dayjs().add(1, "day").format());
+  const [showCalendar, setShowCalendar] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
-  const { data: categories } = useGetCategoriesQuery();
-  const [createTask] = useCreateTaskMutation();
+  const [isEditing, setIsEditing] = useState(false);
+
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const { id } = useParams();
+  const _id = id || "";
+  const [createTask] = useCreateTaskMutation();
+  const [editTask] = useEditTaskMutation();
+  const { data: categories } = useGetCategoriesQuery();
+  const { data } = useGetTaskQuery(_id);
+
+  useEffect(() => {
+    if (pathname.includes("edit")) {
+      if (data) {
+        setTitle(data.title);
+        setComments(data.comments);
+        setCategoryId(data.categoryId);
+        setIsFavorite(data.isFavorite);
+        setDeadline(data.deadline);
+        setIsEditing(true);
+      }
+    }
+  }, [pathname, data]);
 
   const userId =
     useSelector((state: RootState) => state.user.id) ||
@@ -50,16 +71,15 @@ const CreateTask = () => {
       isFavorite,
     };
 
-    if (title) {
+    if (isEditing) {
+      editTask({ _id, ...task });
+      navigate("/");
+    } else if (title) {
       createTask(task);
       navigate("/");
     } else {
       setShowAlert(true);
     }
-  };
-
-  const handleGoBack = () => {
-    navigate("/");
   };
 
   const handleGoCategories = () => {
@@ -79,6 +99,7 @@ const CreateTask = () => {
         autoFocus
         placeholder="Escreva o título ..."
         maxLength={140}
+        value={title}
       />
       {showAlert && <InlineAlert />}
       <div className={styles.commentsContainer}>
@@ -89,6 +110,7 @@ const CreateTask = () => {
           }}
           placeholder="Escreva comentários (opcional) ..."
           maxLength={240}
+          value={comments}
         />
         <MdOutlineAddComment className={styles.addTopics} />
       </div>
@@ -116,13 +138,15 @@ const CreateTask = () => {
       )}
 
       <CategoriesBar categories={categories} setCategoryId={setCategoryId} />
-
-      <button onClick={handleSubmit} className={styles.button}>
-        Criar tarefa
-      </button>
-      <button onClick={handleGoBack} className={styles.button}>
-        Cancelar
-      </button>
+      {isEditing ? (
+        <button onClick={handleSubmit} className={styles.button}>
+          Salvar
+        </button>
+      ) : (
+        <button onClick={handleSubmit} className={styles.button}>
+          Criar tarefa
+        </button>
+      )}
     </div>
   );
 };
