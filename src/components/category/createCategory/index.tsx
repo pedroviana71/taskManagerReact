@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { CirclePicker, ColorResult } from "react-color";
 import { useCreateCategoryMutation } from "../../../app/api/tasksSlice";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./index.module.scss";
 import InlineAlert from "../../custom/inlineAlert";
 
@@ -11,19 +11,28 @@ const CreateCategory = () => {
   const [showAlert, setShowAlert] = useState(false);
   const [createCategory] = useCreateCategoryMutation();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleColor = (color: ColorResult) => {
     setColor(color.hex);
     setShowAlert(false);
   };
 
+  console.log(location.state);
   const handleSubmit = async (e: React.SyntheticEvent) => {
     if (!name || !color) {
       setShowAlert(true);
     } else {
       e.preventDefault();
       await createCategory({ name, color }).unwrap();
-      navigate("/categories");
+      if (
+        location.state &&
+        location.state.previousPath === "/create-category"
+      ) {
+        navigate("/create-task");
+      } else {
+        navigate("/categories");
+      }
     }
   };
 
