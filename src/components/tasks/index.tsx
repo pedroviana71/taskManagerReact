@@ -105,7 +105,7 @@ const Tasks = () => {
           width={"64px"}
         />
       ) : null}
-      {!isLoading ? (
+      {!isLoading && tasks && tasks?.length > 0 ? (
         <CategoriesBar
           setTasks={setTasks}
           tasksData={tasksData}

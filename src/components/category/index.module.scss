@@ -3,8 +3,12 @@
 .container {
   display: flex;
   flex-direction: column;
+  text-align: center;
   overflow-y: scroll;
   position: relative;
+  .warningAddCategory {
+    color: color.$black100;
+  }
   .category {
     display: flex;
     margin: 0px 16px 16px 64px;
