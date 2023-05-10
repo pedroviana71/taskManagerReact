@@ -1,9 +1,10 @@
 import {
   Category as CategoryType,
+  useDeleteCategoryMutation,
   useGetCategoriesQuery,
 } from "../../app/api/tasksSlice";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./index.module.scss";
 import { MdAdd, MdDelete, MdEdit } from "react-icons/md";
 
@@ -11,6 +12,7 @@ const Category = () => {
   const { data } = useGetCategoriesQuery();
   const [categories, setCategories] = useState<CategoryType[] | []>([]);
   const navigate = useNavigate();
+  const [deleteCategory] = useDeleteCategoryMutation();
 
   useEffect(() => {
     if (data) {
@@ -19,9 +21,11 @@ const Category = () => {
   }, [data]);
 
   const handleAddCategory = () => {
-    navigate("/create-category", {
-      state: { previousPath: "/create-category" },
-    });
+    navigate("/create-category");
+  };
+
+  const handleDelete = async (id: string) => {
+    await deleteCategory(id);
   };
 
   return (
@@ -36,7 +40,7 @@ const Category = () => {
             <h1 className={styles.categoryTitle}>{category?.name}</h1>
             <div className={styles.icons}>
               <MdEdit />
-              <MdDelete />
+              <MdDelete onClick={() => handleDelete(category._id)} />
             </div>
           </div>
         ))

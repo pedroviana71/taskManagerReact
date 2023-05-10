@@ -1,11 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CirclePicker, ColorResult } from "react-color";
 import { useCreateCategoryMutation } from "../../../app/api/tasksSlice";
 import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./index.module.scss";
 import InlineAlert from "../../custom/inlineAlert";
 
-const CreateCategory = () => {
+interface CreateCategoryProps {
+  name: string;
+  color: string;
+}
+
+const CreateCategory = ({
+  name: nameProp,
+  color: colorProp,
+}: CreateCategoryProps) => {
   const [name, setName] = useState("");
   const [color, setColor] = useState("");
   const [showAlert, setShowAlert] = useState(false);
@@ -13,12 +21,18 @@ const CreateCategory = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  useEffect(() => {
+    if (nameProp && colorProp) {
+      setName(nameProp);
+      setColor(colorProp);
+    }
+  }, [nameProp, colorProp]);
+
   const handleColor = (color: ColorResult) => {
     setColor(color.hex);
     setShowAlert(false);
   };
 
-  console.log(location.state);
   const handleSubmit = async (e: React.SyntheticEvent) => {
     if (!name || !color) {
       setShowAlert(true);

@@ -110,12 +110,20 @@ export const tasksSlice = createApi({
       }),
       invalidatesTags: ["Categories"],
     }),
-    getTaskCategory: builder.query({
-      query: (id) => ({
-        url: "tasks/category",
-        method: "POST",
-        body: { id },
+    editCategory: builder.mutation<Category, Partial<Category>>({
+      query: (category) => ({
+        url: `category/${category._id}`,
+        method: "PATCH",
+        body: category,
       }),
+      invalidatesTags: ["Categories"],
+    }),
+    deleteCategory: builder.mutation<null, string>({
+      query: (id) => ({
+        url: `category/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Categories"],
     }),
   }),
 });
@@ -129,5 +137,6 @@ export const {
   useGetUserQuery,
   useGetCategoriesQuery,
   useCreateCategoryMutation,
-  useGetTaskCategoryQuery,
+  useEditCategoryMutation,
+  useDeleteCategoryMutation,
 } = tasksSlice;
