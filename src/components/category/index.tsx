@@ -4,7 +4,7 @@ import {
   useGetCategoriesQuery,
 } from "../../app/api/tasksSlice";
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styles from "./index.module.scss";
 import { MdAdd, MdDelete, MdEdit } from "react-icons/md";
 

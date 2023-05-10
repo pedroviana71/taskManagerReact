@@ -6,8 +6,8 @@ import styles from "./index.module.scss";
 import InlineAlert from "../../custom/inlineAlert";
 
 interface CreateCategoryProps {
-  name: string;
-  color: string;
+  name?: string;
+  color?: string;
 }
 
 const CreateCategory = ({
