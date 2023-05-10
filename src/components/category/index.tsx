@@ -49,7 +49,7 @@ const Category = () => {
           Clique em + para adicionar uma categoria
         </p>
       )}
-      <div className={styles.addCategory} onClick={handleAddCategory}>
+      <div className={styles.addCategory} onClick={() => handleAddCategory()}>
         <MdAdd />
       </div>
     </div>
