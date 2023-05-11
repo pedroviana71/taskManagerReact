@@ -5,6 +5,7 @@ export const authSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "https://colorful-hare-zipper.cyclic.app/api",
     // baseUrl: "http://localhost:3005/api",
+    credentials: "include",
   }),
   endpoints: (builder) => ({
     login: builder.mutation({
