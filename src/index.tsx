@@ -6,7 +6,6 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
 import Register from "./components/register/index.js";
 import Login from "./components/login";
-import EditTask from "./components/editTask";
 import CreateTask from "./components/createTask";
 import Tasks from "./components/tasks";
 import Logout from "./components/logout";
