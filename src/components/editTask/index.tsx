@@ -6,7 +6,7 @@ import { useEffect } from "react";
 
 const EditTask = () => {
   const { id: _id } = useParams();
-  const { data } = useGetTaskQuery(_id);
+  const { data } = useGetTaskQuery(_id || "");
   const [editTask] = useEditTaskMutation();
   const [newTitle, setNewTitle] = useState("");
   const [newComments, setNewComments] = useState("");
@@ -14,8 +14,12 @@ const EditTask = () => {
   const [isEditingTitle, setIsEditingTitle] = useState(false);
   const [isEditingCategory, setIsEditingCategory] = useState(false);
   const [isEditingComments, setIsEditingComments] = useState(false);
-  const createdAtDate = new Date(data?.createdAt).toLocaleDateString("pt-BR");
-  const createdAtTime = new Date(data?.createdAt).toLocaleTimeString("pt-BR");
+  const createdAtDate = new Date(data?.createdAt || "").toLocaleDateString(
+    "pt-BR"
+  );
+  const createdAtTime = new Date(data?.createdAt || "").toLocaleTimeString(
+    "pt-BR"
+  );
 
   const navigate = useNavigate();
 
@@ -24,7 +28,7 @@ const EditTask = () => {
       await editTask({
         _id,
         title: newTitle,
-        category: newCategory,
+        categoryId: newCategory,
         comments: newComments,
       });
       navigate("/");
@@ -34,9 +38,9 @@ const EditTask = () => {
   };
 
   useEffect(() => {
-    setNewTitle(data?.title);
-    setNewCategory(data?.category?.category);
-    setNewComments(data?.comments);
+    setNewTitle(data?.title || "");
+    setNewCategory(data?.categoryId || "");
+    setNewComments(data?.comments || "");
   }, [data]);
 
   return (
@@ -49,7 +53,6 @@ const EditTask = () => {
           {isEditingTitle ? (
             <textarea
               className={styles.input}
-              type="text"
               value={newTitle}
               onChange={(e) => {
                 setNewTitle(e.target.value);
@@ -68,7 +71,6 @@ const EditTask = () => {
           {isEditingCategory ? (
             <textarea
               className={styles.input}
-              type="text"
               value={newCategory}
               onChange={(e) => {
                 setNewCategory(e.target.value);
@@ -86,7 +88,6 @@ const EditTask = () => {
           {isEditingComments ? (
             <textarea
               className={styles.input}
-              type="text"
               value={newComments}
               onChange={(e) => {
                 setNewComments(e.target.value);

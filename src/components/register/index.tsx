@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useRegisterMutation } from "../../app/api/authSlice";
 import { useNavigate, Link } from "react-router-dom";
 import styles from "./index.module.scss";
@@ -10,7 +10,7 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     try {
       const data = await register({

@@ -3,8 +3,11 @@ import styles from "./index.module.scss";
 import { useGetUserQuery } from "../../app/api/tasksSlice";
 import { MdKeyboardArrowLeft, MdLogout } from "react-icons/md";
 import { BsPersonCircle } from "react-icons/bs";
+interface SideBarProps {
+  setShowMenu: (showMenu: boolean) => void;
+}
 
-export const SideBar = ({ setShowMenu }) => {
+export const SideBar = ({ setShowMenu }: SideBarProps) => {
   const navigate = useNavigate();
   const { data } = useGetUserQuery();
 

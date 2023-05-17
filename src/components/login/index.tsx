@@ -1,7 +1,7 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useLoginMutation } from "../../app/api/authSlice";
 import { setCredentials } from "../../features/userSlice";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./index.module.scss";
 
@@ -13,7 +13,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     try {
       const data = await login({
@@ -23,7 +23,7 @@ const Login = () => {
       setEmail("");
       setPassword("");
       navigate("/");
-      dispatch(setCredentials(data, data.username));
+      dispatch(setCredentials(data.username));
       localStorage.setItem("token", data.token); //! mudar para refreshed token assim que possivel
       localStorage.setItem("id", data.id);
     } catch (error) {
