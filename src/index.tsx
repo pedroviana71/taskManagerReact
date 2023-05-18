@@ -4,7 +4,7 @@ import { store } from "./app/store";
 import { Provider } from "react-redux";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
-import Register from "./components/register/index.js";
+import Register from "./components/register/index";
 import Login from "./components/login";
 import CreateTask from "./components/createTask";
 import Tasks from "./components/tasks";

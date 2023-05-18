@@ -33,7 +33,7 @@ export const tasksSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "https://colorful-hare-zipper.cyclic.app/api",
     // baseUrl: "http://localhost:3005/api",
-    credentials: "include",
+    // credentials: "include",
     prepareHeaders: (headers, { getState }) => {
       const token =
         (getState() as RootState).user.token || localStorage.getItem("token");

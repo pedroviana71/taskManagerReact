@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 
 function useOutsideAlerter(ref, onClick) {
   useEffect(() => {
@@ -15,6 +15,7 @@ function useOutsideAlerter(ref, onClick) {
   }, [ref, onClick]);
 }
 
+// eslint-disable-next-line react/prop-types
 export default function ClickOutside({ children, onClick }) {
   const wrapperRef = useRef(null);
   useOutsideAlerter(wrapperRef, onClick);
