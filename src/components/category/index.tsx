@@ -23,7 +23,6 @@ const Category = () => {
   const handleAddCategory = () => {
     navigate("/create-category");
   };
-
   const handleDelete = async (id: string) => {
     await deleteCategory(id);
   };
