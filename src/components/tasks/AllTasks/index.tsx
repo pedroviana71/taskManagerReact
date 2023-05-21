@@ -19,6 +19,10 @@ import {
 import ClickOutside from "../../../utils/customHooks/useClickOutside";
 import { Task, Category } from "../../../app/api/tasksSlice";
 import Divider from "../../custom/Divider";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../app/store";
+import { useDispatch } from "react-redux";
+import { toggleSideBar } from "../../../features/sideBarSlice";
 
 interface Filtered {
   filtered: Task[] | undefined;
@@ -33,6 +37,8 @@ const AllTasks = ({ filtered }: Filtered) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [outsideClickControl, setOutsideClickControl] = useState(false);
+  const { typeClickOutside } = useSelector((state: RootState) => state.sideBar);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setCategories(data);
@@ -43,10 +49,13 @@ const AllTasks = ({ filtered }: Filtered) => {
     setSelectedIndex(index);
   };
 
-  const handleNavigate = (id: string) => {
+  const handleNavigateTask = (id: string) => {
+    console.log(typeClickOutside);
     if (showDeleteModal || outsideClickControl) {
       setShowDeleteModal(false);
       setOutsideClickControl(false);
+    } else if (typeClickOutside === "CLICK_OUTSIDE") {
+      dispatch(toggleSideBar(false));
     } else {
       navigate(`/edit/${id}`);
     }
@@ -85,7 +94,7 @@ const AllTasks = ({ filtered }: Filtered) => {
               </button>
               <button
                 className={styles.innetTaskContainer}
-                onClick={() => handleNavigate(_id)}
+                onClick={() => handleNavigateTask(_id)}
               >
                 <h1
                   className={clsx(

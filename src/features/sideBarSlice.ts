@@ -2,18 +2,22 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   showSideBar: false,
+  typeClickOutside: "",
 };
 
 const sideBarSlice = createSlice({
   name: "showSideBar",
   initialState,
   reducers: {
-    toggleSideBar: (state) => {
-      state.showSideBar = !state.showSideBar;
+    toggleSideBar: (state, action) => {
+      state.showSideBar = action.payload;
+    },
+    typeClickOutside: (state, action) => {
+      state.typeClickOutside = action.payload;
     },
   },
 });
 
-export const { toggleSideBar } = sideBarSlice.actions;
+export const { toggleSideBar, typeClickOutside } = sideBarSlice.actions;
 
 export default sideBarSlice.reducer;
