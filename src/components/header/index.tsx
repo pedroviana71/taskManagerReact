@@ -9,7 +9,10 @@ import ClickOutside from "../../utils/customHooks/useClickOutside";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import { useDispatch } from "react-redux";
-import { toggleSideBar, typeClickOutside } from "../../features/sideBarSlice";
+import {
+  toggleSideBar,
+  typeClickOutsideAction,
+} from "../../features/sideBarSlice";
 
 const Home = () => {
   const location = useLocation();
@@ -23,7 +26,7 @@ const Home = () => {
     dispatch(toggleSideBar(!showSideBar));
   };
   const handleClickOutside = () => {
-    dispatch(typeClickOutside("CLICK_OUTSIDE"));
+    dispatch(typeClickOutsideAction("CLICK_OUTSIDE"));
     dispatch(toggleSideBar(false));
   };
 

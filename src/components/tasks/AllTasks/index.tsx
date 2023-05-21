@@ -22,7 +22,10 @@ import Divider from "../../custom/Divider";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../app/store";
 import { useDispatch } from "react-redux";
-import { toggleSideBar } from "../../../features/sideBarSlice";
+import {
+  toggleSideBar,
+  typeClickOutsideAction,
+} from "../../../features/sideBarSlice";
 
 interface Filtered {
   filtered: Task[] | undefined;
@@ -50,12 +53,12 @@ const AllTasks = ({ filtered }: Filtered) => {
   };
 
   const handleNavigateTask = (id: string) => {
-    console.log(typeClickOutside);
     if (showDeleteModal || outsideClickControl) {
       setShowDeleteModal(false);
       setOutsideClickControl(false);
     } else if (typeClickOutside === "CLICK_OUTSIDE") {
       dispatch(toggleSideBar(false));
+      dispatch(typeClickOutsideAction(""));
     } else {
       navigate(`/edit/${id}`);
     }

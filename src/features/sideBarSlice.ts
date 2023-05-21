@@ -12,12 +12,12 @@ const sideBarSlice = createSlice({
     toggleSideBar: (state, action) => {
       state.showSideBar = action.payload;
     },
-    typeClickOutside: (state, action) => {
+    typeClickOutsideAction: (state, action) => {
       state.typeClickOutside = action.payload;
     },
   },
 });
 
-export const { toggleSideBar, typeClickOutside } = sideBarSlice.actions;
+export const { toggleSideBar, typeClickOutsideAction } = sideBarSlice.actions;
 
 export default sideBarSlice.reducer;
