@@ -1,6 +1,7 @@
+import userSlice from "../features/userSlice";
+import sideBarSlice from "../features/sideBarSlice";
 import { configureStore } from "@reduxjs/toolkit";
 import { tasksSlice } from "./api/tasksSlice";
-import userSlice from "../features/userSlice";
 import { authSlice } from "./api/authSlice";
 
 export const store = configureStore({
@@ -8,6 +9,7 @@ export const store = configureStore({
     [tasksSlice.reducerPath]: tasksSlice.reducer,
     [authSlice.reducerPath]: authSlice.reducer,
     user: userSlice,
+    sideBar: sideBarSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(tasksSlice.middleware, authSlice.middleware),

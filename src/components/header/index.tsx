@@ -6,16 +6,25 @@ import { useEffect } from "react";
 import sideBar from "../../assets/SideBar.svg";
 import { MdArrowBack } from "react-icons/md";
 import ClickOutside from "../../utils/customHooks/useClickOutside";
+import { useSelector } from "react-redux";
+import { RootState } from "../../app/store";
+import { useDispatch } from "react-redux";
+import { toggleSideBar, typeClickOutside } from "../../features/sideBarSlice";
 
 const Home = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [showMenu, setShowMenu] = useState(false);
   const [isLogged, setIsLogged] = useState(false);
   const [showBackButton, setShowBackButton] = useState(false);
+  const { showSideBar } = useSelector((state: RootState) => state.sideBar);
+  const dispatch = useDispatch();
 
   const handleSideBar = () => {
-    setShowMenu(!showMenu);
+    dispatch(toggleSideBar(!showSideBar));
+  };
+  const handleClickOutside = () => {
+    dispatch(typeClickOutside("CLICK_OUTSIDE"));
+    dispatch(toggleSideBar(false));
   };
 
   const handleGoHome = useCallback(() => {
@@ -44,9 +53,9 @@ const Home = () => {
         <img src={sideBar} alt="Menu" />
       </button>
       <h1 className={styles.appTitle}>LISTING</h1>
-      {showMenu && isLogged ? (
-        <ClickOutside onClick={handleSideBar}>
-          <SideBar setShowMenu={setShowMenu} />
+      {showSideBar && isLogged ? (
+        <ClickOutside onClick={handleClickOutside}>
+          <SideBar />
         </ClickOutside>
       ) : null}
       {showBackButton && location.pathname !== "/" ? (
