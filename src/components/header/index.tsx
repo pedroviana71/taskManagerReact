@@ -38,7 +38,11 @@ const Home = () => {
       location.state.previousPath === "/create-category"
     ) {
       navigate("/categories");
-    } else if (location.state && location.state.previousPath.includes("edit")) {
+    } else if (
+      location.state &&
+      location.state.previousPath &&
+      location.state.previousPath.includes("edit")
+    ) {
       navigate(location.state.previousPath);
     } else {
       navigate("/");

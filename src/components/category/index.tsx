@@ -23,6 +23,16 @@ const Category = () => {
   const handleAddCategory = () => {
     navigate("/create-category");
   };
+
+  const handleEditCategory = (name: string, color: string) => {
+    navigate(`/create-category/`, {
+      state: {
+        name,
+        color,
+      },
+    });
+  };
+
   const handleDelete = async (id: string) => {
     await deleteCategory(id);
   };
@@ -38,7 +48,11 @@ const Category = () => {
           >
             <h1 className={styles.categoryTitle}>{category?.name}</h1>
             <div className={styles.icons}>
-              <MdEdit />
+              <MdEdit
+                onClick={() =>
+                  handleEditCategory(category.name, category.color)
+                }
+              />
               <MdDelete onClick={() => handleDelete(category._id)} />
             </div>
           </div>
@@ -48,7 +62,7 @@ const Category = () => {
           Clique em + para adicionar uma categoria
         </p>
       )}
-      <div className={styles.addCategory} onClick={() => handleAddCategory()}>
+      <div className={styles.addCategory} onClick={handleAddCategory}>
         <MdAdd />
       </div>
     </div>
