@@ -5,15 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./index.module.scss";
 import InlineAlert from "../../custom/inlineAlert";
 
-interface CreateCategoryProps {
-  name?: string;
-  color?: string;
-}
-
-const CreateCategory = ({
-  name: nameProp,
-  color: colorProp,
-}: CreateCategoryProps) => {
+const CreateCategory = () => {
   const [name, setName] = useState("");
   const [color, setColor] = useState("");
   const [showAlert, setShowAlert] = useState(false);
@@ -22,11 +14,11 @@ const CreateCategory = ({
   const location = useLocation();
 
   useEffect(() => {
-    if (nameProp && colorProp) {
-      setName(nameProp);
-      setColor(colorProp);
+    if (location.state && location.state?.name && location.state?.color) {
+      setName(location.state.name);
+      setColor(location.state.color);
     }
-  }, [nameProp, colorProp]);
+  }, [location]);
 
   const handleColor = (color: ColorResult) => {
     setColor(color.hex);
@@ -61,6 +53,7 @@ const CreateCategory = ({
       <div className={styles.selectionContainer}>
         {showAlert && <InlineAlert />}
         <input
+          value={name || ""}
           onChange={handleInput}
           className={styles.input}
           placeholder="Escreva o nome da categoria ..."
