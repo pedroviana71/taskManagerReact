@@ -61,3 +61,15 @@
     background-color: color.$black10;
   }
 }
+
+@media screen and (min-width: 900px) {
+  .container {
+    margin: 0px 200px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .container {
+    margin: 0px 400px;
+  }
+}

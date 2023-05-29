@@ -1,4 +1,4 @@
-import styles from "./tasks.module.scss";
+import styles from "./index.module.scss";
 import { useState } from "react";
 
 import {
