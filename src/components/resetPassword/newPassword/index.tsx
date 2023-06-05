@@ -21,17 +21,17 @@ const NewPassword = () => {
     <div className={styles.container}>
       <h1>Mudar a senha</h1>
       <h4>Coloque sua senha nova:</h4>
-      <input
+      {/* <input
         type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
       <h4>Confirme a senha:</h4>
       <input
-        type="password"
+        type=""
         value={confirmPassword}
         onChange={(e) => setConfirmPassword(e.target.value)}
-      />
+      /> */}
       {reseted && <h4>Senha alterada com sucesso!</h4>}
       <button onClick={handleSubmit}>Salvar</button>
     </div>
