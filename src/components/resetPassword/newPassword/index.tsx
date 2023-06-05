@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useNewPasswordMutation } from "../../../app/api/tasksSlice";
-import styles from "./index.module.scss";
 
 const NewPassword = () => {
   const { token, userId } = useParams();
@@ -18,10 +17,10 @@ const NewPassword = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <div>
       <h1>Mudar a senha</h1>
       <h4>Coloque sua senha nova:</h4>
-      {/* <input
+      <input
         type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
@@ -31,7 +30,7 @@ const NewPassword = () => {
         type=""
         value={confirmPassword}
         onChange={(e) => setConfirmPassword(e.target.value)}
-      /> */}
+      />
       {reseted && <h4>Senha alterada com sucesso!</h4>}
       <button onClick={handleSubmit}>Salvar</button>
     </div>
