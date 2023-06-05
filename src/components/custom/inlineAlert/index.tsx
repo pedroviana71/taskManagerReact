@@ -3,13 +3,12 @@ import styles from "./index.module.scss";
 
 interface InlineAlertProps {
   className?: string;
+  text: string;
 }
 
-const InlineAlert = ({ className }: InlineAlertProps) => {
+const InlineAlert = ({ className, text }: InlineAlertProps) => {
   return (
-    <p className={clsx(styles.alert, className ? className : null)}>
-      É preciso selecionar um nome e uma cor
-    </p>
+    <p className={clsx(styles.alert, className ? className : null)}>{text}</p>
   );
 };
 

@@ -37,6 +37,7 @@ const Category = () => {
     await deleteCategory(id);
   };
 
+  //! FIX EDIT CATEGORY
   return (
     <div className={styles.container}>
       {categories.length > 0 ? (
@@ -48,11 +49,11 @@ const Category = () => {
           >
             <h1 className={styles.categoryTitle}>{category?.name}</h1>
             <div className={styles.icons}>
-              <MdEdit
+              {/* <MdEdit
                 onClick={() =>
                   handleEditCategory(category.name, category.color)
                 }
-              />
+              /> */}
               <MdDelete onClick={() => handleDelete(category._id)} />
             </div>
           </div>

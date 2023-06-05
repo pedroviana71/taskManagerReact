@@ -51,7 +51,9 @@ const CreateCategory = () => {
   return (
     <form className={styles.container}>
       <div className={styles.selectionContainer}>
-        {showAlert && <InlineAlert />}
+        {showAlert && (
+          <InlineAlert text="É preciso selecionar um nome e uma cor" />
+        )}
         <input
           value={name || ""}
           onChange={handleInput}

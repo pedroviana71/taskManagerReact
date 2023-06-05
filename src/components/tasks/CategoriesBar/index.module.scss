@@ -20,6 +20,7 @@
     margin-right: 8px;
     color: color.$black50;
     background-color: color.$black5;
+    cursor: pointer;
   }
   .categoryActive {
     white-space: nowrap;
@@ -30,6 +31,7 @@
     margin-right: 8px;
     background-color: color.$black100;
     color: color.$white;
+    cursor: pointer;
   }
 }
 .categoriesBarCreateTask {

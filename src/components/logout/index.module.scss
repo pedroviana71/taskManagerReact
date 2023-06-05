@@ -1,0 +1,35 @@
+@use "../../utils/styles/colors" as color;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .button {
+    min-width: 200px;
+    display: flex;
+    justify-content: center;
+    margin: 16px 0px;
+    padding: 8px 8px;
+    border: 0;
+    background-color: color.$black100;
+    color: color.$text-primary;
+    font-size: 16px;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .container {
+    margin: 0px 200px;
+    padding: 0;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .container {
+    margin: 0px 400px;
+    padding: 0;
+  }
+}

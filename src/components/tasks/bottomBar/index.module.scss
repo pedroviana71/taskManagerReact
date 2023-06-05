@@ -1,0 +1,20 @@
+@use "../../../utils/styles/colors" as color;
+
+.bottomBar {
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  background-color: color.$black100;
+  margin-bottom: 32px;
+  padding: 16px 32px;
+  color: color.$white;
+  border-radius: 50px;
+  font-size: 32px;
+  gap: 32px;
+  cursor: pointer;
+  .searchContainer {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+}

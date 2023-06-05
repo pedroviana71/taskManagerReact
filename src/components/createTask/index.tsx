@@ -101,7 +101,7 @@ const CreateTask = () => {
         maxLength={140}
         value={title}
       />
-      {showAlert && <InlineAlert />}
+      {showAlert && <InlineAlert text="É preciso preencher o titulo" />}
       <div className={styles.commentsContainer}>
         <textarea
           className={clsx(styles.input, styles.comments)}

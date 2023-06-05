@@ -28,11 +28,16 @@ export interface Category {
   updatedAt: string;
 }
 
+interface newPassword {
+  token: string;
+  password: string;
+  userId: string;
+}
+
 export const tasksSlice = createApi({
   reducerPath: "tasks",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://colorful-hare-zipper.cyclic.app/api",
-    // baseUrl: "http://localhost:3005/api",
+    baseUrl: process.env.REACT_APP_API_URL,
     // credentials: "include",
     prepareHeaders: (headers, { getState }) => {
       const token =
@@ -91,7 +96,7 @@ export const tasksSlice = createApi({
     }),
     getUser: builder.query<User, void>({
       query: () => ({
-        url: "auth/user",
+        url: "/user",
         method: "GET",
       }),
     }),
@@ -125,6 +130,20 @@ export const tasksSlice = createApi({
       }),
       invalidatesTags: ["Categories"],
     }),
+    resetPassword: builder.mutation<string, string>({
+      query: (email) => ({
+        url: "resetPassword",
+        method: "POST",
+        body: { email },
+      }),
+    }),
+    newPassword: builder.mutation<void, newPassword>({
+      query: (credentials) => ({
+        url: "auth/new-password",
+        method: "POST",
+        body: { ...credentials },
+      }),
+    }),
   }),
 });
 
@@ -139,4 +158,6 @@ export const {
   useCreateCategoryMutation,
   useEditCategoryMutation,
   useDeleteCategoryMutation,
+  useResetPasswordMutation,
+  useNewPasswordMutation,
 } = tasksSlice;

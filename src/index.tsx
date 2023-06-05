@@ -12,6 +12,8 @@ import Logout from "./components/logout";
 import Profile from "./components/profile";
 import Category from "./components/category";
 import CreateCategory from "./components/category/createCategory";
+import NewPassword from "./components/resetPassword/newPassword";
+import ResetPassword from "./components/resetPassword";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -42,6 +44,14 @@ const router = createBrowserRouter([
       {
         path: "create-category",
         element: <CreateCategory />,
+      },
+      {
+        path: "reset-password/",
+        element: <ResetPassword />,
+      },
+      {
+        path: "reset-password/:userId/:token",
+        element: <NewPassword />,
       },
     ],
   },

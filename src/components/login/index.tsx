@@ -4,6 +4,7 @@ import { setCredentials } from "../../features/userSlice";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./index.module.scss";
+import InlineAlert from "../custom/inlineAlert";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -12,6 +13,7 @@ const Login = () => {
   const [login] = useLoginMutation();
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [error, setError] = useState(false);
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -28,11 +30,25 @@ const Login = () => {
       localStorage.setItem("id", data.id);
     } catch (error) {
       console.log(error);
+      setError(true);
     }
   };
 
+  const handleResetPassword = () => {
+    navigate("/reset-password");
+  };
+
+  const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+    setError(false);
+  };
   const handleCreateAccount = () => {
     navigate("/register");
+  };
+
+  const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+    setError(false);
   };
 
   return (
@@ -47,7 +63,7 @@ const Login = () => {
           <input
             type="email"
             id="email"
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => handleEmail(e)}
             className={styles.input}
           />
         </div>
@@ -58,19 +74,21 @@ const Login = () => {
           <input
             type="password"
             id="password"
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => handlePassword(e)}
             className={styles.input}
           />
         </div>
-        <div className={styles.buttonContainer}>
-          <button
-            type="submit"
-            onClick={handleSubmit}
-            className={styles.loginButton}
-          >
-            Login
-          </button>
-        </div>
+        {error && <InlineAlert text="Email ou senha incorretos" />}
+        <button
+          type="submit"
+          onClick={handleSubmit}
+          className={styles.loginButton}
+        >
+          Login
+        </button>
+        <button onClick={handleResetPassword} className={styles.loginButton}>
+          Esqueceu sua senha?{" "}
+        </button>
       </form>
       <div className={styles.createAccount}>
         <p>Ainda não tem uma conta?</p>

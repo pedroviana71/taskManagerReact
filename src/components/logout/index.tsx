@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import styles from "./index.module.scss";
 
 const Logout = () => {
   const navigate = useNavigate();
@@ -13,10 +14,14 @@ const Logout = () => {
   };
 
   return (
-    <section>
+    <section className={styles.container}>
       <h1>Voce realmente deseja sair?</h1>
-      <button onClick={handleLogout}>Sair</button>
-      <button onClick={handleBack}>Voltar</button>
+      <button onClick={handleLogout} className={styles.button}>
+        Sair
+      </button>
+      <button onClick={handleBack} className={styles.button}>
+        Voltar
+      </button>
     </section>
   );
 };

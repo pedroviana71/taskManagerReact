@@ -133,6 +133,7 @@ const AllTasks = ({ filtered }: Filtered) => {
                     <h1
                       onClick={() => {
                         deleteTask(_id);
+                        setShowDeleteModal(false);
                       }}
                     >
                       Deletar

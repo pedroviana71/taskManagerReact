@@ -2,29 +2,59 @@ import React, { useState } from "react";
 import { useRegisterMutation } from "../../app/api/authSlice";
 import { useNavigate, Link } from "react-router-dom";
 import styles from "./index.module.scss";
+import InlineAlert from "../custom/inlineAlert";
 
 const Register = () => {
   const navigate = useNavigate();
   const [register] = useRegisterMutation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [username, setUsername] = useState("");
+  const [error, setError] = useState(false);
+  const [errorEmail, setErrorEmail] = useState(false);
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    try {
-      const data = await register({
+
+    console.log(password, passwordConfirmation);
+
+    if (password !== passwordConfirmation) {
+      setError(true);
+      return;
+    }
+
+    if (!error && !errorEmail) {
+      await register({
         email,
         password,
         username,
       });
+
       navigate("/login");
-      console.log(data);
-    } catch (error) {
-      console.log(error);
     }
   };
 
+  const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+    if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
+      setErrorEmail(true);
+    } else {
+      setErrorEmail(false);
+    }
+  };
+
+  const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+    setError(false);
+  };
+
+  const handlePasswordConfirmation = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setPasswordConfirmation(e.target.value);
+    setError(false);
+  };
   return (
     <section className={styles.registerSection}>
       <h1 className={styles.title}>Registre-se!</h1>
@@ -39,25 +69,32 @@ const Register = () => {
           <input
             type="email"
             id="email"
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
+            onChange={(e) => handleEmail(e)}
             className={styles.input}
           />
         </div>
+        {errorEmail && <InlineAlert text="Email invalido" />}
         <div className={styles.container}>
-          <label htmlFor="password">Password:</label>
+          <label htmlFor="password">Senha:</label>
           <input
             type="password"
             id="password"
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
+            onChange={(e) => handlePassword(e)}
             className={styles.input}
           />
         </div>
         <div className={styles.container}>
-          <label htmlFor="username">Username:</label>
+          <label htmlFor="passwordConfirmation">Confirme a senha:</label>
+          <input
+            type="password"
+            id="passwordConfirmation"
+            onChange={(e) => handlePasswordConfirmation(e)}
+            className={styles.input}
+          />
+        </div>
+        {error && <InlineAlert text="As senhas nao coincidem" />}
+        <div className={styles.container}>
+          <label htmlFor="username">Usuario:</label>
           <input
             type="text"
             id="username"

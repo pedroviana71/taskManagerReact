@@ -54,3 +54,17 @@
     }
   }
 }
+
+@media screen and (min-width: 900px) {
+  .registerSection {
+    margin: 0px 200px;
+    padding: 0;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .registerSection {
+    margin: 0px 400px;
+    padding: 0;
+  }
+}

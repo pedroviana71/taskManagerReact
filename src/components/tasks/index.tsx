@@ -20,6 +20,7 @@ import { Category, Task } from "../../app/api/tasksSlice";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import ReactLoading from "react-loading";
+import BottomBar from "./bottomBar";
 
 interface User {
   id: string;
@@ -41,7 +42,6 @@ const Tasks = () => {
   const { data: categoriesData } = useGetCategoriesQuery();
   const [categories, setCategories] = useState<Category[]>();
   const [tasks, setTasks] = useState<Task[]>();
-  const [isFavoriteSelected, setIsFavoriteSelected] = useState(false);
 
   const token = localStorage.getItem("token");
 
@@ -81,20 +81,6 @@ const Tasks = () => {
     }
   };
 
-  const handleGoToCategories = () => {
-    navigate("/categories");
-  };
-
-  const handleFavorites = () => {
-    if (isFavoriteSelected) {
-      setTasks(tasksData);
-      setIsFavoriteSelected(false);
-    } else {
-      filteredTasks("", "", true);
-      setIsFavoriteSelected(true);
-    }
-  };
-
   return (
     <div className={styles.container}>
       {isLoading ? (
@@ -117,19 +103,7 @@ const Tasks = () => {
       {tasks && tasks.length === 0 && !isLoading && (
         <p className={styles.alertAddTask}>Adicione uma tarefa!</p>
       )}
-      <div className={styles.bottomBar}>
-        <MdAdd
-          onClick={() => navigate("create-task")}
-          className={styles.buttonBottomBar}
-        />
-        <MdSearch />
-        <MdOutlineCategory onClick={handleGoToCategories} />
-        {isFavoriteSelected ? (
-          <MdOutlineStar onClick={handleFavorites} />
-        ) : (
-          <MdStarOutline onClick={handleFavorites} />
-        )}
-      </div>
+      <BottomBar setTasks={setTasks} filteredTasks={filteredTasks} />
     </div>
   );
 };

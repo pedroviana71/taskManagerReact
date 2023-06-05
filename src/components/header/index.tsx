@@ -25,6 +25,7 @@ const Home = () => {
   const handleSideBar = () => {
     dispatch(toggleSideBar(!showSideBar));
   };
+
   const handleClickOutside = () => {
     dispatch(typeClickOutsideAction("CLICK_OUTSIDE"));
     dispatch(toggleSideBar(false));
@@ -56,16 +57,20 @@ const Home = () => {
 
   return (
     <div className={styles.container}>
-      <button className={styles.menuSideBar} onClick={handleSideBar}>
-        <img src={sideBar} alt="Menu" />
-      </button>
+      {isLogged ? (
+        <button className={styles.menuSideBar} onClick={handleSideBar}>
+          <img src={sideBar} alt="Menu" />
+        </button>
+      ) : null}
       <h1 className={styles.appTitle}>LISTING</h1>
       {showSideBar && isLogged ? (
         <ClickOutside onClick={handleClickOutside}>
           <SideBar />
         </ClickOutside>
       ) : null}
-      {showBackButton && location.pathname !== "/" ? (
+      {showBackButton &&
+      location.pathname !== "/" &&
+      location.pathname !== "/login" ? (
         <MdArrowBack onClick={handleGoHome} className={styles.arrowBack} />
       ) : null}
     </div>
