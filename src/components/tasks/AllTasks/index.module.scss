@@ -12,8 +12,9 @@
     border: 0;
     background-color: transparent;
     .checkBoxIcon {
-      font-size: 24px;
+      font-size: 18px;
       margin-right: 24px;
+      color: color.$black50;
     }
   }
   .taskContainer {
@@ -32,7 +33,7 @@
       padding: 8px;
       cursor: pointer;
       .title {
-        color: color.$black100;
+        color: color.$black75;
         text-align: left;
         margin-bottom: 8px;
         font-size: 16px;
@@ -72,6 +73,7 @@
     .moreVertButton {
       margin: 4px;
       font-size: 24px;
+      color: color.$black50;
     }
     .deleteModal {
       position: absolute;
