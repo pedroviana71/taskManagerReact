@@ -101,7 +101,7 @@ const AllTasks = ({ filtered }: Filtered) => {
               >
                 <h1
                   className={clsx(
-                    task.completed ? styles.titleCompleted : styles.completed
+                    task.completed ? styles.titleCompleted : styles.title
                   )}
                 >
                   {title}

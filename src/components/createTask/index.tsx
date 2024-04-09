@@ -138,7 +138,11 @@ const CreateTask = () => {
         </div>
       )}
 
-      <CategoriesBar categories={categories} setCategoryId={setCategoryId} />
+      <CategoriesBar
+        categories={categories}
+        setCategoryId={setCategoryId}
+        setTasks={() => undefined}
+      />
       {isEditing ? (
         <button onClick={handleSubmit} className={styles.button}>
           Salvar

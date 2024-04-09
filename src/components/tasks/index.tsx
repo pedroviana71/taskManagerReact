@@ -41,7 +41,7 @@ const Tasks = () => {
   const { data: tasksData, error, isLoading } = useGetAllTasksQuery();
   const { data: categoriesData } = useGetCategoriesQuery();
   const [categories, setCategories] = useState<Category[]>();
-  const [tasks, setTasks] = useState<Task[]>();
+  const [tasks, setTasks] = useState<Task[]>([]);
 
   const token = localStorage.getItem("token");
 
@@ -53,7 +53,7 @@ const Tasks = () => {
       navigate("/login");
     }
     setCategories(categoriesData);
-    setTasks(tasksData);
+    setTasks(tasksData || []);
   }, [tasksData, user, token, navigate, categoriesData, error]);
 
   const filteredTasks = (
@@ -62,22 +62,22 @@ const Tasks = () => {
     filterFavorites?: boolean
   ) => {
     if (!word && !id && !filterFavorites) {
-      setTasks(tasksData);
+      setTasks(tasksData || []);
     } else if (word && !id) {
       const filtered = tasksData?.filter((task) => {
         return task.title.toLowerCase().includes(word.toLowerCase());
       });
-      setTasks(filtered);
+      setTasks(filtered || []);
     } else if (filterFavorites) {
       const filtered = tasksData?.filter((task) => {
         return task.isFavorite;
       });
-      setTasks(filtered);
+      setTasks(filtered || []);
     } else {
       const filtered = tasksData?.filter((task) => {
         return task.categoryId === id;
       });
-      setTasks(filtered);
+      setTasks(filtered || []);
     }
   };
 

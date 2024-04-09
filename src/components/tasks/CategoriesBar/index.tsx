@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Task, Category } from "../../../app/api/tasksSlice";
 
 interface CategoriesBarProps {
-  setTasks?: React.Dispatch<React.SetStateAction<Task[] | undefined>>;
+  setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
   tasksData?: Task[];
   categories?: Category[];
   filteredTasks?: (
@@ -23,7 +23,7 @@ const CategoriesBar = ({
   setCategoryId,
 }: CategoriesBarProps) => {
   const [selectedIndex, setSelectedIndex] = useState<number | "">();
-  const isAllTasks = setTasks && tasksData;
+  const isAllTasks = tasksData && categories && categories?.length > 0;
 
   const handleCategory = (index: number, _id: string) => {
     setSelectedIndex(index);
