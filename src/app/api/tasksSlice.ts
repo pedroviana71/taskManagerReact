@@ -78,7 +78,7 @@ export const tasksSlice = createApi({
       }),
       invalidatesTags: ["Tasks"],
     }),
-    createTask: builder.mutation<null, Partial<Task>>({
+    createTask: builder.mutation<void, Partial<Task>>({
       query: (task) => ({
         url: "tasks",
         method: "POST",

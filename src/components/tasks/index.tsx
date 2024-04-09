@@ -85,10 +85,11 @@ const Tasks = () => {
     <div className={styles.container}>
       {isLoading ? (
         <ReactLoading
-          type="spinningBubbles"
+          type="bubbles"
           color={"#2D2B35"}
-          height={"64px"}
-          width={"64px"}
+          height={50}
+          width={50}
+          className={styles.loading}
         />
       ) : null}
       {!isLoading && tasks ? (
