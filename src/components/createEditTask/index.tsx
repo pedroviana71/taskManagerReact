@@ -75,6 +75,7 @@ const CreateTask = () => {
       navigate("/");
     } else if (title) {
       createTask(task);
+      navigate("/");
     } else {
       setShowAlert(true);
     }
