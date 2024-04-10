@@ -5,3 +5,13 @@
   font-family: "Open Sans", sans-serif;
   line-height: 25px;
 }
+main {
+  background: radial-gradient(
+        at 18% 99%,
+        rgba(238, 166, 241, 0.277) 0px,
+        transparent 50%
+      )
+      repeat scroll 0% 0%,
+    radial-gradient(at 57% 33%, rgba(107, 153, 226, 0.153) 0px, #a199ff39 50%)
+      repeat scroll 0% 0%;
+}

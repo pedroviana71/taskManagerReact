@@ -86,23 +86,22 @@ const Tasks = () => {
       {isLoading ? (
         <ReactLoading
           type="bubbles"
-          color={"#2D2B35"}
+          color={"#7f7e82"}
           height={50}
           width={50}
           className={styles.loading}
         />
-      ) : null}
-      {!isLoading && tasks ? (
+      ) : (
         <CategoriesBar
           setTasks={setTasks}
           tasksData={tasksData}
           categories={categories}
           filteredTasks={filteredTasks}
         />
-      ) : null}
-      {tasks && tasks.length > 0 && <AllTasks filtered={tasks} />}
-      {tasks && tasks.length === 0 && !isLoading && (
-        <p className={styles.alertAddTask}>Adicione uma tarefa!</p>
+      )}
+      {tasks.length > 0 && <AllTasks filtered={tasks} />}
+      {tasks.length === 0 && !isLoading && (
+        <p className={styles.alertAddTask}>Adicione uma tarefa :)</p>
       )}
       <BottomBar setTasks={setTasks} filteredTasks={filteredTasks} />
     </div>

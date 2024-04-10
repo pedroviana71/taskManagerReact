@@ -95,7 +95,7 @@ const CreateTask = () => {
       {isLoading ? (
         <ReactLoading
           type={"bubbles"}
-          color={"#2D2B35"}
+          color={"#7f7e82"}
           height={50}
           width={50}
           className={styles.loading}
