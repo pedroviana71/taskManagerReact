@@ -4,13 +4,13 @@
   display: flex;
   position: fixed;
   bottom: 0;
-  background-color: color.$black100;
+  border-bottom: 1px solid color.$black100;
   margin-bottom: 32px;
-  padding: 16px 32px;
-  color: color.$white;
-  border-radius: 50px;
-  font-size: 32px;
-  gap: 32px;
+  padding: 8px 32px;
+  color: color.$black100;
+  border-radius: 15px;
+  font-size: 24px;
+  gap: 24px;
   cursor: pointer;
   .searchContainer {
     display: flex;

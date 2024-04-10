@@ -31,8 +31,8 @@ export const SideBar = () => {
           <p className={styles.profileName}>{data?.username}</p>
         </div>
         <button onClick={handleLogout} className={styles.logout}>
-          <p>Log Out</p>
-          <MdLogout />
+          <p className={styles.logoutText}>Log Out</p>
+          <MdLogout className={styles.logoutIcon} />
         </button>
       </div>
     </div>

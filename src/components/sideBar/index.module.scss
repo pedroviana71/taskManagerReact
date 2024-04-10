@@ -1,5 +1,14 @@
 @use "../../utils//styles/colors" as color;
 
+@keyframes slideSideBar {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
 .container {
   position: absolute;
   display: flex;
@@ -8,9 +17,11 @@
   height: 100%;
   left: 0px;
   top: 0px;
-  background-color: color.$whiteSideBar;
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.233);
+  background: color.$pure-white;
   z-index: 1;
+  animation-name: slideSideBar;
+  animation-duration: 0.3s;
+  animation-timing-function: ease-in-out;
   .arrowBack {
     font-size: 24px;
     cursor: pointer;
@@ -33,11 +44,12 @@
       margin-right: 88px;
     }
     .profileName {
-      font-size: 32px;
-      font-weight: 700;
+      font-size: 24px;
+      font-weight: 500;
     }
     .logout {
       display: flex;
+      align-items: center;
       gap: 8px;
       color: color.$black100;
       background-color: transparent;
@@ -46,6 +58,13 @@
       cursor: pointer;
       margin: 32px 32px 32px 94px;
       border: 0px;
+    }
+    .logoutText {
+      font-size: 16px;
+      font-weight: 500;
+    }
+    .logoutIcon {
+      font-size: 16px;
     }
   }
 }
