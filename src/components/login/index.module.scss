@@ -3,15 +3,16 @@
 .loginSection {
   display: flex;
   flex-direction: column;
-  background-color: color.$background-primary;
   padding-top: 160px;
   padding-left: 16px;
   color: color.$text-secondary;
   height: 100%;
   flex-grow: 1;
   .title {
-    color: color.$button-primary;
+    color: color.$black75;
+    font-weight: 500;
     font-size: 36px;
+    margin-bottom: 8px;
   }
   .form {
     margin-top: 32px;
@@ -27,20 +28,35 @@
       }
       .input {
         width: 100%;
-        border: 1px solid color.$button-primary;
-        border-radius: 3px;
-        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.233);
+        border: none;
+        border-radius: 10px;
+        padding: 4px;
+        box-sizing: border-box;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.081);
       }
     }
     .loginButton {
       margin-top: 32px;
-      padding-right: 8px;
-      border: 0px;
-      background-color: color.$button-primary;
+      border: none;
+      background: rgb(110, 116, 217);
+      background: linear-gradient(
+        90deg,
+        rgba(110, 115, 217, 0.222) 0%,
+        rgba(255, 0, 255, 0.238) 100%
+      );
       border-radius: 8px;
-      padding: 4px 8px;
-      font-size: 16px;
+      padding: 8px 32px;
+      color: color.$black100;
+      font-size: 20px;
       margin-right: 32px;
+      cursor: pointer;
+    }
+    .forgotPasswordButton {
+      background-color: transparent;
+      color: color.$black75;
+      border: none;
+      font-size: 16px;
+      font-weight: 700;
       cursor: pointer;
     }
   }
@@ -49,12 +65,12 @@
     align-items: center;
     .createAccountButton {
       margin-left: 16px;
-      border: 1px solid color.$button-primary;
-      background-color: color.$background-primary;
+      border: 1px solid color.$black100;
+      background-color: transparent;
       border-radius: 8px;
       padding: 4px 8px;
       font-size: 16px;
-      color: color.$button-primary;
+      color: color.$black75;
     }
   }
 }

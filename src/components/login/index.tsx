@@ -9,7 +9,6 @@ import InlineAlert from "../custom/inlineAlert";
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const [login] = useLoginMutation();
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -86,7 +85,10 @@ const Login = () => {
         >
           Login
         </button>
-        <button onClick={handleResetPassword} className={styles.loginButton}>
+        <button
+          onClick={handleResetPassword}
+          className={styles.forgotPasswordButton}
+        >
           Esqueceu sua senha?{" "}
         </button>
       </form>
