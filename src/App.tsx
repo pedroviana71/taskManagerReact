@@ -14,7 +14,13 @@ const App = () => {
   const { width } = useWindowDimensions();
   return (
     <main
-      style={(width < 900 ? mobile : null) as React.CSSProperties}
+      style={
+        (width < 900
+          ? mobile
+          : {
+              height: "100vh",
+            }) as React.CSSProperties
+      }
       className={styles.global}
     >
       <Header />
